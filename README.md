@@ -1,3 +1,3 @@
 # Focus-App
 
-Rosmary Fermin, Janneisy Vidals, Sarah Kim
+Rosemary Fermin, Janneisy Vidals, Sarah Kim
