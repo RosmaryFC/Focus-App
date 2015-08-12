@@ -44,8 +44,21 @@ There will be a feature for leaniency where the user will have 3 lives which the
 
 Link to prototype - https://marvelapp.com/a68e1d
 
-Calendar: [Our Plan](https://docs.google.com/spreadsheets/d/1Isf0rzBKea51_oCpqVm4BFuMQTYg3UlZRxgnZ152I_c/edit?usp=sharing)
+
 
 ### Execution
+
+Calendar: [Our Plan](https://docs.google.com/spreadsheets/d/1Isf0rzBKea51_oCpqVm4BFuMQTYg3UlZRxgnZ152I_c/edit?usp=sharing)
+
+Here you will find an overview of our plan
+
+| Sprint | Date | Tasks | 
+|----|----|---|\
+| 1 | Aug 7 - 9 | Brainstorm ideas, create userflows, and submit project proposal. |
+| 2 | Aug 10 - 11 | User testing using prototypes for user feedback.Check-in on August 11th. |
+| 3 | Aug 12 - 15 | Building the layout and assigning priority features. Check-in on August 14th. |
+| 4 | Aug 16 - 20 | Complete priority features (userflows and user testing). |
+| 5 | Aug 21 - 25 | Work on bonus features. |
+| 6 | Aug 26 - 28 | Polish app, user testing and check for bug fixes. |
 
 
