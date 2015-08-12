@@ -39,6 +39,8 @@ Bonus features to be implemented if baseline features are completed in time (wha
  - at a Glance feature: When user opens the app they will see events on the calender for that day as well as blocked times for that day.
 
 
+Link to prototype - https://marvelapp.com/a68e1d
+
 ### Execution
 
 | Sprint | Date | Tasks | 
