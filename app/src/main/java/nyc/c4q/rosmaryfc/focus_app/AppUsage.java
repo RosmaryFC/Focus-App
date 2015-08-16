@@ -1,48 +1,38 @@
 package nyc.c4q.rosmaryfc.focus_app;
 
 import android.content.Intent;
-import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageManager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ListView;
+import android.widget.TextView;
 
-import java.util.List;
 
-public class AppMonitor extends ActionBarActivity {
+public class AppUsage extends ActionBarActivity {
 
-    private ListView app_list;
-    private Button save;
+    private Button go_to_monitor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_app_monitor);
-        app_list = (ListView) findViewById(R.id.app_list);
-        save = (Button) findViewById(R.id.save);
-
-        PackageManager pm = getPackageManager();
-        List<ApplicationInfo> applicationInfos = pm.getInstalledApplications(PackageManager.GET_META_DATA);
-        AppAdapter adapter = new AppAdapter(this, applicationInfos);
-        app_list.setAdapter(adapter);
-
-        save.setOnClickListener(new View.OnClickListener() {
+        setContentView(R.layout.activity_app_usage);
+        go_to_monitor = (Button) findViewById(R.id.go_to_monitor);
+        go_to_monitor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent beginTracking = new Intent(getApplicationContext(), AppTracker.class);
-                getApplicationContext().startService(beginTracking);
+                Intent intent = new Intent(getApplicationContext(), AppMonitor.class);
+                startActivity(intent);
             }
         });
     }
 
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_app_monitor, menu);
+        getMenuInflater().inflate(R.menu.menu_app_usage, menu);
         return true;
     }
 
