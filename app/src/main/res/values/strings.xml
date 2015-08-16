@@ -1,8 +1,11 @@
 <resources>
     <string name="app_name">Focus_App</string>
 
-    <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
     <string name="title_activity_app_monitor">AppMonitor</string>
     <string name="title_activity_app_usage">AppUsage</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="focus_logo_text">Focus-App</string>
 </resources>
