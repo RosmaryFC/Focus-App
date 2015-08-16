@@ -12,7 +12,6 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-
         <android.support.design.widget.AppBarLayout
             android:id="@+id/appBarLayout"
             android:layout_width="match_parent"
@@ -36,5 +35,23 @@
             app:pressedTranslationZ="12dp" />
 
     </android.support.design.widget.CoordinatorLayout>
+
+    <Button
+        android:id="@+id/focus_session_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="focus Session activity"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:onClick="focusSessionOnClick"/>
+
+    <Button
+        android:id="@+id/apps_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:text="apps activity"
+        android:onClick="appsOnClick"/>
 
 </RelativeLayout>

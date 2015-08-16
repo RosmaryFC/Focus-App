@@ -1,10 +1,11 @@
 package nyc.c4q.rosmaryfc.focus_app;
 
-import android.support.v7.app.ActionBarActivity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -33,4 +34,15 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    public void focusSessionOnClick (View view) {
+        Intent intent = new Intent (this, FocusSessionActivity.class);
+        startActivity(intent);
+    }
+
+    public void appsOnClick(View view) {
+        Intent intent = new Intent (this, AppMonitor.class);
+        startActivity(intent);
+    }
+
 }
