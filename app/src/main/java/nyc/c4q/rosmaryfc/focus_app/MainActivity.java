@@ -40,4 +40,9 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void appsOnClick(View view) {
+        Intent intent = new Intent (this, AppMonitor.class);
+        startActivity(intent);
+    }
+
 }
