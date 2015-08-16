@@ -22,6 +22,11 @@
         </activity>
 
         <activity
+            android:name=".FocusSessionActivity"
+            android:label="@string/title_activity_focus_session">
+        </activity>
+
+        <activity
             android:name=".AppMonitor"
             android:label="@string/title_activity_app_monitor" />
 
@@ -38,6 +43,7 @@
         <service android:name=".AppListener" />
         <service android:name=".AppTracker" />
         <service android:name=".BlockSessionReminder" />
+        
     </application>
 
 </manifest>
