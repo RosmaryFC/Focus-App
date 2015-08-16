@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+t	<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="nyc.c4q.rosmaryfc.focus_app" >
 
@@ -16,9 +16,25 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".FocusSessionActivity"
-            android:label="@string/title_activity_focus_session" >
+            android:label="@string/title_activity_focus_session">
+        </activity>
+
+        <activity
+            android:name=".AppMonitor"
+            android:label="@string/title_activity_app_monitor" >
+        </activity>
+
+        <service android:name=".AppTracker" />
+        <service android:name=".BlockSessionReminder" />
+
+        <receiver android:name=".BootReceiver" />
+
+        <activity
+            android:name=".AppUsage"
+            android:label="@string/title_activity_app_usage" >
         </activity>
     </application>
 
