@@ -16,6 +16,20 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".AppMonitor"
+            android:label="@string/title_activity_app_monitor" >
+        </activity>
+
+        <service android:name=".AppTracker" />
+        <service android:name=".BlockSessionReminder" />
+
+        <receiver android:name=".BootReceiver" />
+
+        <activity
+            android:name=".AppUsage"
+            android:label="@string/title_activity_app_usage" >
+        </activity>
     </application>
 
 </manifest>
