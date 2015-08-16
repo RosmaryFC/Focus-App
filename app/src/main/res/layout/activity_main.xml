@@ -34,12 +34,14 @@
             app:elevation="6dp"
             app:pressedTranslationZ="12dp" />
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="focusSession"
-            android:onClick="focusSessionOnClick"/>
-
     </android.support.design.widget.CoordinatorLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="focusSession"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:onClick="focusSessionOnClick"/>
 
 </RelativeLayout>
