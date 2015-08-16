@@ -4,14 +4,15 @@
                 android:id="@+id/root"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                tools:context=".MainActivity">
+                tools:context=".MainActivity"
+                >
 
     <android.support.design.widget.CoordinatorLayout
         android:id="@+id/content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
-
+        android:orientation="vertical"
+        >
 
         <android.support.design.widget.AppBarLayout
             android:id="@+id/appBarLayout"
@@ -35,6 +36,37 @@
             app:elevation="6dp"
             app:pressedTranslationZ="12dp" />
 
+
     </android.support.design.widget.CoordinatorLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_centerInParent="true"
+        android:layout_centerVertical="true"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+    <Button
+        android:id="@+id/focus_session_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Focus Session "
+        android:background="@drawable/btn_send_comment"
+        android:onClick="focusSessionOnClick"
+        />
+
+    <Button
+        android:id="@+id/apps_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Block App"
+        android:background="@drawable/btn_send_comment"
+        android:onClick="appsOnClick"
+       />
+
+
+</LinearLayout>
+
 
 </RelativeLayout>
