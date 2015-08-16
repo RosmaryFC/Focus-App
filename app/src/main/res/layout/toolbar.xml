@@ -8,12 +8,19 @@
                                    app:elevation="@dimen/default_elevation"
                                    app:layout_scrollFlags="scroll|enterAlways"
                                    app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
-
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="30sp"
+        android:src="@drawable/ic_menu_white"
+        android:id="@+id/menu_icon"/>
     <ImageView
         android:id="@+id/focus_logo"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="center"
-        android:scaleType="center"
-        android:src="@drawable/logo1x" />
+        android:scaleType="centerInside"
+        android:src="@drawable/logo1x"
+
+        />
+
 </android.support.v7.widget.Toolbar>
