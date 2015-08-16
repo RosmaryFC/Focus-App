@@ -10,7 +10,7 @@
                                    app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
     <ImageView
-        android:id="@+id/ivLogo"
+        android:id="@+id/focus_logo"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"

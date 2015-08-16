@@ -15,6 +15,7 @@
     <color name="btn_default_shadow">#99000000</color>
     <color name="btn_context_menu_normal">#ffffff</color>
     <color name="btn_context_menu_pressed">#40000000</color>
+    <color name="text_color">#FFFFFF</color>
 
 
 

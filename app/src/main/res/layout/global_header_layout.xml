@@ -2,7 +2,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
              android:layout_width="match_parent"
              android:layout_height="wrap_content"
-             android:background="@color/style_color_primary_dark"
+             android:background="@color/style_color_primary"
              android:clickable="true">
 
     <LinearLayout
@@ -22,7 +22,7 @@
             android:layout_gravity="center"
             android:layout_weight="1"
             android:text="Welcome"
-            android:textColor="@color/style_color_primary"
+            android:textColor="@color/text_color"
             android:textSize="16sp"
             android:textStyle="bold" />
 
