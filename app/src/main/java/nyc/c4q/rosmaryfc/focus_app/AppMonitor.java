@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -35,6 +36,9 @@ public class AppMonitor extends ActionBarActivity {
             public void onClick(View view) {
                 Intent beginTracking = new Intent(getApplicationContext(), AppTracker.class);
                 getApplicationContext().startService(beginTracking);
+                Intent beginListening = new Intent(getApplicationContext(), AppListener.class);
+                getApplicationContext().startService(beginListening);
+                Toast.makeText(getApplicationContext(), "Monitoring Apps", Toast.LENGTH_LONG).show();
             }
         });
     }
