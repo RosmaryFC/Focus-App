@@ -16,6 +16,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".FocusSessionActivity"
+            android:label="@string/title_activity_focus_session" >
+        </activity>
     </application>
 
 </manifest>
