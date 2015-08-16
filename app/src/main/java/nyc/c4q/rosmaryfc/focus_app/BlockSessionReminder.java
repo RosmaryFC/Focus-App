@@ -7,6 +7,7 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
+import android.widget.Toast;
 
 public class BlockSessionReminder extends Service {
 
@@ -18,18 +19,19 @@ public class BlockSessionReminder extends Service {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext());
         builder.setSmallIcon(R.drawable.notification_template_icon_bg);
         builder.setContentTitle("Session Block Reminder");
-        builder.setContentText("You're focus session will begin in 5 minutes");
+        builder.setContentText("You're focus session will begin in 1 minute");
         Notification notification = builder.build();
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(getApplicationContext());
         notificationManager.notify(ID_FRIENDLY_NOTIFICATION, notification);
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                final Intent showApp = new Intent(getApplicationContext(), AppUsage.class);
-                showApp.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(showApp);
+                Toast.makeText(getApplicationContext(), "testing", Toast.LENGTH_LONG).show();
+//                final Intent showApp = new Intent(getApplicationContext(), AppUsage.class);
+//                showApp.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                startActivity(showApp);
             }
-        }, 300000);
+        }, 60000);
     }
 
     @Override
