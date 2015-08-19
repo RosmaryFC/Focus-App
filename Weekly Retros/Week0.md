@@ -76,3 +76,8 @@ due 8/16: project feature MVP
    - create minor todo's  and set goals to complete them on certain days of the week
 
 **Mentor Comments**:
+ - possible battery issue due to service constantly running
+ - might consider changing approach to lock screen of blocking user from certain apps only (due to using resources such as phone log that are not meant to do that) - jan had idea of math problem on lock screen
+ - isn't something android intended you to do.
+ - try to get it working in one platform first (kit kat)
+ - since you have to write code for another platform reuse as much code as possible
