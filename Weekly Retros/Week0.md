@@ -77,7 +77,7 @@ due 8/16: project feature MVP
 
 **Mentor Comments**:
  - possible battery issue due to service constantly running
- - might consider changing approach to lock screen of blocking user from certain apps only (due to using resources such as phone log that are not meant to do that) - jan had idea of math problem on lock screen
+ - might consider changing approach to lock screen of blocking user from certain apps only (due to using resources such as phone log that are not meant to do that) - jan had idea of math problem on lock screen - decide by thursday
  - isn't something android intended you to do.
  - try to get it working in one platform first (kit kat)
  - since you have to write code for another platform reuse as much code as possible
