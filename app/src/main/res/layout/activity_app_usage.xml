@@ -1,26 +1,34 @@
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/tabsScrollColor"
     tools:context="nyc.c4q.rosmaryfc.focus_app.AppUsage">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/abc_text_size_body_2_material"
-        android:text=" It's your scheduled focus session. Shouldn't you be focusing?"
-        android:textSize="14sp"/>
+        android:layout_marginBottom="63dp"
+        android:text="@string/message"
+        android:textSize="24sp"
+        android:fontFamily="Roboto"
+        android:textColor="#FFFFFF"
+        android:id="@+id/message_popup"
+        android:layout_above="@+id/go_to_monitor"
+        android:layout_centerHorizontal="true"/>
 
     <Button
         android:id="@+id/go_to_monitor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:layout_gravity="center_horizontal"
         android:text="App Monitor"
         android:textSize="12sp"
         android:textColor="#FFFFFF"
-        android:background="@drawable/btn_send_comment"/>
+        android:background="@drawable/btn_send_comment"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"/>
 
-</LinearLayout>
+</RelativeLayout>
