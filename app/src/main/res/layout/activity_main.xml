@@ -36,6 +36,11 @@
 
     </android.support.design.widget.CoordinatorLayout>
 
+    <ListView
+        android:id="@+id/monitoring_app_list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
     <Button
         android:id="@+id/focus_session_btn"
         android:layout_width="wrap_content"
