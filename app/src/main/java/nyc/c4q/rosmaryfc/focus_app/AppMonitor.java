@@ -2,6 +2,8 @@ package nyc.c4q.rosmaryfc.focus_app;
 
 import android.app.Notification;
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.NotificationCompat;
@@ -14,11 +16,10 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.j256.ormlite.android.apptools.OpenHelperManager;
-import com.j256.ormlite.dao.Dao;
-
 import java.sql.SQLException;
+import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 public class AppMonitor extends ActionBarActivity implements AppReceiver.Receiver {
 
@@ -28,7 +29,6 @@ public class AppMonitor extends ActionBarActivity implements AppReceiver.Receive
     ListView app_list;
 
     DatabaseHelper databaseHelper;
-    Dao<App, Integer> appInfoDao;
 
     List<App> apps;
 
@@ -40,14 +40,34 @@ public class AppMonitor extends ActionBarActivity implements AppReceiver.Receive
         setContentView(R.layout.activity_app_monitor);
         app_list = (ListView) findViewById(R.id.app_list);
         save = (Button) findViewById(R.id.save);
-        try {
-            appInfoDao = getHelper().getAppInfoDao();
-            apps = appInfoDao.queryForAll();
-            AppAdapter adapter = new AppAdapter(this, R.layout.app_row_item, apps, appInfoDao);
-            app_list.setAdapter(adapter);
-        } catch (SQLException e) {
-            e.printStackTrace();
+
+        databaseHelper = DatabaseHelper.getInstance(this);
+
+        if (databaseHelper == null) {
+
+            DBAsyncTask dbAsyncTask = new DBAsyncTask(this);
+
+            PackageManager packageManager = getPackageManager();
+            List<ApplicationInfo> applicationInfos = packageManager.getInstalledApplications(PackageManager.GET_META_DATA);
+            Collections.sort(applicationInfos, new ApplicationInfo.DisplayNameComparator(packageManager));
+
+            dbAsyncTask.execute(applicationInfos);
+            try {
+                apps = dbAsyncTask.get();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
+        } else {
+            try {
+                apps = databaseHelper.loadData();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
+        AppAdapter adapter = new AppAdapter(this, apps);
+        app_list.setAdapter(adapter);
 
         appReceiver = new AppReceiver(new Handler());
         appReceiver.setAppReceiver(this);
@@ -122,21 +142,5 @@ public class AppMonitor extends ActionBarActivity implements AppReceiver.Receive
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    private DatabaseHelper getHelper() {
-        if (databaseHelper == null) {
-            databaseHelper = OpenHelperManager.getHelper(this, DatabaseHelper.class);
-        }
-        return databaseHelper;
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        if (databaseHelper != null) {
-            OpenHelperManager.releaseHelper();
-            databaseHelper = null;
-        }
     }
 }
