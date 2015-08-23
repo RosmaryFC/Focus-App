@@ -5,6 +5,7 @@ package nyc.c4q.rosmaryfc.focus_app;
  */
 public class BlockSession {
     //name, start time, end time, date, notification, notes, weekdays,
+    int id;
     String name;
     String startTime;
     String endTime;
@@ -16,13 +17,21 @@ public class BlockSession {
 
     }
 
-    public BlockSession(String name, String startTime, String endTime, String date, String notes){
+    public BlockSession(String name,String date, String startTime, String endTime, String notes){
         this.name = name;
         this.startTime = startTime;
         this.endTime = endTime;
         this.date = date;
         this.notes = notes;
         //this.weekdays = new String[] {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {

@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void focusSessionOnClick(View view) {
-        Intent intent = new Intent(this, FocusSessionActivity.class);
+        Intent intent = new Intent(this, BlockSessionActivity.class);
         startActivity(intent);
     }
 

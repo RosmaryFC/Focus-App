@@ -13,5 +13,6 @@
 
 
     <string name="focus_logo_text">Focus-App</string>
+    <string name="title_activity_block_session">BlockSessionActivity</string>
 
 </resources>
