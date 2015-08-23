@@ -1,7 +1,6 @@
 package nyc.c4q.rosmaryfc.focus_app;
 
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -9,20 +8,16 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 
-import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.Dao;
-import com.j256.ormlite.stmt.QueryBuilder;
 
 import java.sql.SQLException;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    PackageManager packageManager;
     ListView monitoring_app_list;
 
     DatabaseHelper databaseHelper;
-    Dao<App, Integer> appInfoDao;
 
     List<App> monitoringApps;
 
@@ -32,20 +27,24 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         monitoring_app_list = (ListView) findViewById(R.id.monitoring_app_list);
 
-        packageManager = getPackageManager();
-        DBAsyncTask dbAsyncTask = new DBAsyncTask(this);
-        dbAsyncTask.execute(packageManager);
+        databaseHelper = DatabaseHelper.getInstance(this);
+    }
 
-        monitoring_app_list = (ListView) findViewById(R.id.monitoring_app_list);
-        try {
-            appInfoDao = getHelper().getAppInfoDao();
-            QueryBuilder<App, Integer> queryBuilder = appInfoDao.queryBuilder();
-            queryBuilder.where().eq("APP_MONITOR", true);
-            monitoringApps = queryBuilder.query();
-            MonitoringAppAdapter adapter = new MonitoringAppAdapter(this, R.layout.app_row_item, monitoringApps);
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (databaseHelper != null) {
+            try {
+                Dao<App, ?> appDao = databaseHelper.getDao(App.class);
+                monitoringApps = appDao.query(appDao.queryBuilder().where().eq("APP_MONITOR", true).prepare());
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        if (monitoringApps.size() != 0) {
+            MonitoringAppAdapter adapter = new MonitoringAppAdapter(this, monitoringApps);
             monitoring_app_list.setAdapter(adapter);
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
     }
 
@@ -76,12 +75,5 @@ public class MainActivity extends AppCompatActivity {
     public void appsOnClick(View view) {
         Intent intent = new Intent(this, AppMonitor.class);
         startActivity(intent);
-    }
-
-    private DatabaseHelper getHelper() {
-        if (databaseHelper == null) {
-            databaseHelper = OpenHelperManager.getHelper(this, DatabaseHelper.class);
-        }
-        return databaseHelper;
     }
 }
