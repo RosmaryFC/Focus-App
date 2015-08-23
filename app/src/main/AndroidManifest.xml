@@ -31,20 +31,26 @@
             android:name=".AppUsage"
             android:label="@string/title_activity_app_usage" />
 
-        <receiver android:name=".BootReceiver" >
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-            </intent-filter>
-        </receiver>
 
-        <service android:name=".AppListener" />
-        <service android:name=".AppTracker" />
-        <service android:name=".BlockSessionReminder" />
+
+
+
+
+
+
+
+
+
 
         <activity
             android:name=".BlockSessionActivity"
             android:label="@string/title_activity_block_session" >
         </activity>
+
+        <service android:name=".AppTracker" />
+        <service android:name=".AppService" />
+
+
     </application>
 
 </manifest>

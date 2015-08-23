@@ -29,7 +29,7 @@ public class AppTracker extends IntentService {
     DatabaseHelper databaseHelper;
     Dao<App, Integer> appInfoDao;
 
-    List<App> apps;
+    List<App> monitoringApps;
 
     public AppTracker() {
         super("AppTracker");
@@ -43,6 +43,7 @@ public class AppTracker extends IntentService {
         } else {
             isLollipop = false;
         }
+        databaseHelper = DatabaseHelper.getInstance(this);
     }
 
     @Override
@@ -83,15 +84,15 @@ public class AppTracker extends IntentService {
 
             //get list of apps to be monitored
             try {
-                appInfoDao = getHelper().getAppInfoDao();
-                apps = appInfoDao.queryForAll();
+                Dao<App, ?> appDao = databaseHelper.getDao(App.class);
+                monitoringApps = appDao.query(appDao.queryBuilder().where().eq("APP_MONITOR", true).prepare());
             } catch (SQLException e) {
                 e.printStackTrace();
             }
 
             isInForeground = false;
 
-            for (App app : apps) {
+            for (App app : monitoringApps) {
                 String packageName = app.getAppPackage();
                 if (isLollipop) {
                     List<ActivityManager.RunningAppProcessInfo> runningProcesses = am.getRunningAppProcesses();
@@ -120,12 +121,5 @@ public class AppTracker extends IntentService {
             this.stopSelf();
         }
         this.stopSelf();
-    }
-
-    private DatabaseHelper getHelper() {
-        if (databaseHelper == null) {
-            databaseHelper = OpenHelperManager.getHelper(this, DatabaseHelper.class);
-        }
-        return databaseHelper;
     }
 }

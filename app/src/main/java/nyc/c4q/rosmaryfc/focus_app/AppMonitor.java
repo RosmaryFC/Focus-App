@@ -43,8 +43,13 @@ public class AppMonitor extends ActionBarActivity implements AppReceiver.Receive
 
         databaseHelper = DatabaseHelper.getInstance(this);
 
-        if (databaseHelper == null) {
+        try {
+            apps = databaseHelper.loadData();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
+        if (apps.size() == 0) {
             DBAsyncTask dbAsyncTask = new DBAsyncTask(this);
 
             PackageManager packageManager = getPackageManager();
@@ -59,13 +64,8 @@ public class AppMonitor extends ActionBarActivity implements AppReceiver.Receive
             } catch (ExecutionException e) {
                 e.printStackTrace();
             }
-        } else {
-            try {
-                apps = databaseHelper.loadData();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
         }
+
         AppAdapter adapter = new AppAdapter(this, apps);
         app_list.setAdapter(adapter);
 
@@ -75,13 +75,15 @@ public class AppMonitor extends ActionBarActivity implements AppReceiver.Receive
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), AppTracker.class);
-                intent.putExtra("receiver", appReceiver);
-                intent.putExtra("start_hour", 12);
-                intent.putExtra("start_minute", 55);
-                intent.putExtra("end_hour", 14);
-                intent.putExtra("end_minute", 57);
-                startService(intent);
+                Intent startService = new Intent(getApplicationContext(), AppService.class);
+                startService(startService);
+//                Intent intent = new Intent(getApplicationContext(), AppTracker.class);
+//                intent.putExtra("receiver", appReceiver);
+//                intent.putExtra("start_hour", 12);
+//                intent.putExtra("start_minute", 55);
+//                intent.putExtra("end_hour", 14);
+//                intent.putExtra("end_minute", 57);
+//                startService(intent);
                 Toast.makeText(getApplicationContext(), "Monitoring Apps", Toast.LENGTH_LONG).show();
             }
         });
