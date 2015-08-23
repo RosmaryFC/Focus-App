@@ -50,7 +50,6 @@ public class AppMonitor extends ActionBarActivity implements AppReceiver.Receive
         }
 
         if (apps.size() == 0) {
-
             DBAsyncTask dbAsyncTask = new DBAsyncTask(this);
 
             PackageManager packageManager = getPackageManager();
@@ -76,8 +75,8 @@ public class AppMonitor extends ActionBarActivity implements AppReceiver.Receive
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), AppService.class);
-                startService(intent);
+                Intent startService = new Intent(getApplicationContext(), AppService.class);
+                startService(startService);
 //                Intent intent = new Intent(getApplicationContext(), AppTracker.class);
 //                intent.putExtra("receiver", appReceiver);
 //                intent.putExtra("start_hour", 12);
