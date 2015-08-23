@@ -39,7 +39,9 @@
     <ListView
         android:id="@+id/monitoring_app_list"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerInParent="true" />
 
     <Button
         android:id="@+id/focus_session_btn"

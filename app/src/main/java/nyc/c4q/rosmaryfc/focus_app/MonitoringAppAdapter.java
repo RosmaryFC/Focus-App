@@ -15,52 +15,50 @@ import java.util.List;
 
 public class MonitoringAppAdapter extends ArrayAdapter<App> {
 
+    Context context;
     PackageManager packageManager;
     LayoutInflater layoutInflater;
 
-    List<App> appList;
+    List<App> apps;
 
-    public MonitoringAppAdapter(Context context, int resource, List<App> appList) {
-        super(context, resource, appList);
-        this.appList = appList;
+    public MonitoringAppAdapter(Context context, List<App> apps) {
+        super(context, R.layout.monitoring_app_row_item, apps);
+        this.apps = apps;
+        this.context = context;
         layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         packageManager = context.getPackageManager();
     }
 
-    @Override
-    public int getCount() {
-        return appList.size();
-    }
-
-    @Override
-    public App getItem(int i) {
-        return appList.get(i);
-    }
-
-    @Override
-    public long getItemId(int i) {
-        return 0;
+    static class AppViewHolder {
+        ImageView app_icon;
+        TextView app_label;
     }
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
         AppViewHolder appViewHolder;
+        App app;
 
         if (view == null) {
-            view = layoutInflater.inflate(R.layout.app_row_item, viewGroup, false);
+            view = layoutInflater.inflate(R.layout.monitoring_app_row_item, viewGroup, false);
             appViewHolder = new AppViewHolder();
             appViewHolder.app_icon = (ImageView) view.findViewById(R.id.app_icon);
             appViewHolder.app_label = (TextView) view.findViewById(R.id.app_label);
             view.setTag(appViewHolder);
+            view.setTag(R.id.app_label, appViewHolder.app_label);
         } else {
             appViewHolder = (AppViewHolder) view.getTag();
         }
 
-        final App appInfo = appList.get(i);
+        app = apps.get(i);
+
+        appViewHolder.app_label.setText(app.getAppName());
+
         Drawable icon = null;
+
         try {
-            ApplicationInfo app = packageManager.getApplicationInfo(appInfo.getAppPackage(), 0);
-            icon = packageManager.getApplicationIcon(app);
+            ApplicationInfo appInfo = packageManager.getApplicationInfo(app.getAppPackage(), 0);
+            icon = packageManager.getApplicationIcon(appInfo);
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
@@ -68,13 +66,22 @@ public class MonitoringAppAdapter extends ArrayAdapter<App> {
         if (icon != null) {
             appViewHolder.app_icon.setImageDrawable(icon);
         }
-        appViewHolder.app_label.setText(appInfo.getAppName());
 
         return view;
     }
 
-    static class AppViewHolder {
-        ImageView app_icon;
-        TextView app_label;
+    @Override
+    public int getCount() {
+        return apps.size();
+    }
+
+    @Override
+    public App getItem(int i) {
+        return apps.get(i);
+    }
+
+    @Override
+    public long getItemId(int i) {
+        return i;
     }
 }
