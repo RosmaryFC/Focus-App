@@ -41,9 +41,7 @@ public class AppMonitor extends ActionBarActivity implements AppReceiver.Receive
         app_list = (ListView) findViewById(R.id.app_list);
         save = (Button) findViewById(R.id.save);
 
-        databaseHelper = DatabaseHelper.getInstance(this);
-
-        if (databaseHelper == null) {
+        if (savedInstanceState == null) {
 
             DBAsyncTask dbAsyncTask = new DBAsyncTask(this);
 
@@ -60,6 +58,9 @@ public class AppMonitor extends ActionBarActivity implements AppReceiver.Receive
                 e.printStackTrace();
             }
         } else {
+
+            databaseHelper = DatabaseHelper.getInstance(this);
+
             try {
                 apps = databaseHelper.loadData();
             } catch (SQLException e) {
@@ -75,13 +76,15 @@ public class AppMonitor extends ActionBarActivity implements AppReceiver.Receive
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), AppTracker.class);
-                intent.putExtra("receiver", appReceiver);
-                intent.putExtra("start_hour", 12);
-                intent.putExtra("start_minute", 55);
-                intent.putExtra("end_hour", 14);
-                intent.putExtra("end_minute", 57);
-                startService(intent);
+                Intent startService = new Intent(getApplicationContext(), AppService.class);
+                startService(startService);
+//                Intent intent = new Intent(getApplicationContext(), AppTracker.class);
+//                intent.putExtra("receiver", appReceiver);
+//                intent.putExtra("start_hour", 12);
+//                intent.putExtra("start_minute", 55);
+//                intent.putExtra("end_hour", 14);
+//                intent.putExtra("end_minute", 57);
+//                startService(intent);
                 Toast.makeText(getApplicationContext(), "Monitoring Apps", Toast.LENGTH_LONG).show();
             }
         });
