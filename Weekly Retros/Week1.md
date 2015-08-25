@@ -22,8 +22,12 @@ Sprint 1 : 8/16 - 8/22
   - pass block info into service
 
 **Goals for this Sprint**:
+
 *Sarah*
-  -
+  - work on app monitoring service to check block time and make notifications for various events (ex. when focus session is nearing)
+  - make service run even if app is not running
+  - change listview into recyclerview
+  - organize code and flow
   
 *Janneisy*
   
