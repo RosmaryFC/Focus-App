@@ -30,8 +30,10 @@ Sprint 1 : 8/16 - 8/22
   - organize code and flow
   
 *Janneisy*
-  
-  
+  -Worked on the navigation.
+  -Added navagation layouts and set up the fragment placehoders for the features.
+  -Added logo to project. 
+   
 *Rosmary*
   - Fix isse with Database not registering final column. (due 8/25)
   - connect Block session to services (due 8/25)
@@ -44,11 +46,13 @@ Sprint 1 : 8/16 - 8/22
     - Logo was completed, improvements on UI/UX were made
     - Was able to choose which apps to be blocked, fix toggle issue, constantly check which apps are being monitored (every 30 seconds), clean up code, create a listview of current apps to be monitored on home screen, and check app log for lollipop
     - Listview was created for block sessions, Database was created (not completed) for block sessions
+    - Some layout re-modifcations had to be done for android version compatability. 
   *  What should we do differently next time?
     - Make more frequent pull requests to not push a big request at once. 
   *  What did we learn?
     - Setting more ideal timelines for the things to be accomplished
     - The things we are tackling now are more difficult and reaching out for help is crucial
+    - The layouts for Block Sessions and App Monitor would have to be in fragments. 
   *  What still puzzles us?
     - Error in Block time Database where column is missing (not sure why)
     
@@ -81,9 +85,10 @@ If you did not meet your goals, how will this affect the progression of the prod
        * Did you meet your goals/responsibilities last week? Why or why not?
         - Issues with AppCompat and Lollipop
     * Goals/Responsibilities This Week:
-      - 
-  
-  
+      - Change AppMonitor from List View to Recycle View format.
+      - Continue to polish UI as features are WIP.
+      - Follow up w/ our mentor for recommendations.
+
   *  Team Member #3 - Rosmary
     * Goals/Responsibilities Last Week:
       - create listView for focus sessions created 8/17
