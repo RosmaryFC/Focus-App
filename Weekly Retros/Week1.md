@@ -62,7 +62,10 @@ If you did not meet your goals, how will this affect the progression of the prod
         * Did you meet your goals/responsibilities last week? Why or why not?
         - Yes. 
     * Goals/Responsibilities This Week:
-      - 
+      - work on app monitoring service to check block time and make notifications for various events (ex. when focus session is nearing)
+      - make service run even if app is not running
+      - change listview into recyclerview
+      - organize code and flow
   
   
   *  Team Member #2 - Janneisy
