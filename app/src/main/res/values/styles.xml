@@ -1,19 +1,13 @@
 <resources>
 
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <item name="colorPrimary">@color/style_color_primary</item>
-        <item name="colorPrimaryDark">@color/style_color_primary_dark</item>
-        <item name="colorAccent">@color/style_color_accent</item>
-        <item name="colorControlHighlight">@color/fab_color_pressed</item>
+    <style name="Theme.DesignDemo" parent="Base.Theme.DesignDemo">
     </style>
 
-    <style name="AppTheme.TransparentActivity">
-        <item name="android:windowBackground">@android:color/transparent</item>
-        <item name="android:windowIsTranslucent">true</item>
-    </style>
-
-    <style name="AppTheme.TransparentActivity.FullScreen">
-        <item name="android:windowFullscreen">true</item>
+    <style name="Base.Theme.DesignDemo" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">#673AB7</item>
+        <item name="colorPrimaryDark">#512DA8</item>
+        <item name="colorAccent">#FF4081</item>
+        <item name="android:windowBackground">@color/window_background</item>
     </style>
 
     <style name="ContextMenuButton">
