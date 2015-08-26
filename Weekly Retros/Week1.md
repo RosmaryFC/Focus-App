@@ -30,9 +30,10 @@ Sprint 1 : 8/16 - 8/22
   - organize code and flow
   
 *Janneisy*
-  -Worked on the navigation.
-  -Added navagation layouts and set up the fragment placehoders for the features.
-  -Added logo to project. 
+  - Add logo icon to app
+  - Worked on the navigation.
+  - Added navagation layouts and set up the fragment placehoders for the features.
+  - Added logo to project. 
    
 *Rosmary*
   - Fix isse with Database not registering final column. (due 8/25)
