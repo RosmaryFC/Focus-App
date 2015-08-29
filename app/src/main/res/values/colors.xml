@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--colors.xml-->
 <resources>
-    <color name="style_color_primary">#330570</color>
+    <color name="style_color_primary">#02c754</color>
     <color name="style_color_primary_dark">#8243d6</color>
     <color name="style_color_accent">#996AD6</color>
     <color name="tabsScrollColor">#02c754</color>
     <color name="window_background">#FFF5F5F5</color>
 
-    <color name="fab_color_pressed">#996AD6</color>
+    <color name="fab_color_pressed">#02c754</color>
     <color name="fab_color_shadow">#44000000</color>
 
     <color name="btn_default_light_normal">#00000000</color>

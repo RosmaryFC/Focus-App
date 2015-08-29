@@ -7,7 +7,7 @@
                                    android:background="?attr/colorPrimary"
                                    app:elevation="@dimen/default_elevation"
                                    app:layout_scrollFlags="scroll|enterAlways"
-                                   app:navigationIcon="@drawable/ic_action_menu"
+                                   app:subtitleTextAppearance="@id/action_menu_divider"
                                    app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
     <!--<ImageButton-->
         <!--android:layout_width="wrap_content"-->
