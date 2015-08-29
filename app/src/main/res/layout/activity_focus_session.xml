@@ -9,7 +9,6 @@
     <EditText
         android:id="@+id/name_et"
         android:hint="Name"
-        android:text="test block time"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 

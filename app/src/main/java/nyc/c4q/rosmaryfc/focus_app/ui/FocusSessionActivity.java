@@ -2,8 +2,12 @@ package nyc.c4q.rosmaryfc.focus_app.ui;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
@@ -13,7 +17,10 @@ import android.widget.TimePicker;
 
 import java.util.Calendar;
 
+import nyc.c4q.rosmaryfc.focus_app.BlockSession;
 import nyc.c4q.rosmaryfc.focus_app.R;
+import nyc.c4q.rosmaryfc.focus_app.db.BlockSessionContract;
+import nyc.c4q.rosmaryfc.focus_app.db.BlockSessionDBHelper;
 
 
 public class FocusSessionActivity extends AppCompatActivity {
@@ -26,7 +33,7 @@ public class FocusSessionActivity extends AppCompatActivity {
     EditText dateET;
     EditText notesET;
 
-
+    private BlockSessionDBHelper helper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -201,6 +208,49 @@ public class FocusSessionActivity extends AppCompatActivity {
     };
 
     public void saveOnClick (View view){
+        String name = nameET.getText().toString();
+        String date = dateET.getText().toString();
+        String startTime = startTimeET.getText().toString();
+        String endTime = endTimeET.getText().toString();
+        String notes = notesET.getText().toString();
+
+        helper = new BlockSessionDBHelper(this);
+        helper.addBlockSession(new BlockSession(name, date, startTime, endTime, notes));
+
+        getData();
+
+        Intent intent = new Intent (this, BlockSessionActivity.class);
+        startActivity(intent);
+
+    }
+
+    public void getData(){
+
+        String selectQuery = "SELECT * FROM " + BlockSessionContract.TABLE_BLOCK_SESSIONS;
+
+        SQLiteDatabase db = helper.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        //looping through all rows and adding to the list
+        if(cursor.moveToFirst()){
+            do{
+                BlockSession blockSession = new BlockSession();
+                blockSession.setName(cursor.getString(1));
+                blockSession.setDate(cursor.getString(2));
+                blockSession.setStartTime(cursor.getString(3));
+                blockSession.setEndTime(cursor.getString(4));
+                blockSession.setNotes(cursor.getString(5));
+
+                String log = "ID: " + blockSession.getId() + " , Name: " + blockSession.getName() + ", Date: " + blockSession.getDate()
+                        + ", StartTime: " + blockSession.getStartTime() + " , EndTime: " + blockSession.getEndTime()
+                        + ", Notes: " + blockSession.getNotes();
+
+                Log.d("FOCUS SESSION result: ", log);
+
+            }while(cursor.moveToNext());
+        }
+        db.close();
 
     }
 
