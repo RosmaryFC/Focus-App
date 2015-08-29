@@ -19,7 +19,7 @@
         android:layout_height="match_parent"
         android:layout_weight="3" />
 
-    <SwitchCompat
+    <Switch
         android:id="@+id/app_monitor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
