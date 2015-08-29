@@ -26,13 +26,13 @@ public class BlockSessionDBHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
 
         String CREATE_BLOCK_SESSIONS_TABLE = "CREATE TABLE " + BlockSessionContract.TABLE_BLOCK_SESSIONS + "("
-                + BlockSessionContract.Columns.COLUMN_NAME_BLOCK_SESSION_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-                + BlockSessionContract.Columns.COLUMN_NAME_BlOCK_NAME + " TEXT, "
-                + BlockSessionContract.Columns.COLUMN_NAME_START_TIME + " TEXT, "
-                + BlockSessionContract.Columns.COLUMN_NAME_END_TIME + " TEXT, "
-                + BlockSessionContract.Columns.COLUMN_NAME_DATE + " TEXT, "
-                + BlockSessionContract.Columns.COLUMN_NAME_RECUR_WEEKDAYS + "TEXT, "
-                + BlockSessionContract.Columns.COLUMN_NAME_NOTES + "TEXT" + ")";
+                + BlockSessionContract.Columns.BLOCK_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + BlockSessionContract.Columns.BLOCK_NAME + " TEXT, "
+                + BlockSessionContract.Columns.BLOCK_DATE + " TEXT, "
+                + BlockSessionContract.Columns.BLOCK_START_TIME + " TEXT, "
+                + BlockSessionContract.Columns.BLOCK_END_TIME + " TEXT, "
+                //+ BlockSessionContract.Columns.COLUMN_NAME_RECUR_WEEKDAYS + "TEXT, "
+                + BlockSessionContract.Columns.BLOCK_NOTES + " TEXT" + ")";
 
         Log.d("BlockSessionDBHelper", "Query to form table: " + CREATE_BLOCK_SESSIONS_TABLE);
         db.execSQL(CREATE_BLOCK_SESSIONS_TABLE);
@@ -55,14 +55,35 @@ public class BlockSessionDBHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(BlockSessionContract.Columns.COLUMN_NAME_BlOCK_NAME, blockSession.getName());
-        values.put(BlockSessionContract.Columns.COLUMN_NAME_DATE, blockSession.getDate());
-        values.put(BlockSessionContract.Columns.COLUMN_NAME_START_TIME, blockSession.getStartTime());
-        values.put(BlockSessionContract.Columns.COLUMN_NAME_END_TIME, blockSession.getEndTime());
-        values.put(BlockSessionContract.Columns.COLUMN_NAME_NOTES, blockSession.getNotes());
+        values.put(BlockSessionContract.Columns.BLOCK_NAME, blockSession.getName());
+        values.put(BlockSessionContract.Columns.BLOCK_DATE, blockSession.getDate());
+        values.put(BlockSessionContract.Columns.BLOCK_START_TIME, blockSession.getStartTime());
+        values.put(BlockSessionContract.Columns.BLOCK_END_TIME, blockSession.getEndTime());
+        values.put(BlockSessionContract.Columns.BLOCK_NOTES, blockSession.getNotes());
 
         db.insert(BlockSessionContract.TABLE_BLOCK_SESSIONS, null, values);
         db.close();
+    }
+
+    //get Single Block Session
+    public BlockSession getBlockSession (int id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.query(BlockSessionContract.TABLE_BLOCK_SESSIONS,
+                 new String []{BlockSessionContract.Columns.BLOCK_ID,
+                         BlockSessionContract.Columns.BLOCK_NAME,
+                         BlockSessionContract.Columns.BLOCK_DATE,
+                         BlockSessionContract.Columns.BLOCK_START_TIME,
+                         BlockSessionContract.Columns.BLOCK_END_TIME,
+                         BlockSessionContract.Columns.BLOCK_NOTES},
+                BlockSessionContract.Columns.BLOCK_ID + "=?", new String[] {String.valueOf(id)}, null, null, null, null);
+        if (cursor != null) {
+            cursor.moveToFirst();
+        }
+
+        BlockSession blockSession = new BlockSession(Integer.parseInt(cursor.getString(0)), cursor.getString(1), cursor.getString(2),cursor.getString(3), cursor.getString(4), cursor.getString(5));
+
+        return blockSession;
     }
 
     //get All Block Sessions
@@ -70,7 +91,7 @@ public class BlockSessionDBHelper extends SQLiteOpenHelper {
         List<BlockSession> blockSessionList = new ArrayList<BlockSession>();
 
         //selecting all query
-        String selectQuery = "SELECT * FROM " + BlockSessionContract.TABLE_BLOCK_SESSIONS + " ORDER BY name";// + BlockSessionContract.Columns.COLUMN_NAME_BlOCK_NAME;
+        String selectQuery = "SELECT * FROM BlockSessions ORDER BY blockname";// + BlockSessionContract.Columns.BLOCK_NAME;
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
@@ -93,5 +114,39 @@ public class BlockSessionDBHelper extends SQLiteOpenHelper {
         return blockSessionList;
     }
 
+    //updating single BlockSession
+    public int updateBlockSession (BlockSession blockSession) {
+        SQLiteDatabase db = this.getWritableDatabase();
 
+        ContentValues values = new ContentValues();
+        values.put(BlockSessionContract.Columns.BLOCK_NAME, BlockSession.getName());
+        values.put(BlockSessionContract.Columns.BLOCK_DATE, BlockSession.getDate());
+        values.put(BlockSessionContract.Columns.BLOCK_START_TIME, BlockSession.getStartTime());
+        values.put(BlockSessionContract.Columns.BLOCK_END_TIME, BlockSession.getEndTime());
+        values.put(BlockSessionContract.Columns.BLOCK_NOTES, BlockSession.getNotes());
+
+        //update Row
+        return db.update(BlockSessionContract.TABLE_BLOCK_SESSIONS, values, BlockSessionContract.Columns.BLOCK_ID + " = ?",
+                new String[] {String.valueOf(blockSession.getId()) });
+    }
+
+        //delete BlockSession
+    public void deleteBlockSession (BlockSession blockSession) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        db.delete(BlockSessionContract.TABLE_BLOCK_SESSIONS, BlockSessionContract.Columns.BLOCK_ID + " = ?",
+                new String[]{String.valueOf(BlockSession.getId())});
+        db.close();
+    }
+
+    //get BlockSession count
+    public int getBlockSessionCount () {
+        String countQuery = "SELECT * FROM " + BlockSessionContract.TABLE_BLOCK_SESSIONS;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(countQuery, null );
+        cursor.close();
+
+        //returning count
+        return cursor.getCount();
+    }
 }

@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="nyc.c4q.rosmaryfc.focus_app.FocusSessionActivity">
+    tools:context="nyc.c4q.rosmaryfc.focus_app.ui.FocusSessionActivity">
 
     <EditText
         android:id="@+id/name_et"

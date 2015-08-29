@@ -5,13 +5,13 @@ package nyc.c4q.rosmaryfc.focus_app;
  */
 public class BlockSession {
     //name, start time, end time, date, notification, notes, weekdays,
-    int id;
-    String name;
-    String startTime;
-    String endTime;
-    String date;
-    String notes;
-    String [] weekdays;
+    static int id;
+    static String name;
+    static String startTime;
+    static String endTime;
+    static String date;
+    static String notes;
+    static String [] weekdays;
 
     public BlockSession(){
 
@@ -19,14 +19,24 @@ public class BlockSession {
 
     public BlockSession(String name,String date, String startTime, String endTime, String notes){
         this.name = name;
+        this.date = date;
         this.startTime = startTime;
         this.endTime = endTime;
-        this.date = date;
         this.notes = notes;
         //this.weekdays = new String[] {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
     }
 
-    public int getId() {
+    public BlockSession(int id,String name,String date, String startTime, String endTime, String notes){
+        this.id = id;
+        this.name = name;
+        this.date = date;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.notes = notes;
+        //this.weekdays = new String[] {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
+    }
+
+    public static int getId() {
         return id;
     }
 
@@ -34,7 +44,7 @@ public class BlockSession {
         this.id = id;
     }
 
-    public String getName() {
+    public static String getName() {
         return name;
     }
 
@@ -42,7 +52,7 @@ public class BlockSession {
         this.name = name;
     }
 
-    public String getStartTime() {
+    public static String getStartTime() {
         return startTime;
     }
 
@@ -50,7 +60,7 @@ public class BlockSession {
         this.startTime = startTime;
     }
 
-    public String getEndTime() {
+    public static String getEndTime() {
         return endTime;
     }
 
@@ -58,7 +68,7 @@ public class BlockSession {
         this.endTime = endTime;
     }
 
-    public String getDate() {
+    public static String getDate() {
         return date;
     }
 
@@ -66,7 +76,7 @@ public class BlockSession {
         this.date = date;
     }
 
-    public String getNotes() {
+    public static String getNotes() {
         return notes;
     }
 
