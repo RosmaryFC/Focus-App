@@ -5,13 +5,13 @@ package nyc.c4q.rosmaryfc.focus_app;
  */
 public class BlockSession {
     //name, start time, end time, date, notification, notes, weekdays,
-    static int id;
-    static String name;
-    static String startTime;
-    static String endTime;
-    static String date;
-    static String notes;
-    static String [] weekdays;
+    int id;
+    String name;
+    String startTime;
+    String endTime;
+    String date;
+    String notes;
+    String [] weekdays;
 
     public BlockSession(){
 
@@ -36,7 +36,7 @@ public class BlockSession {
         //this.weekdays = new String[] {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
     }
 
-    public static int getId() {
+    public int getId() {
         return id;
     }
 
@@ -44,7 +44,7 @@ public class BlockSession {
         this.id = id;
     }
 
-    public static String getName() {
+    public String getName() {
         return name;
     }
 
@@ -52,7 +52,7 @@ public class BlockSession {
         this.name = name;
     }
 
-    public static String getStartTime() {
+    public String getStartTime() {
         return startTime;
     }
 
@@ -60,7 +60,7 @@ public class BlockSession {
         this.startTime = startTime;
     }
 
-    public static String getEndTime() {
+    public String getEndTime() {
         return endTime;
     }
 
@@ -68,7 +68,7 @@ public class BlockSession {
         this.endTime = endTime;
     }
 
-    public static String getDate() {
+    public String getDate() {
         return date;
     }
 
@@ -76,7 +76,7 @@ public class BlockSession {
         this.date = date;
     }
 
-    public static String getNotes() {
+    public String getNotes() {
         return notes;
     }
 

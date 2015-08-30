@@ -126,11 +126,11 @@ public class BlockSessionDBHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(BlockSessionContract.Columns.BLOCK_NAME, BlockSession.getName());
-        values.put(BlockSessionContract.Columns.BLOCK_DATE, BlockSession.getDate());
-        values.put(BlockSessionContract.Columns.BLOCK_START_TIME, BlockSession.getStartTime());
-        values.put(BlockSessionContract.Columns.BLOCK_END_TIME, BlockSession.getEndTime());
-        values.put(BlockSessionContract.Columns.BLOCK_NOTES, BlockSession.getNotes());
+        values.put(BlockSessionContract.Columns.BLOCK_NAME, blockSession.getName());
+        values.put(BlockSessionContract.Columns.BLOCK_DATE, blockSession.getDate());
+        values.put(BlockSessionContract.Columns.BLOCK_START_TIME, blockSession.getStartTime());
+        values.put(BlockSessionContract.Columns.BLOCK_END_TIME, blockSession.getEndTime());
+        values.put(BlockSessionContract.Columns.BLOCK_NOTES, blockSession.getNotes());
 
         //update Row
         return db.update(BlockSessionContract.TABLE_BLOCK_SESSIONS, values, BlockSessionContract.Columns.BLOCK_ID + " = ?",
@@ -142,7 +142,7 @@ public class BlockSessionDBHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
 
         db.delete(BlockSessionContract.TABLE_BLOCK_SESSIONS, BlockSessionContract.Columns.BLOCK_ID + " = ?",
-                new String[]{String.valueOf(BlockSession.getId())});
+                new String[]{String.valueOf(blockSession.getId())});
         db.close();
     }
 
