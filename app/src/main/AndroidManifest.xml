@@ -11,6 +11,7 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/Theme.DesignDemo">
+
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name">
@@ -34,16 +35,10 @@
             android:name=".AppUsage"
             android:label="@string/title_activity_app_usage" />
 
-        <receiver android:name=".BootReceiver">
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-            </intent-filter>
-        </receiver>
 
-        <service android:name=".AppListener" />
         <service android:name=".AppTracker" />
-        <service android:name=".BlockSessionReminder" />
-        
+        <service android:name=".AppService" />
+
     </application>
 
 </manifest>

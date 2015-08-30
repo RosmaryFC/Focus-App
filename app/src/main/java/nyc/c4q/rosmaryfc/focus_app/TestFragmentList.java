@@ -18,6 +18,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 /**
  * Created by s3a on 8/25/15.
@@ -36,7 +37,16 @@ public class TestFragmentList extends Fragment {
         if (mContext!=null) {
             PackageManager pm = mContext.getPackageManager();
             List<ApplicationInfo> applicationInfos = pm.getInstalledApplications(PackageManager.GET_META_DATA);
-            AppAdapter adapter = new AppAdapter(mContext, applicationInfos);
+            DBAsyncTask dbAsyncTask = new DBAsyncTask(mContext);
+            dbAsyncTask.execute(applicationInfos);
+            AppAdapter adapter = null;
+            try {
+                adapter = new AppAdapter(mContext, dbAsyncTask.get());
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
             app_list.setAdapter(adapter);
         }
         save.setOnClickListener(new View.OnClickListener() {

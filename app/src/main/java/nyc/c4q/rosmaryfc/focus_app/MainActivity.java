@@ -17,8 +17,15 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ListView;
+
 
 import java.util.ArrayList;
+
+import com.j256.ormlite.dao.Dao;
+
+import java.sql.SQLException;
+
 import java.util.List;
 
 /**
@@ -26,20 +33,28 @@ import java.util.List;
  */
 public class MainActivity extends AppCompatActivity {
 
+
     private DrawerLayout mDrawerLayout;
+
+
+
+    DatabaseHelper databaseHelper;
+
+    List<App> monitoringApps;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+        databaseHelper = DatabaseHelper.getInstance(this);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         final ActionBar actionBar = getSupportActionBar();
-
-
-
 
 
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
@@ -64,20 +79,35 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
+//    @Override
+//    protected void onResume() {
+//        super.onResume();
+//        if (databaseHelper != null) {
+//            try {
+//                Dao<App, ?> appDao = databaseHelper.getDao(App.class);
+//                monitoringApps = appDao.query(appDao.queryBuilder().where().eq("APP_MONITOR", true).prepare());
+//            } catch (SQLException e) {
+//                e.printStackTrace();
+//            }
+//        }
+//
+//        if (monitoringApps.size() != 0) {
+//            MonitoringAppAdapter adapter = new MonitoringAppAdapter(this, monitoringApps);
+//            monitoring_app_list.setAdapter(adapter);
+//        }
+//    }
 
 
     private void setupViewPager(ViewPager viewPager) {
         Adapter adapter = new Adapter(getSupportFragmentManager());
         adapter.addFragment(new TestFragmentList(), "App Monitor ");
-       adapter.addFragment(new BlockTimes(), "BlockTimes");
+        adapter.addFragment(new BlockTimes(), "BlockTimes");
 //        adapter.addFragment(new TestFragmentList(), "TBD");
         viewPager.setAdapter(adapter);
 
 
     }
 
- 
 
     static class Adapter extends FragmentPagerAdapter {
         private final List<Fragment> mFragments = new ArrayList<>();
