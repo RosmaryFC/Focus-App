@@ -4,10 +4,11 @@
                                    android:id="@+id/toolbar"
                                    android:layout_width="match_parent"
                                    android:layout_height="?attr/actionBarSize"
-                                   android:background="?attr/colorPrimary"
+                                   android:background="?attr/colorPrimaryDark"
                                    app:elevation="@dimen/default_elevation"
                                    app:layout_scrollFlags="scroll|enterAlways"
                                    app:subtitleTextAppearance="@id/action_menu_divider"
+
                                    app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
     <!--<ImageButton-->
         <!--android:layout_width="wrap_content"-->

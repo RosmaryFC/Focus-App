@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--colors.xml-->
 <resources>
-    <color name="style_color_primary">#02c754</color>
-    <color name="style_color_primary_dark">#8243d6</color>
-    <color name="style_color_accent">#996AD6</color>
-    <color name="tabsScrollColor">#02c754</color>
-    <color name="window_background">#FFF5F5F5</color>
+    <color name="style_color_primary">#673AB7</color>
+    <color name="style_color_primary_dark">#512DA8</color>
+    <color name="style_color_accent">#00BCD4</color>
+    <color name="tabsScrollColor">#00BCD4</color>
+    <color name="window_background">#512DA8</color>
 
-    <color name="fab_color_pressed">#02c754</color>
+    <color name="fab_color_pressed">#00BCD4</color>
     <color name="fab_color_shadow">#44000000</color>
 
-    <color name="btn_default_light_normal">#00000000</color>
+    <color name="btn_default_light_normal">#673AB7</color>
     <color name="btn_default_light_pressed">#40ffffff</color>
-    <color name="btn_send_normal">#8243d6</color>
-    <color name="btn_send_pressed">#02c754</color>
+    <color name="btn_send_normal">#673AB7</color>
+    <color name="btn_send_pressed">#00BCD4</color>
     <color name="btn_default_shadow">#99000000</color>
     <color name="btn_context_menu_normal">#ffffff</color>
-    <color name="btn_context_menu_pressed">#40000000</color>
+    <color name="btn_context_menu_pressed">#00BCD4</color>
     <color name="text_color">#FFFFFF</color>
 
 

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
+import android.support.v7.widget.SwitchCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -38,7 +40,7 @@ public class AppAdapter extends ArrayAdapter<App> {
     static class AppViewHolder {
         ImageView app_icon;
         TextView app_label;
-        Switch app_monitor;
+        SwitchCompat app_monitor;
     }
 
     @Override
@@ -52,7 +54,7 @@ public class AppAdapter extends ArrayAdapter<App> {
             appViewHolder = new AppViewHolder();
             appViewHolder.app_icon = (ImageView) view.findViewById(R.id.app_icon);
             appViewHolder.app_label = (TextView) view.findViewById(R.id.app_label);
-            appViewHolder.app_monitor = (Switch) view.findViewById(R.id.app_monitor);
+            appViewHolder.app_monitor = (SwitchCompat) view.findViewById(R.id.app_monitor);
 
             appViewHolder.app_monitor.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override

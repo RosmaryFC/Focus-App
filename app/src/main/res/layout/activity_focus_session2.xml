@@ -1,0 +1,243 @@
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!--<TextView-->
+            <!--android:id="@+id/title"-->
+            <!--android:text="New Block"-->
+            <!--android:textSize="30sp"-->
+            <!--android:gravity="center"-->
+            <!--android:textColor="#FFF"-->
+            <!--android:background="#512DA8"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content" />-->
+
+        <TextView
+            android:id="@+id/title_2"
+            android:text="BLOCK SESSION"
+            android:textSize="30sp"
+            android:gravity="center"
+            android:textColor="#FFF"
+            android:background="@color/style_color_primary_dark"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                      xmlns:tools="http://schemas.android.com/tools"
+                      android:layout_width="match_parent"
+                      android:layout_height="match_parent"
+                      android:padding="16dp"
+                      android:orientation="vertical"
+                      tools:context="nyc.c4q.rosmaryfc.focus_app.ui.FocusSessionActivity">
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="0dp">
+
+                <EditText
+                    android:id="@+id/name_et"
+                    android:hint="Name"
+                    android:inputType="textCapCharacters"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="0dp">
+
+                <EditText
+                    android:id="@+id/start_time_et"
+                    android:hint="Start Time"
+                    android:inputType="none"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+            </android.support.design.widget.TextInputLayout>
+
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="0dp">
+
+                <EditText
+                    android:id="@+id/end_time_et"
+                    android:hint="End Time"
+                    android:inputType="none"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+            </android.support.design.widget.TextInputLayout>
+
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="0dp">
+
+                <EditText
+                    android:id="@+id/date_et"
+                    android:hint="Date"
+                    android:inputType="none"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <!--todo:commented out for demo, recur and immediate block session need to be worked on -->
+
+            <!--<TextView-->
+            <!--android:text="Weekdays"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"/>-->
+
+            <!--<LinearLayout-->
+            <!--android:orientation="horizontal"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="0dp"-->
+            <!--android:layout_gravity="fill_vertical"-->
+            <!--android:gravity="center"-->
+            <!--android:layout_weight="1">-->
+
+            <!--<CheckBox-->
+            <!--android:id="@+id/checkbox_sunday"-->
+            <!--android:text="Su"-->
+            <!--android:onClick="onCheckboxClicked"-->
+            <!--android:gravity="center"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"/>-->
+
+            <!--<CheckBox-->
+            <!--android:id="@+id/checkbox_monday"-->
+            <!--android:text="M"-->
+            <!--android:onClick="onCheckboxClicked"-->
+            <!--android:gravity="center"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"/>-->
+
+            <!--<CheckBox-->
+            <!--android:id="@+id/checkbox_tuesday"-->
+            <!--android:text="T"-->
+            <!--android:onClick="onCheckboxClicked"-->
+            <!--android:gravity="center"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content" />-->
+
+            <!--<CheckBox-->
+            <!--android:id="@+id/checkbox_wednesday"-->
+            <!--android:text="W"-->
+            <!--android:onClick="onCheckboxClicked"-->
+            <!--android:gravity="center"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"/>-->
+
+            <!--<CheckBox-->
+            <!--android:id="@+id/checkbox_thursday"-->
+            <!--android:text="Th"-->
+            <!--android:onClick="onCheckboxClicked"-->
+            <!--android:gravity="center"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"/>-->
+
+            <!--<CheckBox-->
+            <!--android:id="@+id/checkbox_friday"-->
+            <!--android:text="F"-->
+            <!--android:onClick="onCheckboxClicked"-->
+            <!--android:gravity="center"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content" />-->
+
+            <!--<CheckBox-->
+            <!--android:id="@+id/checkbox_saturday"-->
+            <!--android:text="Sa"-->
+            <!--android:onClick="onCheckboxClicked"-->
+            <!--android:gravity="center"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"/>-->
+
+            <!--</LinearLayout>-->
+
+            <!--<TextView-->
+            <!--android:text="Notification"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"/>-->
+
+            <!--<RadioGroup-->
+            <!--android:layout_gravity="fill_vertical"-->
+            <!--android:gravity="center"-->
+            <!--android:orientation="horizontal"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="0dp"-->
+            <!--android:layout_weight="1">-->
+
+            <!--<RadioButton-->
+            <!--android:id="@+id/enable_radBtn"-->
+            <!--android:text="Enable"-->
+            <!--android:onClick="onRadioButtonClicked"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content" />-->
+
+            <!--<RadioButton-->
+            <!--android:id="@+id/disable_radBtn"-->
+            <!--android:text="Disable"-->
+            <!--android:onClick="onRadioButtonClicked"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content" />-->
+            <!--</RadioGroup>-->
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="0dp">
+
+                <EditText
+                    android:id="@+id/notes_et"
+                    android:hint="Notes"
+                    android:maxLength="80"
+                    android:background="#42b875ff"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_weight="2"/>
+
+            </android.support.design.widget.TextInputLayout>
+
+
+        </LinearLayout>
+        <Button
+            android:id="@+id/save_btn"
+            android:text="Save"
+            android:textColor="#FFFFFF"
+            android:background="@drawable/btn_send_comment"
+            android:layout_gravity="center"
+            android:onClick="saveOnClick"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            />
+
+    </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+</android.support.design.widget.CoordinatorLayout>

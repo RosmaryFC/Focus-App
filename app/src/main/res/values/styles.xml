@@ -1,13 +1,15 @@
 <resources>
 
-    <style name="Theme.DesignDemo" parent="Base.Theme.DesignDemo">
-    </style>
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
 
-    <style name="Base.Theme.DesignDemo" parent="Theme.AppCompat.Light.NoActionBar">
+
         <item name="colorPrimary">#673AB7</item>
         <item name="colorPrimaryDark">#512DA8</item>
-        <item name="colorAccent">#02c754</item>
-        <item name="android:windowBackground">@color/window_background</item>
+        
+        <item name="colorAccent">#00BCD4</item>
+        <item name="android:navigationBarColor">#673AB7</item>
+
+
     </style>
 
     <style name="ContextMenuButton">
@@ -17,8 +19,13 @@
         <item name="android:gravity">left|center_vertical</item>
         <item name="android:paddingLeft">20dp</item>
         <item name="android:paddingRight">20dp</item>
-        <item name="android:textColor">?attr/colorPrimary</item>
+        <item name="android:textColor">#212121</item>
+        <item name="android:divider">#B6B6B6</item>
         <item name="android:textSize">14sp</item>
+        <item name="android:title"></item>
+
     </style>
+
+
 
 </resources>

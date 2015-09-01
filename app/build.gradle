@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "nyc.c4q.rosmaryfc.focus_app"
-        minSdkVersion 9
+        minSdkVersion 15
         targetSdkVersion 22
         versionCode 1
         versionName "1.0"

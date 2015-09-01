@@ -7,10 +7,8 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.RadioButton;
 import android.widget.TimePicker;
 
 import java.util.Calendar;
@@ -34,7 +32,7 @@ public class FocusSessionActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_focus_session);
+        setContentView(R.layout.activity_focus_session2);
 
         initializeViews();
         prefs = this.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
@@ -54,90 +52,90 @@ public class FocusSessionActivity extends AppCompatActivity {
     }
 
     //todo: will not be used to demo MVP, use will choose between setting date or setting weekdays
-    public void onCheckboxClicked(View view) {
-        //is this view now checked?
-        boolean checked = ((CheckBox) view).isChecked();
-
-        //check when checkbox is clicked
-        switch(view.getId()){
-            case R.id.checkbox_sunday:
-                if(checked){
-                    //checked stuff
-                }
-                else{
-                    //unchecked stuff
-                }
-                break;
-            case R.id.checkbox_monday:
-                if(checked){
-                    //checked stuff
-                }
-                else{
-                    //unchecked stuff
-                }
-                break;
-            case R.id.checkbox_tuesday:
-                if(checked){
-                    //checked stuff
-                }
-                else{
-                    //unchecked stuff
-                }
-                break;
-            case R.id.checkbox_wednesday:
-                if(checked){
-                    //checked stuff
-                }
-                else{
-                    //unchecked stuff
-                }
-                break;
-            case R.id.checkbox_thursday:
-                if(checked){
-                    //checked stuff
-                }
-                else{
-                    //unchecked stuff
-                }
-                break;
-            case R.id.checkbox_friday:
-                if(checked){
-                    //checked stuff
-                }
-                else{
-                    //unchecked stuff
-                }
-                break;
-            case R.id.checkbox_saturday:
-                if(checked){
-                    //checked stuff
-                }
-                else{
-                    //unchecked stuff
-                }
-                break;
-        }
-    }
+//    public void onCheckboxClicked(View view) {
+//        //is this view now checked?
+//        boolean checked = ((CheckBox) view).isChecked();
+//
+//        //check when checkbox is clicked
+//        switch(view.getId()){
+//            case R.id.checkbox_sunday:
+//                if(checked){
+//                    //checked stuff
+//                }
+//                else{
+//                    //unchecked stuff
+//                }
+//                break;
+//            case R.id.checkbox_monday:
+//                if(checked){
+//                    //checked stuff
+//                }
+//                else{
+//                    //unchecked stuff
+//                }
+//                break;
+//            case R.id.checkbox_tuesday:
+//                if(checked){
+//                    //checked stuff
+//                }
+//                else{
+//                    //unchecked stuff
+//                }
+//                break;
+//            case R.id.checkbox_wednesday:
+//                if(checked){
+//                    //checked stuff
+//                }
+//                else{
+//                    //unchecked stuff
+//                }
+//                break;
+//            case R.id.checkbox_thursday:
+//                if(checked){
+//                    //checked stuff
+//                }
+//                else{
+//                    //unchecked stuff
+//                }
+//                break;
+//            case R.id.checkbox_friday:
+//                if(checked){
+//                    //checked stuff
+//                }
+//                else{
+//                    //unchecked stuff
+//                }
+//                break;
+//            case R.id.checkbox_saturday:
+//                if(checked){
+//                    //checked stuff
+//                }
+//                else{
+//                    //unchecked stuff
+//                }
+//                break;
+//        }
+//    }
 
     //todo: will not be used to demo MVP, option whether to set notification reminder or not. can also be toast
-    public void onRadioButtonClicked(View view){
-        //is the button now checked?
-        boolean checked = ((RadioButton) view).isChecked();
-
-        //check which radio button was clicked
-        switch (view.getId()){
-            case R.id.enable_radBtn:
-                if(checked){
-
-                }
-                break;
-            case R.id.disable_radBtn:
-                if(checked) {
-
-                }
-                break;
-        }
-    }
+//    public void onRadioButtonClicked(View view){
+//        //is the button now checked?
+//        boolean checked = ((RadioButton) view).isChecked();
+//
+//        //check which radio button was clicked
+//        switch (view.getId()){
+//            case R.id.enable_radBtn:
+//                if(checked){
+//
+//                }
+//                break;
+//            case R.id.disable_radBtn:
+//                if(checked) {
+//
+//                }
+//                break;
+//        }
+//    }
 
     public View.OnClickListener startTimeListener = new View.OnClickListener() {
         @Override
