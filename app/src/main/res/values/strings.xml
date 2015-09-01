@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Focus_App</string>
+    <string name="app_name">Block On</string>
 
     <string name="title_activity_app_monitor">AppMonitor</string>
     <string name="title_activity_app_usage">AppUsage</string>
@@ -13,6 +13,10 @@
 
 
     <string name="focus_logo_text">Focus-App</string>
+
     <string name="title_activity_block_session">BlockSessionActivity</string>
+
+    <string name="message"><b> It\'s your scheduled focus session.\n Shouldn\'t you be focusing?</b></string>
+
 
 </resources>

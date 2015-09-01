@@ -23,7 +23,7 @@ public class BaseActivity extends AppCompatActivity {
     @Bind(R.id.focus_logo)
     ImageView focus_logo;
 
-    private MenuItem inboxMenuItem;
+
 
     @Override
     public void setContentView(int layoutResID) {

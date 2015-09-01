@@ -5,10 +5,14 @@ import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+
+import android.support.v7.app.AppCompatActivity;
+
 import android.os.Handler;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 import android.support.v7.app.ActionBarActivity;
+
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,7 +25,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
-public class AppMonitor extends ActionBarActivity implements AppReceiver.Receiver {
+public class AppMonitor extends AppCompatActivity implements AppReceiver.Receiver {
 
     public static final int ID_FRIENDLY_NOTIFICATION = 1;
 
@@ -29,6 +33,7 @@ public class AppMonitor extends ActionBarActivity implements AppReceiver.Receive
     ListView app_list;
 
     DatabaseHelper databaseHelper;
+
 
     List<App> apps;
 
@@ -75,6 +80,7 @@ public class AppMonitor extends ActionBarActivity implements AppReceiver.Receive
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 Intent startService = new Intent(getApplicationContext(), AppService.class);
                 startService(startService);
 //                Intent intent = new Intent(getApplicationContext(), AppTracker.class);
@@ -84,6 +90,7 @@ public class AppMonitor extends ActionBarActivity implements AppReceiver.Receive
 //                intent.putExtra("end_hour", 14);
 //                intent.putExtra("end_minute", 57);
 //                startService(intent);
+
                 Toast.makeText(getApplicationContext(), "Monitoring Apps", Toast.LENGTH_LONG).show();
             }
         });

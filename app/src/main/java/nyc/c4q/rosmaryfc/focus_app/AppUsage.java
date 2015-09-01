@@ -2,13 +2,18 @@ package nyc.c4q.rosmaryfc.focus_app;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+
+import android.support.v7.app.AppCompatActivity;
+
+
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
-public class AppUsage extends ActionBarActivity {
+
+public class AppUsage extends AppCompatActivity {
+
 
     private Button go_to_monitor;
 
