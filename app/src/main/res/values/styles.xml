@@ -5,12 +5,11 @@
 
         <item name="colorPrimary">#673AB7</item>
         <item name="colorPrimaryDark">#512DA8</item>
-        
         <item name="colorAccent">#00BCD4</item>
         <item name="android:navigationBarColor">#673AB7</item>
-
-
     </style>
+
+    <!-- <item name="colorAccent">#02c754</item> -->
 
     <style name="ContextMenuButton">
         <item name="android:layout_width">match_parent</item>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="nyc.c4q.rosmaryfc.focus_app">
+    package="nyc.c4q.rosmaryfc.focus_app" >
 
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.READ_LOGS" />
@@ -13,30 +13,36 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:name=".MainActivity"
-            android:label="@string/app_name">
+            android:name=".ui.MainActivity"
+            android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
-            android:name=".FocusSessionActivity"
-            android:label="@string/title_activity_focus_session">
+            android:name=".ui.FocusSessionActivity"
+            android:label="@string/title_activity_focus_session" >
         </activity>
-
         <activity
             android:name=".AppMonitor"
             android:label="@string/title_activity_app_monitor" />
-
         <activity
             android:name=".AppUsage"
             android:label="@string/title_activity_app_usage" />
+        <activity
+            android:name=".ui.BlockSessionActivity"
+            android:label="@string/title_activity_block_session" >
+        </activity>
 
+        <receiver android:name=".BootReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
 
-        <service android:name=".AppTracker" />
+        <service android:name=".BlockService" />
         <service android:name=".AppService" />
 
     </application>

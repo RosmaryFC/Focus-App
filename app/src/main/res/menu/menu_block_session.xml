@@ -1,0 +1,26 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="nyc.c4q.rosmaryfc.focus_app.ui.BlockSessionActivity">
+
+    <item
+        android:id="@+id/action_add_BlockSession"
+        android:title="action_add_BlockSession"
+        android:icon="@android:drawable/ic_menu_add"
+        android:orderInCategory="100"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/action_del_BlockSession"
+        android:title="action_delete_BlockSession"
+        android:icon="@android:drawable/ic_delete"
+        android:orderInCategory="100"
+        app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/action_settings"
+        android:title="@string/action_settings"
+        android:orderInCategory="100"
+        app:showAsAction="always" />
+
+</menu>
