@@ -1,42 +1,30 @@
-package nyc.c4q.rosmaryfc.focus_app;
+package nyc.c4q.rosmaryfc.focus_app.ui;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.ListView;
-
-
 import java.util.ArrayList;
-
-import com.j256.ormlite.dao.Dao;
-
-import java.sql.SQLException;
-
 import java.util.List;
+import nyc.c4q.rosmaryfc.focus_app.App;
+import nyc.c4q.rosmaryfc.focus_app.BlockSessionFragment;
+import nyc.c4q.rosmaryfc.focus_app.DatabaseHelper;
+import nyc.c4q.rosmaryfc.focus_app.R;
+import nyc.c4q.rosmaryfc.focus_app.TestFragmentList;
 
-/**
- * TODO
- */
 public class MainActivity extends AppCompatActivity {
 
 
     private DrawerLayout mDrawerLayout;
-
-
 
     DatabaseHelper databaseHelper;
 
@@ -58,7 +46,10 @@ public class MainActivity extends AppCompatActivity {
 
 
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
-        if (viewPager != null) {
+
+        if(savedInstanceState != null){
+            return;
+        } else if (viewPager != null) {
             setupViewPager(viewPager);
         }
 
@@ -101,7 +92,8 @@ public class MainActivity extends AppCompatActivity {
     private void setupViewPager(ViewPager viewPager) {
         Adapter adapter = new Adapter(getSupportFragmentManager());
         adapter.addFragment(new TestFragmentList(), "App Monitor ");
-        adapter.addFragment(new BlockTimes(), "BlockTimes");
+        adapter.addFragment(new BlockSessionFragment(), "Block Sessions");
+//        adapter.addFragment(new BlockTimes(), "BlockTimes");
 //        adapter.addFragment(new TestFragmentList(), "TBD");
         viewPager.setAdapter(adapter);
 
@@ -137,5 +129,10 @@ public class MainActivity extends AppCompatActivity {
             return mFragmentTitles.get(position);
         }
     }
-}
+//
+//    public void addBlockSessionOnClick (View view) {
+//        Intent intent = new Intent (this, FocusSessionActivity.class );
+//        startActivity(intent);
+//    }
 
+}

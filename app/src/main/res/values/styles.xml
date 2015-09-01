@@ -6,9 +6,11 @@
     <style name="Base.Theme.DesignDemo" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">#673AB7</item>
         <item name="colorPrimaryDark">#512DA8</item>
-        <item name="colorAccent">#02c754</item>
+        <item name="colorAccent">#ff60dcdf</item>
         <item name="android:windowBackground">@color/window_background</item>
     </style>
+
+    <!-- <item name="colorAccent">#02c754</item> -->
 
     <style name="ContextMenuButton">
         <item name="android:layout_width">match_parent</item>
