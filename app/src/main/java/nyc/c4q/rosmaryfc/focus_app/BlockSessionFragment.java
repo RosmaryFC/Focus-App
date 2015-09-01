@@ -8,9 +8,11 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -31,6 +33,14 @@ public class BlockSessionFragment extends Fragment {
     View blockSessionView;
 
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        setHasOptionsMenu(true);
+
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -39,10 +49,35 @@ public class BlockSessionFragment extends Fragment {
 
         updateUI();
 
-        Button addBtn = (Button) blockSessionView.findViewById(R.id.btn_add);
-        addBtn.setOnClickListener(addBlockSessionListener);
+//        Button addBtn = (Button) blockSessionView.findViewById(R.id.btn_add);
+//        addBtn.setOnClickListener(addBlockSessionListener);
 
         return blockSessionView;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_block_session, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_add_BlockSession:
+
+                Intent intent = new Intent (blockSessionView.getContext(), FocusSessionActivity.class);
+                startActivity(intent);
+
+                break;
+            case R.id.action_del_BlockSession:
+                //
+                break;
+            case R.id.action_settings:
+                //
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     protected void updateUI (){
@@ -91,14 +126,14 @@ public class BlockSessionFragment extends Fragment {
 
     }
 
-        public View.OnClickListener addBlockSessionListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-
-            Intent intent = new Intent (blockSessionView.getContext(), FocusSessionActivity.class);
-            startActivity(intent);
-        }
-    };
+//        public View.OnClickListener addBlockSessionListener = new View.OnClickListener() {
+//        @Override
+//        public void onClick(View view) {
+//
+//            Intent intent = new Intent (blockSessionView.getContext(), FocusSessionActivity.class);
+//            startActivity(intent);
+//        }
+//    };
 
 
 
