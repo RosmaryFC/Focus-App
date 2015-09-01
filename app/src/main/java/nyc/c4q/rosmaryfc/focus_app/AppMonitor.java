@@ -1,18 +1,10 @@
 package nyc.c4q.rosmaryfc.focus_app;
 
-import android.app.Notification;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-
 import android.support.v7.app.AppCompatActivity;
-
-import android.os.Handler;
-import android.support.v4.app.NotificationCompat;
-import android.support.v4.app.NotificationManagerCompat;
-import android.support.v7.app.ActionBarActivity;
-
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,18 +17,16 @@ import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
+import nyc.c4q.rosmaryfc.focus_app.ui.MainActivity;
+
 public class AppMonitor extends AppCompatActivity {
 
-    public static final int ID_FRIENDLY_NOTIFICATION = 1;
-
-    Button save;
     ListView app_list;
+    Button save;
 
     DatabaseHelper databaseHelper;
 
     List<App> apps;
-
-    AppReceiver appReceiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,18 +66,9 @@ public class AppMonitor extends AppCompatActivity {
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                Intent startService = new Intent(getApplicationContext(), AppService.class);
-                startService(startService);
-//                Intent intent = new Intent(getApplicationContext(), AppTracker.class);
-//                intent.putExtra("receiver", appReceiver);
-//                intent.putExtra("start_hour", 12);
-//                intent.putExtra("start_minute", 55);
-//                intent.putExtra("end_hour", 14);
-//                intent.putExtra("end_minute", 57);
-//                startService(intent);
-
-                Toast.makeText(getApplicationContext(), "Monitoring Apps", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
+                Toast.makeText(getApplicationContext(), "Saved", Toast.LENGTH_LONG).show();
             }
         });
     }
