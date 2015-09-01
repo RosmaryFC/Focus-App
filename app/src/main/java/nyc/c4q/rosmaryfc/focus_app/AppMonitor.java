@@ -25,7 +25,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
-public class AppMonitor extends AppCompatActivity implements AppReceiver.Receiver {
+public class AppMonitor extends AppCompatActivity {
 
     public static final int ID_FRIENDLY_NOTIFICATION = 1;
 
@@ -33,7 +33,6 @@ public class AppMonitor extends AppCompatActivity implements AppReceiver.Receive
     ListView app_list;
 
     DatabaseHelper databaseHelper;
-
 
     List<App> apps;
 
@@ -74,9 +73,6 @@ public class AppMonitor extends AppCompatActivity implements AppReceiver.Receive
         AppAdapter adapter = new AppAdapter(this, apps);
         app_list.setAdapter(adapter);
 
-        appReceiver = new AppReceiver(new Handler());
-        appReceiver.setAppReceiver(this);
-
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -94,41 +90,6 @@ public class AppMonitor extends AppCompatActivity implements AppReceiver.Receive
                 Toast.makeText(getApplicationContext(), "Monitoring Apps", Toast.LENGTH_LONG).show();
             }
         });
-    }
-
-    @Override
-    public void onReceiveResult(int resultCode, Bundle resultData) {
-        if (resultData != null) {
-            switch (resultCode) {
-                case AppTracker.STATUS_FINISHED_PREFOCUS:
-                    NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext());
-                    builder.setSmallIcon(R.drawable.notification_template_icon_bg);
-                    builder.setContentTitle("Session Block Reminder");
-                    builder.setContentText("You're focus session will begin in 1 minute");
-                    Notification notification = builder.build();
-                    NotificationManagerCompat notificationManager = NotificationManagerCompat.from(getApplicationContext());
-                    notificationManager.notify(ID_FRIENDLY_NOTIFICATION, notification);
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            Toast.makeText(getApplicationContext(), "testing", Toast.LENGTH_LONG).show();
-                            final Intent showApp = new Intent(getApplicationContext(), AppUsage.class);
-                            showApp.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            startActivity(showApp);
-                        }
-                    }, 60000);
-                    break;
-                case AppTracker.STATUS_FINISHED_STARTFOCUS:
-                    boolean isInForeground = resultData.getBoolean("foreground");
-                    if (isInForeground) {
-                        Intent showApp = new Intent(getApplicationContext(), AppUsage.class);
-                        showApp.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        startActivity(showApp);
-                    } else {
-                        Toast.makeText(getApplicationContext(), "Good job focusing!", Toast.LENGTH_LONG).show();
-                    }
-            }
-        }
     }
 
     @Override
