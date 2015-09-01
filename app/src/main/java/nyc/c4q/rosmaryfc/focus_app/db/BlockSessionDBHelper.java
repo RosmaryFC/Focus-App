@@ -91,7 +91,7 @@ public class BlockSessionDBHelper extends SQLiteOpenHelper {
         List<BlockSession> blockSessionList = new ArrayList<BlockSession>();
 
         //selecting all query
-        String selectQuery = "SELECT * FROM BlockSessions ORDER BY id";// + BlockSessionContract.Columns.BLOCK_NAME;
+        String selectQuery = "SELECT * FROM BlockSessions ORDER BY " + BlockSessionContract.Columns.BLOCK_ID;// + BlockSessionContract.Columns.BLOCK_NAME;
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);

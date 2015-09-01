@@ -1,8 +1,6 @@
 package nyc.c4q.rosmaryfc.focus_app;
 
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -16,8 +14,8 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import java.util.ArrayList;
+import java.util.List;
 
-import nyc.c4q.rosmaryfc.focus_app.db.BlockSessionContract;
 import nyc.c4q.rosmaryfc.focus_app.db.BlockSessionDBHelper;
 import nyc.c4q.rosmaryfc.focus_app.ui.FocusSessionActivity;
 
@@ -29,6 +27,9 @@ public class BlockSessionFragment extends Fragment {
     private ArrayList<BlockSession> sessions = new ArrayList<BlockSession>();
     private BlockSessionAdapter adapter;
     private BlockSessionDBHelper helper;
+
+    ListView blockSessionsList;
+    private boolean deleteBtnIsEnabled;
 
     View blockSessionView;
 
@@ -71,7 +72,20 @@ public class BlockSessionFragment extends Fragment {
 
                 break;
             case R.id.action_del_BlockSession:
-                //
+                //TODO: get Delete button to work - when enabled set del btn to visible. keeps re-adding listview
+//                int counter = 0;
+//
+//                counter ++;
+//
+//                if(counter % 2 == 0){
+//                    deleteBtnIsEnabled = false;
+//                    updateUI();
+//
+//                } else {
+//                    deleteBtnIsEnabled = true;
+//                    updateUI();
+//                }
+
                 break;
             case R.id.action_settings:
                 //
@@ -82,49 +96,31 @@ public class BlockSessionFragment extends Fragment {
 
     protected void updateUI (){
 
-        String selectQuery = "SELECT * FROM " + BlockSessionContract.TABLE_BLOCK_SESSIONS;
+                BlockSessionDBHelper db = new BlockSessionDBHelper(blockSessionView.getContext());
 
-        helper = new BlockSessionDBHelper(blockSessionView.getContext());
-        SQLiteDatabase db = helper.getReadableDatabase();
+        //CRUD Operations
+        Log.d("BSActivity: ", "INSERTING...");
+        List<BlockSession> blockSessions = db.getAllBlockSessions();
 
-        Cursor cursor = db.rawQuery(selectQuery, null);
+        for(BlockSession bs : blockSessions){
+            String log = "ID: " + bs.getId() + " , Name: " + bs.getName() + ", Date: " + bs.getDate()
+                    + ", StartTime: " + bs.getStartTime() + " , EndTime: " + bs.getEndTime()
+                    + ", Notes: " + bs.getNotes();
 
-        //looping through all rows and adding to the list
-        if(cursor.moveToFirst()){
-            do{
-                BlockSession blockSession = new BlockSession();
-                blockSession.setName(cursor.getString(1));
-                blockSession.setDate(cursor.getString(2));
-                blockSession.setStartTime(cursor.getString(3));
-                blockSession.setEndTime(cursor.getString(4));
-                blockSession.setNotes(cursor.getString(5));
-
-                String log = "ID: " + blockSession.getId() + " , Name: " + blockSession.getName() + ", Date: " + blockSession.getDate()
-                        + ", StartTime: " + blockSession.getStartTime() + " , EndTime: " + blockSession.getEndTime()
-                        + ", Notes: " + blockSession.getNotes();
-
-                Log.d("BLOCK ACTIVITY result: ", log);
-
-                sessions.add(blockSession);
-
-            }while(cursor.moveToNext());
-        }
-        db.close();
-
-        for (int i = 0; i < sessions.size(); i++) {
-
-            String log = "ID: " + sessions.get(i).getId() + " , Name: " + sessions.get(i).getName() + ", Date: " + sessions.get(i).getDate()
-                    + ", StartTime: " + sessions.get(i).getStartTime() + " , EndTime: " + sessions.get(i).getEndTime()
-                    + ", Notes: " + sessions.get(i).getNotes();
-
-            Log.d("SESSIONS DATA: ", i + log);
+            Log.d("Result: ", log);
+            sessions.add(bs); //adding contacts data into array list
         }
 
-        adapter = new BlockSessionAdapter(blockSessionView.getContext(), R.layout.block_session_list, sessions);
-        ListView blockSessionsList = (ListView) blockSessionView.findViewById(R.id.list_block_times);
+        adapter = new BlockSessionAdapter(blockSessionView.getContext(), R.layout.block_session_list, sessions, deleteBtnIsEnabled);
+        blockSessionsList = (ListView) blockSessionView.findViewById(R.id.list_block_times);
         blockSessionsList.setAdapter(adapter);
 
     }
+
+//    public boolean deleteIsEnabled (View view){
+//        View v = (View) view.getParent();
+//
+//    }
 
 //        public View.OnClickListener addBlockSessionListener = new View.OnClickListener() {
 //        @Override
