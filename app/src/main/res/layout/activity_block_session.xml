@@ -7,7 +7,7 @@
     tools:context="nyc.c4q.rosmaryfc.focus_app.ui.BlockSessionActivity">
 
     <LinearLayout
-        android:background="#ff68abfa"
+        android:background="@color/style_color_accent"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="50dp">
@@ -15,7 +15,6 @@
         <Button
             android:id="@+id/btn_add"
             android:text="Add"
-            android:onClick="addBlockSessionOnClick"
             android:layout_width="wrap_content"
             android:layout_height="match_parent" />
 

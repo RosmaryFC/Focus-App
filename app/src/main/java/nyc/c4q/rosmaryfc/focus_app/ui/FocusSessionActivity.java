@@ -219,7 +219,7 @@ public class FocusSessionActivity extends AppCompatActivity {
 
         getData();
 
-        Intent intent = new Intent (this, BlockSessionActivity.class);
+        Intent intent = new Intent (this, MainActivity.class);
         startActivity(intent);
 
     }
