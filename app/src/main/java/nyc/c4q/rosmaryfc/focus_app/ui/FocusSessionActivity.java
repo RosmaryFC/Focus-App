@@ -7,12 +7,11 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.InputType;
 import android.util.Log;
 import android.view.View;
-import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.RadioButton;
 import android.widget.TimePicker;
 
 import java.util.Calendar;
@@ -42,9 +41,18 @@ public class FocusSessionActivity extends AppCompatActivity {
 
         initializeViews();
 
+        startTimeET.setInputType(InputType.TYPE_NULL);
         startTimeET.setOnClickListener(startTimeListener);
+
+        endTimeET.setInputType(InputType.TYPE_NULL);
         endTimeET.setOnClickListener(endTimeListener);
+
+        dateET.setInputType(InputType.TYPE_NULL);
         dateET.setOnClickListener(dateListener);
+
+//        startTimeET.setOnTouchListener(startTimeListener);
+//        endTimeET.setOnTouchListener(endTimeListener);
+//        dateET.setOnTouchListener(dateListener);
 
     }
 
@@ -56,91 +64,91 @@ public class FocusSessionActivity extends AppCompatActivity {
         notesET = (EditText) findViewById(R.id.notes_et);
     }
 
-    //todo: will not be used to demo MVP, use will choose between setting date or setting weekdays
-    public void onCheckboxClicked(View view) {
-        //is this view now checked?
-        boolean checked = ((CheckBox) view).isChecked();
-
-        //check when checkbox is clicked
-        switch(view.getId()){
-            case R.id.checkbox_sunday:
-                if(checked){
-                    //checked stuff
-                }
-                else{
-                    //unchecked stuff
-                }
-                break;
-            case R.id.checkbox_monday:
-                if(checked){
-                    //checked stuff
-                }
-                else{
-                    //unchecked stuff
-                }
-                break;
-            case R.id.checkbox_tuesday:
-                if(checked){
-                    //checked stuff
-                }
-                else{
-                    //unchecked stuff
-                }
-                break;
-            case R.id.checkbox_wednesday:
-                if(checked){
-                    //checked stuff
-                }
-                else{
-                    //unchecked stuff
-                }
-                break;
-            case R.id.checkbox_thursday:
-                if(checked){
-                    //checked stuff
-                }
-                else{
-                    //unchecked stuff
-                }
-                break;
-            case R.id.checkbox_friday:
-                if(checked){
-                    //checked stuff
-                }
-                else{
-                    //unchecked stuff
-                }
-                break;
-            case R.id.checkbox_saturday:
-                if(checked){
-                    //checked stuff
-                }
-                else{
-                    //unchecked stuff
-                }
-                break;
-        }
-    }
-
-    //todo: will not be used to demo MVP, option whether to set notification reminder or not. can also be toast
-    public void onRadioButtonClicked(View view){
-        //is the button now checked?
-        boolean checked = ((RadioButton) view).isChecked();
-
-        //check which radio button was clicked
-        switch (view.getId()){
-            case R.id.enable_radBtn:
-                if(checked){
-
-                }
-                break;
-            case R.id.disable_radBtn:
-                if(checked) {
-
-                }
-                break;
-        }
-    }
+//    //todo: will not be used to demo MVP, use will choose between setting date or setting weekdays
+//    public void onCheckboxClicked(View view) {
+//        //is this view now checked?
+//        boolean checked = ((CheckBox) view).isChecked();
+//
+//        //check when checkbox is clicked
+//        switch(view.getId()){
+//            case R.id.checkbox_sunday:
+//                if(checked){
+//                    //checked stuff
+//                }
+//                else{
+//                    //unchecked stuff
+//                }
+//                break;
+//            case R.id.checkbox_monday:
+//                if(checked){
+//                    //checked stuff
+//                }
+//                else{
+//                    //unchecked stuff
+//                }
+//                break;
+//            case R.id.checkbox_tuesday:
+//                if(checked){
+//                    //checked stuff
+//                }
+//                else{
+//                    //unchecked stuff
+//                }
+//                break;
+//            case R.id.checkbox_wednesday:
+//                if(checked){
+//                    //checked stuff
+//                }
+//                else{
+//                    //unchecked stuff
+//                }
+//                break;
+//            case R.id.checkbox_thursday:
+//                if(checked){
+//                    //checked stuff
+//                }
+//                else{
+//                    //unchecked stuff
+//                }
+//                break;
+//            case R.id.checkbox_friday:
+//                if(checked){
+//                    //checked stuff
+//                }
+//                else{
+//                    //unchecked stuff
+//                }
+//                break;
+//            case R.id.checkbox_saturday:
+//                if(checked){
+//                    //checked stuff
+//                }
+//                else{
+//                    //unchecked stuff
+//                }
+//                break;
+//        }
+//    }
+//
+//    //todo: will not be used to demo MVP, option whether to set notification reminder or not. can also be toast
+//    public void onRadioButtonClicked(View view){
+//        //is the button now checked?
+//        boolean checked = ((RadioButton) view).isChecked();
+//
+//        //check which radio button was clicked
+//        switch (view.getId()){
+//            case R.id.enable_radBtn:
+//                if(checked){
+//
+//                }
+//                break;
+//            case R.id.disable_radBtn:
+//                if(checked) {
+//
+//                }
+//                break;
+//        }
+//    }
 
     public View.OnClickListener startTimeListener = new View.OnClickListener() {
         @Override
@@ -197,15 +205,112 @@ public class FocusSessionActivity extends AppCompatActivity {
                 @Override
                 public void onDateSet(DatePicker datePicker, int selectedYear, int selectedMonth, int selectedDay) {
                     // TODO Auto-generated method stub
-                    /*      Your code   to get date and time    */
+                    /*  get date and time */
                     selectedMonth = selectedMonth + 1;
-                    dateET.setText(selectedDay + "/" + selectedMonth + "/" + selectedYear);
+                    dateET.setText(selectedMonth + "/" + selectedDay + "/" + selectedYear);
                 }
             }, mYear, mMonth, mDay);
             mDatePicker.setTitle("Select Date");
             mDatePicker.show();
         }
     };
+
+//    public View.OnTouchListener startTimeListener = new View.OnTouchListener() {
+//        @Override
+//        public boolean onTouch(View view, MotionEvent motionEvent) {
+//            // TODO Auto-generated method stub
+//            Calendar mcurrentTime = Calendar.getInstance();
+//            int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
+//            int minute = mcurrentTime.get(Calendar.MINUTE);
+//
+//            TimePickerDialog mTimePicker;
+//            mTimePicker = new TimePickerDialog(FocusSessionActivity.this, new TimePickerDialog.OnTimeSetListener() {
+//                @Override
+//                public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+//                    startTimeET.setText( selectedHour + ":" + selectedMinute);
+//                }
+//            }, hour, minute, true);
+//            mTimePicker.setTitle("Select Time");
+//            mTimePicker.show();
+//            return true;
+//        }
+//    };
+//
+//    public View.OnTouchListener endTimeListener = new View.OnTouchListener() {
+//        @Override
+//        public boolean onTouch(View view, MotionEvent motionEvent) {
+//
+//            // TODO Auto-generated method stub
+//            //To show current date in the datepicker
+//            Calendar mcurrentDate = Calendar.getInstance();
+//            int mYear = mcurrentDate.get(Calendar.YEAR);
+//            int mMonth = mcurrentDate.get(Calendar.MONTH);
+//            int mDay = mcurrentDate.get(Calendar.DAY_OF_MONTH);
+//
+//            DatePickerDialog mDatePicker;
+//            mDatePicker = new DatePickerDialog(FocusSessionActivity.this, new DatePickerDialog.OnDateSetListener() {
+//                @Override
+//                public void onDateSet(DatePicker datePicker, int selectedYear, int selectedMonth, int selectedDay) {
+//                    // TODO Auto-generated method stub
+//                    /*  get date and time */
+//                    selectedMonth = selectedMonth + 1;
+//                    dateET.setText(selectedMonth + "/" + selectedDay + "/" + selectedYear);
+//                }
+//            }, mYear, mMonth, mDay);
+//            mDatePicker.setTitle("Select Date");
+//            mDatePicker.show();
+//            return true;
+//        }
+//    };
+//
+//    public View.OnTouchListener dateListener = new View.OnTouchListener() {
+//        @Override
+//        public boolean onTouch(View view, MotionEvent motionEvent) {
+//
+//            // TODO Auto-generated method stub
+//            //To show current date in the datepicker
+//            Calendar mcurrentDate = Calendar.getInstance();
+//            int mYear = mcurrentDate.get(Calendar.YEAR);
+//            int mMonth = mcurrentDate.get(Calendar.MONTH);
+//            int mDay = mcurrentDate.get(Calendar.DAY_OF_MONTH);
+//
+//            DatePickerDialog mDatePicker;
+//            mDatePicker = new DatePickerDialog(FocusSessionActivity.this, new DatePickerDialog.OnDateSetListener() {
+//                @Override
+//                public void onDateSet(DatePicker datePicker, int selectedYear, int selectedMonth, int selectedDay) {
+//                    // TODO Auto-generated method stub
+//                    /*  get date and time */
+//                    selectedMonth = selectedMonth + 1;
+//                    dateET.setText(selectedMonth + "/" + selectedDay + "/" + selectedYear);
+//                }
+//            }, mYear, mMonth, mDay);
+//            mDatePicker.setTitle("Select Date");
+//            mDatePicker.show();
+//            return true;
+//        }
+//    };
+
+//    public View.OnFocusChangeListener startTimeListener = new View.OnFocusChangeListener() {
+//        @Override
+//        public void onFocusChange(View view, boolean b) {
+//
+//        }
+//    };
+//
+//    public View.OnFocusChangeListener endTimeListener = new View.OnFocusChangeListener() {
+//        @Override
+//        public void onFocusChange(View view, boolean b) {
+//
+//        }
+//    };
+//
+//    public View.OnFocusChangeListener dateListener = new View.OnFocusChangeListener() {
+//        @Override
+//        public void onFocusChange(View view, boolean b) {
+//
+//        }
+//    };
+
 
     public void saveOnClick (View view){
         String name = nameET.getText().toString();
