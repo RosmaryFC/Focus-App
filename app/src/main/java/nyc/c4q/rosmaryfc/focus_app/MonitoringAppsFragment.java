@@ -83,11 +83,9 @@ public class MonitoringAppsFragment extends Fragment {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_add_app:
-
+            case R.id.action_edit_app:
                 Intent intent = new Intent (mContext, AppMonitor.class);
                 startActivity(intent);
-
                 break;
             case R.id.action_settings:
                 //
