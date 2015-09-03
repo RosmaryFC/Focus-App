@@ -15,15 +15,8 @@
         <!--android:layout_height="30sp"-->
         <!--android:src="@drawable/ic_menu_white"-->
         <!--android:id="@+id/menu_icon"/>-->
-    <ImageView
-        android:id="@+id/focus_logo"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:scaleType="centerInside"
-        android:src="@drawable/focus_logo"
 
-        />
+
 
 
 </android.support.v7.widget.Toolbar>

@@ -11,24 +11,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/message"
-        android:textSize="24sp"
+        android:textSize="30sp"
         android:fontFamily="Roboto"
+        android:textAlignment="center"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="20dp"
+        android:paddingTop="20dp"
         android:textColor="#FFFFFF"
         android:id="@+id/message_popup"
-        android:layout_above="@+id/go_to_monitor"
+
+        android:layout_marginTop="84dp"
+        android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"/>
-
-    <Button
-        android:id="@+id/go_to_monitor"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:text="App Monitor"
-        android:textSize="12sp"
-        android:textColor="#FFFFFF"
-        android:background="@drawable/btn_send_comment"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"/>
 
 </RelativeLayout>

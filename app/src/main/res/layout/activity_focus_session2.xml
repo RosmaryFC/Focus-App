@@ -227,7 +227,7 @@
             android:id="@+id/save_btn"
             android:text="Save"
             android:textColor="#FFFFFF"
-            android:background="@drawable/btn_send_comment"
+            android:background="@drawable/btn_save"
             android:layout_gravity="center"
             android:onClick="saveOnClick"
             android:layout_weight="1"

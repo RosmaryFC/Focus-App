@@ -16,7 +16,7 @@
 
     <string name="title_activity_block_session">BlockSessionActivity</string>
 
-    <string name="message"><b> It\'s your scheduled focus session.\n Shouldn\'t you be focusing?</b></string>
+    <string name="message"><b> Your Block-On session has started.\n Shouldn\'t you be focusing now?</b></string>
 
 
 </resources>

@@ -10,6 +10,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
+              android:padding="10dp"
     android:layout_height="125dp">
 
     <TextView
@@ -17,8 +18,7 @@
         android:text="Block Name: "
         android:textStyle="bold"
         android:textSize="20sp"
-        android:background="#ff60dcdf"
-        android:gravity="center"
+        android:background="#99000000"
         android:layout_weight="2"
         android:layout_width="match_parent"
         android:layout_height="0dp" />
