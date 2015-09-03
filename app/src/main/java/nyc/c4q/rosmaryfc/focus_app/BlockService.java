@@ -14,6 +14,8 @@ import java.util.Calendar;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import nyc.c4q.rosmaryfc.focus_app.db.BlockSessionDBHelper;
+
 public class BlockService extends Service {
 
     public static final int ID_FRIENDLY_NOTIFICATION = 1;
@@ -61,11 +63,13 @@ public class BlockService extends Service {
         Calendar currentCalendar = Calendar.getInstance();
         currentTime = currentCalendar.getTimeInMillis();
 
+        getUpcomingBSInfo();
+
         //query next block session from db and set time values
-        startHour = 17;
-        startMinute = 24;
-        endHour = 17;
-        endMinute = 59;
+//        startHour = 17;
+//        startMinute = 24;
+//        endHour = 17;
+//        endMinute = 59;
 
         Calendar startCalendar = Calendar.getInstance();
         startCalendar.set(Calendar.HOUR_OF_DAY, startHour);
@@ -96,4 +100,24 @@ public class BlockService extends Service {
 
         }
     }
+
+
+    public void getUpcomingBSInfo () {
+
+        BlockSessionDBHelper db = new BlockSessionDBHelper(this);
+
+        BlockSession nextBlockSession = db.upcomingBlockSession();
+
+        String BSStartTimeInfo = nextBlockSession.getStartTime();
+        String[] startTimeArr = BSStartTimeInfo.split("\\:");
+        startHour = Integer.parseInt(startTimeArr[0]);
+        startMinute = Integer.parseInt(startTimeArr[1]);
+
+        String BSEndTimeInfo = nextBlockSession.getEndTime();
+        String[] endTimeArr = BSEndTimeInfo.split("\\:");
+        endHour = Integer.parseInt(endTimeArr[0]);
+        endMinute = Integer.parseInt(endTimeArr[1]);
+    }
+
+
 }
