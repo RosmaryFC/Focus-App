@@ -207,7 +207,7 @@ public class FocusSessionActivity extends AppCompatActivity {
                     // TODO Auto-generated method stub
                     /*  get date and time */
                     selectedMonth = selectedMonth + 1;
-                    dateET.setText(selectedMonth + "/" + selectedDay + "/" + selectedYear);
+                    dateET.setText(selectedYear + "/" + selectedMonth + "/" + selectedDay);
                 }
             }, mYear, mMonth, mDay);
             mDatePicker.setTitle("Select Date");

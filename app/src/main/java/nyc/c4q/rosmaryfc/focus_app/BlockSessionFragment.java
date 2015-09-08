@@ -1,8 +1,6 @@
 package nyc.c4q.rosmaryfc.focus_app;
 
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -16,8 +14,8 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import java.util.ArrayList;
+import java.util.List;
 
-import nyc.c4q.rosmaryfc.focus_app.db.BlockSessionContract;
 import nyc.c4q.rosmaryfc.focus_app.db.BlockSessionDBHelper;
 import nyc.c4q.rosmaryfc.focus_app.ui.FocusSessionActivity;
 
@@ -29,6 +27,10 @@ public class BlockSessionFragment extends Fragment {
     private ArrayList<BlockSession> sessions = new ArrayList<BlockSession>();
     private BlockSessionAdapter adapter;
     private BlockSessionDBHelper helper;
+
+    ListView blockSessionsList;
+    private boolean deleteBtnIsEnabled;
+
 
     View blockSessionView;
 
@@ -49,9 +51,6 @@ public class BlockSessionFragment extends Fragment {
 
         updateUI();
 
-//        Button addBtn = (Button) blockSessionView.findViewById(R.id.btn_add);
-//        addBtn.setOnClickListener(addBlockSessionListener);
-
         return blockSessionView;
     }
 
@@ -66,12 +65,25 @@ public class BlockSessionFragment extends Fragment {
         switch (item.getItemId()) {
             case R.id.action_add_BlockSession:
 
-                Intent intent = new Intent (blockSessionView.getContext(), FocusSessionActivity.class);
+                Intent intent = new Intent(blockSessionView.getContext(), FocusSessionActivity.class);
                 startActivity(intent);
 
                 break;
             case R.id.action_del_BlockSession:
-                //
+                //TODO: get Delete button to work - when enabled set del btn to visible. keeps re-adding listview
+//                int counter = 0;
+//
+//                counter ++;
+//
+//                if(counter % 2 == 0){
+//                    deleteBtnIsEnabled = false;
+//                    updateUI();
+//
+//                } else {
+//                    deleteBtnIsEnabled = true;
+//                    updateUI();
+//                }
+
                 break;
             case R.id.action_settings:
                 //
@@ -80,61 +92,35 @@ public class BlockSessionFragment extends Fragment {
         return super.onOptionsItemSelected(item);
     }
 
-    protected void updateUI (){
+    protected void updateUI() {
 
-        String selectQuery = "SELECT * FROM " + BlockSessionContract.TABLE_BLOCK_SESSIONS;
+        BlockSessionDBHelper db = new BlockSessionDBHelper(blockSessionView.getContext());
 
-        helper = new BlockSessionDBHelper(blockSessionView.getContext());
-        SQLiteDatabase db = helper.getReadableDatabase();
+        //CRUD Operations
+        Log.d("BSActivity: ", "INSERTING...");
+        List<BlockSession> blockSessions = db.getAllBlockSessions();
 
-        Cursor cursor = db.rawQuery(selectQuery, null);
+//        if(blockSessions.isEmpty()){
+//            db.addBlockSession(new BlockSession("Test three added first", "2015/09/8", "12:30", "12:45", "no notes"));
+//            db.addBlockSession(new BlockSession("Test four added second", "2015/09/8", "12:15", "12:35", "no notes"));
+//            db.addBlockSession(new BlockSession("Test one added third", "2015/09/8", "12:00", "12:10", "no notes"));
+//            db.addBlockSession(new BlockSession("Test two added fourth", "2015/09/8", "12:15", "12:25", "no notes"));
+//        }
 
-        //looping through all rows and adding to the list
-        if(cursor.moveToFirst()){
-            do{
-                BlockSession blockSession = new BlockSession();
-                blockSession.setName(cursor.getString(1));
-                blockSession.setDate(cursor.getString(2));
-                blockSession.setStartTime(cursor.getString(3));
-                blockSession.setEndTime(cursor.getString(4));
-                blockSession.setNotes(cursor.getString(5));
 
-                String log = "ID: " + blockSession.getId() + " , Name: " + blockSession.getName() + ", Date: " + blockSession.getDate()
-                        + ", StartTime: " + blockSession.getStartTime() + " , EndTime: " + blockSession.getEndTime()
-                        + ", Notes: " + blockSession.getNotes();
+        for (BlockSession bs : blockSessions) {
+            String log = "ID: " + bs.getId() + " , Name: " + bs.getName() + ", Date: " + bs.getDate()
+                    + ", StartTime: " + bs.getStartTime() + " , EndTime: " + bs.getEndTime()
+                    + ", Notes: " + bs.getNotes();
 
-                Log.d("BLOCK ACTIVITY result: ", log);
-
-                sessions.add(blockSession);
-
-            }while(cursor.moveToNext());
-        }
-        db.close();
-
-        for (int i = 0; i < sessions.size(); i++) {
-
-            String log = "ID: " + sessions.get(i).getId() + " , Name: " + sessions.get(i).getName() + ", Date: " + sessions.get(i).getDate()
-                    + ", StartTime: " + sessions.get(i).getStartTime() + " , EndTime: " + sessions.get(i).getEndTime()
-                    + ", Notes: " + sessions.get(i).getNotes();
-
-            Log.d("SESSIONS DATA: ", i + log);
+            Log.d("Result: ", log);
+            sessions.add(bs); //adding contacts data into array list
         }
 
-        adapter = new BlockSessionAdapter(blockSessionView.getContext(), R.layout.block_session_list, sessions);
-        ListView blockSessionsList = (ListView) blockSessionView.findViewById(R.id.list_block_times);
+        adapter = new BlockSessionAdapter(blockSessionView.getContext(), R.layout.block_session_list, sessions, deleteBtnIsEnabled);
+        blockSessionsList = (ListView) blockSessionView.findViewById(R.id.list_block_times);
         blockSessionsList.setAdapter(adapter);
 
     }
-
-//        public View.OnClickListener addBlockSessionListener = new View.OnClickListener() {
-//        @Override
-//        public void onClick(View view) {
-//
-//            Intent intent = new Intent (blockSessionView.getContext(), FocusSessionActivity.class);
-//            startActivity(intent);
-//        }
-//    };
-
-
 
 }

@@ -19,12 +19,14 @@ public class BlockSessionAdapter extends ArrayAdapter <BlockSession> {
     Context context;
     int layoutResourceId;
     ArrayList <BlockSession> data;
+    boolean deleteIsEnabled;
 
-    public BlockSessionAdapter(Context context, int layoutResourceId, ArrayList<BlockSession> data) {
+    public BlockSessionAdapter(Context context, int layoutResourceId, ArrayList<BlockSession> data, boolean deleteIsEnabled) {
         super(context, layoutResourceId, data);
         this.context = context;
         this.layoutResourceId = layoutResourceId;
         this.data = data;
+        this.deleteIsEnabled = deleteIsEnabled;
     }
 
     @Override
@@ -51,6 +53,14 @@ public class BlockSessionAdapter extends ArrayAdapter <BlockSession> {
             holder.mStartTime = (TextView) row.findViewById(R.id.txt_start_time);
             holder.mEndTime = (TextView) row.findViewById(R.id.txt_end_time);
             holder.mNotes = (TextView) row.findViewById(R.id.txt_notes);
+//            holder.mDelete = (ImageButton) row.findViewById(R.id.btn_delete);
+
+//            if(deleteIsEnabled) {
+//                holder.mDelete.setVisibility(View.VISIBLE);
+//            }else {
+//                holder.mDelete.setVisibility(View.INVISIBLE);
+//            }
+
             row.setTag(holder);
         } else {
             holder = (BlockHolder) row.getTag();
@@ -78,5 +88,6 @@ public class BlockSessionAdapter extends ArrayAdapter <BlockSession> {
         TextView mEndTime;
         TextView mDate;
         TextView mNotes;
+        //ImageButton mDelete;
     }
 }
