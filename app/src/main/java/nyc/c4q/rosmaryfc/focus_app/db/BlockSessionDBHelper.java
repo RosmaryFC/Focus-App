@@ -86,6 +86,7 @@ public class BlockSessionDBHelper extends SQLiteOpenHelper {
         return blockSession;
     }
 
+    //todo: possibly order by date and start time and end time here and remove other method
     //get All Block Sessions
     public List<BlockSession> getAllBlockSessions(){
         List<BlockSession> blockSessionList = new ArrayList<BlockSession>();
@@ -158,74 +159,63 @@ public class BlockSessionDBHelper extends SQLiteOpenHelper {
     }
 
    // get next BlockSession
-    public BlockSession upcomingBlockSession (){
-        BlockSession bs = new BlockSession();
+    public List<BlockSession> orderedBlockSessions (){
+        List <BlockSession> blockSessionList = new ArrayList<>();
 
-        //selecting all query
-        String selectQuery = "SELECT * FROM BlockSessions ORDER BY " + BlockSessionContract.Columns.BLOCK_DATE;// + ", " + BlockSessionContract.Columns.BLOCK_START_TIME;
+        //created query by ordered dates and ordered start times and ordered end times
+        String selectQuery = "SELECT * FROM BlockSessions ORDER BY " + BlockSessionContract.Columns.BLOCK_DATE + ", " + BlockSessionContract.Columns.BLOCK_START_TIME + ", " + BlockSessionContract.Columns.BLOCK_END_TIME;
 
         Log.d("UPCOMING BS: ", selectQuery);
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
 
-        if(cursor != null) {
-            if(cursor.moveToFirst()){
-                bs.setName(cursor.getString(1));
-                bs.setDate(cursor.getString(2));
-                bs.setStartTime(cursor.getString(3));
-                bs.setEndTime(cursor.getString(4));
-                bs.setNotes(cursor.getString(5));
-            }
+        //looping through all rows and adding to the list
+        if(cursor.moveToFirst()){
+            do{
+                BlockSession blockSession = new BlockSession();
+                blockSession.setName(cursor.getString(1));
+                blockSession.setDate(cursor.getString(2));
+                blockSession.setStartTime(cursor.getString(3));
+                blockSession.setEndTime(cursor.getString(4));
+                blockSession.setNotes(cursor.getString(5));
+
+                String log = "ID: " + blockSession.getId() + " , Name: " + blockSession.getName() + ", Date: " + blockSession.getDate()
+                        + ", StartTime: " + blockSession.getStartTime() + " , EndTime: " + blockSession.getEndTime()
+                        + ", Notes: " + blockSession.getNotes();
+
+                Log.d("DBHELPER result: ", log );
+
+                //add block session to list
+                blockSessionList.add(blockSession);
+            }while(cursor.moveToNext());
         }
-
-        String log = "ID: " + bs.getId() + " , Name: " + bs.getName() + ", Date: " + bs.getDate()
-                + ", StartTime: " + bs.getStartTime() + " , EndTime: " + bs.getEndTime()
-                + ", Notes: " + bs.getNotes();
-
-        Log.d("Result: ", log);
-
-        cursor.close();
         db.close();
 
-        return bs;
+        return blockSessionList;
 
-//        BlockSessionContract.TABLE_BLOCK_SESSIONS,
-//                new String []{BlockSessionContract.Columns.BLOCK_ID,
-//                        BlockSessionContract.Columns.BLOCK_NAME,
-//                        BlockSessionContract.Columns.BLOCK_DATE,
-//                        BlockSessionContract.Columns.BLOCK_START_TIME,
-//                        BlockSessionContract.Columns.BLOCK_END_TIME,
-//                        BlockSessionContract.Columns.BLOCK_NOTES},
-//                BlockSessionContract.Columns.BLOCK_ID + " = ? ", new String[] {String.valueOf(id)}, null, null, null, null);
-//        if (cursor != null) {
-//            cursor.moveToFirst();
-//        }
-//
-//        BlockSession blockSession = new BlockSession( cursor.getString(1), cursor.getString(2),cursor.getString(3), cursor.getString(4), cursor.getString(5));
-//
-//        cursor.close();
-//
-//        return blockSession;
-//
-//
-//        if (cursor != null) {
-//            cursor.moveToFirst();
-//        }
+//        if(cursor != null) {
+//            if(cursor.moveToFirst()){
 //                bs.setName(cursor.getString(1));
 //                bs.setDate(cursor.getString(2));
 //                bs.setStartTime(cursor.getString(3));
 //                bs.setEndTime(cursor.getString(4));
 //                bs.setNotes(cursor.getString(5));
+//            }
 //
-//                String log = "ID: " + bs.getId() + " , Name: " + bs.getName() + ", Date: " + bs.getDate()
-//                        + ", StartTime: " + bs.getStartTime() + " , EndTime: " + bs.getEndTime()
-//                        + ", Notes: " + bs.getNotes();
+//        }
 //
-//                Log.d("DB NEXT BS result: ", log);
+//        String log = "ID: " + bs.getId() + " , Name: " + bs.getName() + ", Date: " + bs.getDate()
+//                + ", StartTime: " + bs.getStartTime() + " , EndTime: " + bs.getEndTime()
+//                + ", Notes: " + bs.getNotes();
 //
+//        Log.d("DBHELPER UPCOMING BS: ", log);
+//
+//        cursor.close();
 //        db.close();
 //
 //        return bs;
     }
+
+
 }

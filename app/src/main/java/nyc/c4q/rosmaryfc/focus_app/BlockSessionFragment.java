@@ -31,6 +31,7 @@ public class BlockSessionFragment extends Fragment {
     ListView blockSessionsList;
     private boolean deleteBtnIsEnabled;
 
+
     View blockSessionView;
 
 
@@ -50,9 +51,6 @@ public class BlockSessionFragment extends Fragment {
 
         updateUI();
 
-//        Button addBtn = (Button) blockSessionView.findViewById(R.id.btn_add);
-//        addBtn.setOnClickListener(addBlockSessionListener);
-
         return blockSessionView;
     }
 
@@ -67,7 +65,7 @@ public class BlockSessionFragment extends Fragment {
         switch (item.getItemId()) {
             case R.id.action_add_BlockSession:
 
-                Intent intent = new Intent (blockSessionView.getContext(), FocusSessionActivity.class);
+                Intent intent = new Intent(blockSessionView.getContext(), FocusSessionActivity.class);
                 startActivity(intent);
 
                 break;
@@ -94,15 +92,23 @@ public class BlockSessionFragment extends Fragment {
         return super.onOptionsItemSelected(item);
     }
 
-    protected void updateUI (){
+    protected void updateUI() {
 
-                BlockSessionDBHelper db = new BlockSessionDBHelper(blockSessionView.getContext());
+        BlockSessionDBHelper db = new BlockSessionDBHelper(blockSessionView.getContext());
 
         //CRUD Operations
         Log.d("BSActivity: ", "INSERTING...");
         List<BlockSession> blockSessions = db.getAllBlockSessions();
 
-        for(BlockSession bs : blockSessions){
+//        if(blockSessions.isEmpty()){
+//            db.addBlockSession(new BlockSession("Test three added first", "2015/09/8", "12:30", "12:45", "no notes"));
+//            db.addBlockSession(new BlockSession("Test four added second", "2015/09/8", "12:15", "12:35", "no notes"));
+//            db.addBlockSession(new BlockSession("Test one added third", "2015/09/8", "12:00", "12:10", "no notes"));
+//            db.addBlockSession(new BlockSession("Test two added fourth", "2015/09/8", "12:15", "12:25", "no notes"));
+//        }
+
+
+        for (BlockSession bs : blockSessions) {
             String log = "ID: " + bs.getId() + " , Name: " + bs.getName() + ", Date: " + bs.getDate()
                     + ", StartTime: " + bs.getStartTime() + " , EndTime: " + bs.getEndTime()
                     + ", Notes: " + bs.getNotes();
@@ -116,21 +122,5 @@ public class BlockSessionFragment extends Fragment {
         blockSessionsList.setAdapter(adapter);
 
     }
-
-//    public boolean deleteIsEnabled (View view){
-//        View v = (View) view.getParent();
-//
-//    }
-
-//        public View.OnClickListener addBlockSessionListener = new View.OnClickListener() {
-//        @Override
-//        public void onClick(View view) {
-//
-//            Intent intent = new Intent (blockSessionView.getContext(), FocusSessionActivity.class);
-//            startActivity(intent);
-//        }
-//    };
-
-
 
 }

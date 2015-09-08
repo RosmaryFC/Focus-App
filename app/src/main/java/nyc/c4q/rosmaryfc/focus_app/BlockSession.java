@@ -11,7 +11,9 @@ public class BlockSession {
     String endTime;
     String date;
     String notes;
+
     String [] weekdays;
+    boolean isEnabled;
 
     public BlockSession(){
 
