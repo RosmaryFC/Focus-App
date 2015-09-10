@@ -1,18 +1,13 @@
 package nyc.c4q.rosmaryfc.focus_app.ui;
 
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.widget.ListView;
 
 import java.util.ArrayList;
 
 import nyc.c4q.rosmaryfc.focus_app.BlockSession;
 import nyc.c4q.rosmaryfc.focus_app.BlockSessionAdapter;
 import nyc.c4q.rosmaryfc.focus_app.R;
-import nyc.c4q.rosmaryfc.focus_app.db.BlockSessionContract;
 import nyc.c4q.rosmaryfc.focus_app.db.BlockSessionDBHelper;
 
 
@@ -71,56 +66,49 @@ public class BlockSessionActivity extends AppCompatActivity {
 
         //________________________________________________________cleaner version underneath must be tested
 
-        String selectQuery = "SELECT * FROM " + BlockSessionContract.TABLE_BLOCK_SESSIONS;
-
-        helper = new BlockSessionDBHelper(BlockSessionActivity.this);
-        SQLiteDatabase db = helper.getReadableDatabase();
-
-        Cursor cursor = db.rawQuery(selectQuery, null);
-
-        //looping through all rows and adding to the list
-        if(cursor.moveToFirst()){
-            do{
-                BlockSession blockSession = new BlockSession();
-                blockSession.setName(cursor.getString(1));
-                blockSession.setDate(cursor.getString(2));
-                blockSession.setStartTime(cursor.getString(3));
-                blockSession.setEndTime(cursor.getString(4));
-                blockSession.setNotes(cursor.getString(5));
-
-                String log = "ID: " + blockSession.getId() + " , Name: " + blockSession.getName() + ", Date: " + blockSession.getDate()
-                        + ", StartTime: " + blockSession.getStartTime() + " , EndTime: " + blockSession.getEndTime()
-                        + ", Notes: " + blockSession.getNotes();
-
-                Log.d("BLOCK ACTIVITY result: ", log);
-
-                sessions.add(blockSession);
-
-            }while(cursor.moveToNext());
-        }
-        db.close();
-
-        for (int i = 0; i < sessions.size(); i++) {
-
-            String log = "ID: " + sessions.get(i).getId() + " , Name: " + sessions.get(i).getName() + ", Date: " + sessions.get(i).getDate()
-                    + ", StartTime: " + sessions.get(i).getStartTime() + " , EndTime: " + sessions.get(i).getEndTime()
-                    + ", Notes: " + sessions.get(i).getNotes();
-
-            Log.d("SESSIONS DATA: ", i + log);
-        }
-
-//        Cursor cursor = db.query(BlockSessionContract.TABLE_BLOCK_SESSIONS,
-//                new String[]{BlockSessionContract.Columns.BLOCK_ID,
-//                        BlockSessionContract.Columns.BLOCK_NAME,
-//                        BlockSessionContract.Columns.BLOCK_DATE,
-//                        BlockSessionContract.Columns.BLOCK_START_TIME,
-//                        BlockSessionContract.Columns.BLOCK_END_TIME,
-//                        BlockSessionContract.Columns.BLOCK_NOTES},
-//                null, null, null, null, null);
-
-        adapter = new BlockSessionAdapter(this, R.layout.block_session_list, sessions);
-        ListView blockSessionsList = (ListView) findViewById(R.id.list_block_times);
-        blockSessionsList.setAdapter(adapter);
+//        String selectQuery = "SELECT * FROM " + BlockSessionContract.TABLE_BLOCK_SESSIONS;
+//
+//        helper = new BlockSessionDBHelper(BlockSessionActivity.this);
+//        SQLiteDatabase db = helper.getReadableDatabase();
+//
+//        Cursor cursor = db.rawQuery(selectQuery, null);
+//
+//        //looping through all rows and adding to the list
+//        if(cursor.moveToFirst()){
+//            do{
+//                BlockSession blockSession = new BlockSession();
+//                blockSession.setName(cursor.getString(1));
+//                blockSession.setDate(cursor.getString(2));
+//                blockSession.setStartTime(cursor.getString(3));
+//                blockSession.setEndTime(cursor.getString(4));
+//                blockSession.setNotes(cursor.getString(5));
+//
+//                String log = "ID: " + blockSession.getId() + " , Name: " + blockSession.getName() + ", Date: " + blockSession.getDate()
+//                        + ", StartTime: " + blockSession.getStartTime() + " , EndTime: " + blockSession.getEndTime()
+//                        + ", Notes: " + blockSession.getNotes();
+//
+//                Log.d("BLOCK ACTIVITY result: ", log);
+//
+//                sessions.add(blockSession);
+//
+//            }while(cursor.moveToNext());
+//        }
+//        db.close();
+//
+//        for (int i = 0; i < sessions.size(); i++) {
+//
+//            String log = "ID: " + sessions.get(i).getId() + " , Name: " + sessions.get(i).getName() + ", Date: " + sessions.get(i).getDate()
+//                    + ", StartTime: " + sessions.get(i).getStartTime() + " , EndTime: " + sessions.get(i).getEndTime()
+//                    + ", Notes: " + sessions.get(i).getNotes();
+//
+//            Log.d("SESSIONS DATA: ", i + log);
+//        }
+//
+//
+//
+//        adapter = new BlockSessionAdapter(this, R.layout.block_session_list, sessions);
+//        ListView blockSessionsList = (ListView) findViewById(R.id.list_block_times);
+//        blockSessionsList.setAdapter(adapter);
 
     }
 

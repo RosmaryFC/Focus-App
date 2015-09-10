@@ -15,7 +15,7 @@ public class BlockSessionContract {
     }
 
     public static abstract class Columns implements BaseColumns {
-        public static final String BLOCK_ID = "id";
+        public static final String BLOCK_ID = BaseColumns._ID;
         public static final String BLOCK_NAME = "blockname";
         public static final String BLOCK_START_TIME = "starttime";
         public static final String BLOCK_END_TIME = "endtime";

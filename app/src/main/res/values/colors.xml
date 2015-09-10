@@ -4,16 +4,16 @@
     <color name="style_color_primary">#673AB7</color>
     <color name="style_color_primary_dark">#512DA8</color>
     <color name="style_color_accent">#00BCD4</color>
-    <color name="tabsScrollColor">#00BCD4</color>
+    <color name="tabsScrollColor">#ff259bb7</color>
     <color name="window_background">#512DA8</color>
 
-    <color name="fab_color_pressed">#00BCD4</color>
+    <color name="fab_color_pressed">#673AB7</color>
     <color name="fab_color_shadow">#44000000</color>
 
     <color name="btn_default_light_normal">#673AB7</color>
     <color name="btn_default_light_pressed">#40ffffff</color>
-    <color name="btn_send_normal">#673AB7</color>
-    <color name="btn_send_pressed">#00BCD4</color>
+    <color name="btn_send_normal">#ff259bb7</color>
+    <color name="btn_send_pressed">#673AB7</color>
     <color name="btn_default_shadow">#99000000</color>
     <color name="btn_context_menu_normal">#ffffff</color>
     <color name="btn_context_menu_pressed">#00BCD4</color>
