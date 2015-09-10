@@ -26,7 +26,7 @@ public class BlockSessionActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_block_session);
+        setContentView(R.layout.activity_focus_session);
 
         updateUI();
 

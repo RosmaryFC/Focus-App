@@ -64,15 +64,15 @@ public class BlockSessionFragment extends Fragment {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_add_BlockSession:
+            case R.id.float_add_button:
 
                 Intent intent = new Intent (blockSessionView.getContext(), FocusSessionActivity.class);
                 startActivity(intent);
 
                 break;
-            case R.id.action_del_BlockSession:
+           // case R.id.action_del_BlockSession:
                 //
-                break;
+               // break;
             case R.id.action_settings:
                 //
                 break;

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-    <include android:id ="@+id/toolbar" layout="@layout/toolbar"/>
+
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -15,7 +15,6 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
 
             <!--<TextView-->
             <!--android:id="@+id/title"-->
@@ -43,6 +42,7 @@
                           android:layout_height="match_parent"
                           android:padding="16dp"
                           android:orientation="vertical"
+                          android:background="@color/style_color_accent"
                           tools:context="nyc.c4q.rosmaryfc.focus_app.ui.FocusSessionActivity">
 
                 <android.support.design.widget.TextInputLayout
