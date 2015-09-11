@@ -3,18 +3,23 @@ package nyc.c4q.rosmaryfc.focus_app;
 import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
+
+import nyc.c4q.rosmaryfc.focus_app.db.BlockSessionDBHelper;
 
 /**
  * Created by c4q-rosmary on 8/23/15.
  */
-public class BlockSessionAdapter extends ArrayAdapter <BlockSession> {
+public class BlockSessionAdapter extends ArrayAdapter <BlockSession> implements View.OnCreateContextMenuListener{
 
     Context context;
     int layoutResourceId;
@@ -30,7 +35,7 @@ public class BlockSessionAdapter extends ArrayAdapter <BlockSession> {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
 
         for (int i = 0; i < data.size(); i++) {
 
@@ -52,8 +57,11 @@ public class BlockSessionAdapter extends ArrayAdapter <BlockSession> {
             holder.mDate = (TextView) row.findViewById(R.id.txt_date);
             holder.mStartTime = (TextView) row.findViewById(R.id.txt_start_time);
             holder.mEndTime = (TextView) row.findViewById(R.id.txt_end_time);
-            holder.mNotes = (TextView) row.findViewById(R.id.txt_notes);
-//            holder.mDelete = (ImageButton) row.findViewById(R.id.btn_delete);
+            holder.mDeleteBtn = (ImageButton) row.findViewById(R.id.btn_delete);
+            holder.mEditBtn = (ImageButton) row.findViewById(R.id.btn_edit);
+//            holder.mNotes = (TextView) row.findViewById(R.id.txt_notes);
+//            holder.mMenu = (ImageButton) row.findViewById(R.id.btn_menu);
+
 
 //            if(deleteIsEnabled) {
 //                holder.mDelete.setVisibility(View.VISIBLE);
@@ -66,28 +74,64 @@ public class BlockSessionAdapter extends ArrayAdapter <BlockSession> {
             holder = (BlockHolder) row.getTag();
         }
 
-        BlockSession session = data.get(position);
+        final BlockSession session = data.get(position);
         holder.mBlockName.setText(session.name);
         holder.mDate.setText(session.date);
         holder.mStartTime.setText(session.startTime);
         holder.mEndTime.setText(session.endTime);
-        holder.mNotes.setText(session.notes);
+//        holder.mNotes.setText(session.notes);
 
-        String log = "ID: " + session.getId() + " , Name: " + session.getName() + ", Date: " + session.getDate()
-                + ", StartTime: " + session.getStartTime() + " , EndTime: " + session.getEndTime()
-                + ", Notes: " + session.getNotes();
+        final BlockSessionDBHelper helper = new BlockSessionDBHelper(context);
 
-        Log.d(" ADAPTER result: ", log);
+        holder.mDeleteBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                helper.deleteBlockSession(session);
+                data.remove(position);
+                Toast.makeText(context, "deleteBtn pressed", Toast.LENGTH_SHORT).show();
+                notifyDataSetChanged();
+            }
+        });
+
+//        holder.mEditBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//                helper.updateBlockSession(session);
+//                Toast.makeText(context, "editBtn pressed", Toast.LENGTH_SHORT).show();
+//                notifyDataSetChanged();
+//            }
+//        });
+
+//        row.setOnCreateContextMenuListener(new View.OnCreateContextMenuListener() {
+//            @Override
+//            public void onCreateContextMenu(ContextMenu contextMenu, View view, ContextMenu.ContextMenuInfo contextMenuInfo) {
+//                AdapterViewCompat.AdapterContextMenuInfo info = (AdapterViewCompat.AdapterContextMenuInfo) contextMenuInfo;
+//                currentposition = info.position;
+//
+//
+//            }
+//        });
+
 
         return row;
     }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu contextMenu, View view, ContextMenu.ContextMenuInfo contextMenuInfo) {
+
+    }
+
 
     public static class BlockHolder {
         TextView mBlockName;
         TextView mStartTime;
         TextView mEndTime;
         TextView mDate;
-        TextView mNotes;
-        //ImageButton mDelete;
+ //       TextView mNotes;
+        ImageButton mMenu;
+        ImageButton mDeleteBtn;
+        ImageButton mEditBtn;
     }
 }

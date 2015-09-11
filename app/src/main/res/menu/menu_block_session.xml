@@ -10,12 +10,12 @@
         android:orderInCategory="100"
         app:showAsAction="always" />
 
-    <item
-        android:id="@+id/action_del_BlockSession"
-        android:title="action_delete_BlockSession"
-        android:icon="@android:drawable/ic_menu_delete"
-        android:orderInCategory="100"
-        app:showAsAction="always"/>
+    <!--<item-->
+        <!--android:id="@+id/action_del_BlockSession"-->
+        <!--android:title="action_delete_BlockSession"-->
+        <!--android:icon="@android:drawable/ic_menu_delete"-->
+        <!--android:orderInCategory="100"-->
+        <!--app:showAsAction="always"/>-->
 
     <item
         android:id="@+id/action_settings"

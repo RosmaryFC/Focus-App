@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:title="edit"
+        android:id="@+id/edit_block_session_item" />
+    <item
+        android:title="delete"
+        android:id="@+id/delete_block_session_item"/>
+
+</menu>

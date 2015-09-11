@@ -12,6 +12,13 @@ import java.util.List;
 
 import nyc.c4q.rosmaryfc.focus_app.BlockSession;
 
+import static nyc.c4q.rosmaryfc.focus_app.db.BlockSessionContract.Columns.BLOCK_DATE;
+import static nyc.c4q.rosmaryfc.focus_app.db.BlockSessionContract.Columns.BLOCK_END_TIME;
+import static nyc.c4q.rosmaryfc.focus_app.db.BlockSessionContract.Columns.BLOCK_ID;
+import static nyc.c4q.rosmaryfc.focus_app.db.BlockSessionContract.Columns.BLOCK_NAME;
+import static nyc.c4q.rosmaryfc.focus_app.db.BlockSessionContract.Columns.BLOCK_NOTES;
+import static nyc.c4q.rosmaryfc.focus_app.db.BlockSessionContract.Columns.BLOCK_START_TIME;
+
 /**
  * Created by c4q-rosmary on 8/23/15.
  */
@@ -25,17 +32,18 @@ public class BlockSessionDBHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
 
-        String CREATE_BLOCK_SESSIONS_TABLE = "CREATE TABLE " + BlockSessionContract.TABLE_BLOCK_SESSIONS + "("
-                + BlockSessionContract.Columns.BLOCK_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+        String CREATE_BLOCK_SESSIONS_TABLE = "CREATE TABLE " + BlockSessionContract.TABLE_BLOCK_SESSIONS + " ("
+                + BLOCK_ID + " INTEGER PRIMARY KEY, "
                 + BlockSessionContract.Columns.BLOCK_NAME + " TEXT, "
                 + BlockSessionContract.Columns.BLOCK_DATE + " TEXT, "
                 + BlockSessionContract.Columns.BLOCK_START_TIME + " TEXT, "
                 + BlockSessionContract.Columns.BLOCK_END_TIME + " TEXT, "
-                //+ BlockSessionContract.Columns.COLUMN_NAME_RECUR_WEEKDAYS + "TEXT, "
-                + BlockSessionContract.Columns.BLOCK_NOTES + " TEXT" + ")";
+                + BlockSessionContract.Columns.BLOCK_NOTES + " TEXT " + ")";
 
         Log.d("BlockSessionDBHelper", "Query to form table: " + CREATE_BLOCK_SESSIONS_TABLE);
         db.execSQL(CREATE_BLOCK_SESSIONS_TABLE);
+
+        //+ BlockSessionContract.Columns.COLUMN_NAME_RECUR_WEEKDAYS + "TEXT, "
 
     }
 
@@ -51,7 +59,7 @@ public class BlockSessionDBHelper extends SQLiteOpenHelper {
      */
 
     //Add new Block Session
-    public void addBlockSession (BlockSession blockSession){
+    public void addBlockSession(BlockSession blockSession) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -66,41 +74,42 @@ public class BlockSessionDBHelper extends SQLiteOpenHelper {
     }
 
     //get Single Block Session
-    public BlockSession getBlockSession (int id) {
+    public BlockSession getBlockSession(int id) {
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = db.query(BlockSessionContract.TABLE_BLOCK_SESSIONS,
-                 new String []{BlockSessionContract.Columns.BLOCK_ID,
-                         BlockSessionContract.Columns.BLOCK_NAME,
-                         BlockSessionContract.Columns.BLOCK_DATE,
-                         BlockSessionContract.Columns.BLOCK_START_TIME,
-                         BlockSessionContract.Columns.BLOCK_END_TIME,
-                         BlockSessionContract.Columns.BLOCK_NOTES},
-                BlockSessionContract.Columns.BLOCK_ID + "=?", new String[] {String.valueOf(id)}, null, null, null, null);
+                new String[]{BLOCK_ID,
+                        BlockSessionContract.Columns.BLOCK_NAME,
+                        BlockSessionContract.Columns.BLOCK_DATE,
+                        BlockSessionContract.Columns.BLOCK_START_TIME,
+                        BlockSessionContract.Columns.BLOCK_END_TIME,
+                        BlockSessionContract.Columns.BLOCK_NOTES},
+                BLOCK_ID + "=?", new String[]{String.valueOf(id)}, null, null, null, null);
         if (cursor != null) {
             cursor.moveToFirst();
         }
 
-        BlockSession blockSession = new BlockSession(Integer.parseInt(cursor.getString(0)), cursor.getString(1), cursor.getString(2),cursor.getString(3), cursor.getString(4), cursor.getString(5));
+        BlockSession blockSession = new BlockSession(Integer.parseInt(cursor.getString(0)), cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4), cursor.getString(5));
 
         return blockSession;
     }
 
     //todo: possibly order by date and start time and end time here and remove other method
     //get All Block Sessions
-    public List<BlockSession> getAllBlockSessions(){
+    public List<BlockSession> getAllBlockSessions() {
         List<BlockSession> blockSessionList = new ArrayList<BlockSession>();
 
         //selecting all query
-        String selectQuery = "SELECT * FROM BlockSessions ORDER BY " + BlockSessionContract.Columns.BLOCK_ID;// + BlockSessionContract.Columns.BLOCK_NAME;
+        String selectQuery = "SELECT * FROM BlockSessions ORDER BY " + BLOCK_ID;// + BlockSessionContract.Columns.BLOCK_NAME;
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
 
         //looping through all rows and adding to the list
-        if(cursor.moveToFirst()){
-            do{
+        if (cursor.moveToFirst()) {
+            do {
                 BlockSession blockSession = new BlockSession();
+                blockSession.setId(cursor.getInt(0));
                 blockSession.setName(cursor.getString(1));
                 blockSession.setDate(cursor.getString(2));
                 blockSession.setStartTime(cursor.getString(3));
@@ -111,11 +120,11 @@ public class BlockSessionDBHelper extends SQLiteOpenHelper {
                         + ", StartTime: " + blockSession.getStartTime() + " , EndTime: " + blockSession.getEndTime()
                         + ", Notes: " + blockSession.getNotes();
 
-                Log.d("DBHELPER result: ", log );
+                Log.d("DBHELPER result: ", log);
 
                 //add block session to list
                 blockSessionList.add(blockSession);
-            }while(cursor.moveToNext());
+            } while (cursor.moveToNext());
         }
         db.close();
 
@@ -123,7 +132,7 @@ public class BlockSessionDBHelper extends SQLiteOpenHelper {
     }
 
     //updating single BlockSession
-    public int updateBlockSession (BlockSession blockSession) {
+    public int updateBlockSession(BlockSession blockSession) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -134,62 +143,62 @@ public class BlockSessionDBHelper extends SQLiteOpenHelper {
         values.put(BlockSessionContract.Columns.BLOCK_NOTES, blockSession.getNotes());
 
         //update Row
-        return db.update(BlockSessionContract.TABLE_BLOCK_SESSIONS, values, BlockSessionContract.Columns.BLOCK_ID + " = ?",
-                new String[] {String.valueOf(blockSession.getId()) });
+        return db.update(BlockSessionContract.TABLE_BLOCK_SESSIONS, values, BLOCK_ID + " = ?",
+                new String[]{String.valueOf(blockSession.getId())});
     }
 
-        //delete BlockSession
-    public void deleteBlockSession (BlockSession blockSession) {
+    //delete BlockSession
+    public void deleteBlockSession(BlockSession blockSession) {
         SQLiteDatabase db = this.getWritableDatabase();
 
-        db.delete(BlockSessionContract.TABLE_BLOCK_SESSIONS, BlockSessionContract.Columns.BLOCK_ID + " = ?",
+        db.delete(BlockSessionContract.TABLE_BLOCK_SESSIONS, BLOCK_ID + " = ?",
                 new String[]{String.valueOf(blockSession.getId())});
         db.close();
     }
 
     //get BlockSession count
-    public int getBlockSessionCount () {
+    public int getBlockSessionCount() {
         String countQuery = "SELECT * FROM " + BlockSessionContract.TABLE_BLOCK_SESSIONS;
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery(countQuery, null );
+        Cursor cursor = db.rawQuery(countQuery, null);
         cursor.close();
 
         //returning count
         return cursor.getCount();
     }
 
-   // get next BlockSession
-    public List<BlockSession> orderedBlockSessions (){
-        List <BlockSession> blockSessionList = new ArrayList<>();
+    // get next BlockSession
+    public List<BlockSession> orderedBlockSessions() {
+        List<BlockSession> blockSessionList = new ArrayList<>();
 
         //created query by ordered dates and ordered start times and ordered end times
         String selectQuery = "SELECT * FROM BlockSessions ORDER BY " + BlockSessionContract.Columns.BLOCK_DATE + ", " + BlockSessionContract.Columns.BLOCK_START_TIME + ", " + BlockSessionContract.Columns.BLOCK_END_TIME;
 
         Log.d("UPCOMING BS: ", selectQuery);
 
-        SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
 
         //looping through all rows and adding to the list
-        if(cursor.moveToFirst()){
-            do{
-                BlockSession blockSession = new BlockSession();
-                blockSession.setName(cursor.getString(1));
-                blockSession.setDate(cursor.getString(2));
-                blockSession.setStartTime(cursor.getString(3));
-                blockSession.setEndTime(cursor.getString(4));
-                blockSession.setNotes(cursor.getString(5));
+        while (cursor.moveToNext()) {
+            BlockSession blockSession = new BlockSession();
+            blockSession.setId(cursor.getInt(cursor.getColumnIndex(BLOCK_ID)));
+            blockSession.setName(cursor.getString(cursor.getColumnIndex(BLOCK_NAME)));
+            blockSession.setDate(cursor.getString(cursor.getColumnIndex(BLOCK_DATE)));
+            blockSession.setStartTime(cursor.getString(cursor.getColumnIndex(BLOCK_START_TIME)));
+            blockSession.setEndTime(cursor.getString(cursor.getColumnIndex(BLOCK_END_TIME)));
+            blockSession.setNotes(cursor.getString(cursor.getColumnIndex(BLOCK_NOTES)));
 
-                String log = "ID: " + blockSession.getId() + " , Name: " + blockSession.getName() + ", Date: " + blockSession.getDate()
-                        + ", StartTime: " + blockSession.getStartTime() + " , EndTime: " + blockSession.getEndTime()
-                        + ", Notes: " + blockSession.getNotes();
+            String log = "ID: " + blockSession.getId() + " , Name: " + blockSession.getName() + ", Date: " + blockSession.getDate()
+                    + ", StartTime: " + blockSession.getStartTime() + " , EndTime: " + blockSession.getEndTime()
+                    + ", Notes: " + blockSession.getNotes();
 
-                Log.d("DBHELPER result: ", log );
+            Log.d("DBHELPER result: ", log);
 
-                //add block session to list
-                blockSessionList.add(blockSession);
-            }while(cursor.moveToNext());
+            //add block session to list
+            blockSessionList.add(blockSession);
         }
+
         db.close();
 
         return blockSessionList;
