@@ -4,17 +4,29 @@
                                    android:id="@+id/toolbar"
                                    android:layout_width="match_parent"
                                    android:layout_height="?attr/actionBarSize"
-                                   android:background="?attr/colorPrimaryDark"
+                                   android:background="@color/style_color_primary_dark"
                                    app:elevation="@dimen/default_elevation"
                                    app:layout_scrollFlags="scroll|enterAlways"
+
                                    app:subtitleTextAppearance="@id/action_menu_divider"
 
                                    app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
-    <!--<ImageButton-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="30sp"-->
-        <!--android:src="@drawable/ic_menu_white"-->
-        <!--android:id="@+id/menu_icon"/>-->
+  <!--<TextView-->
+      <!--android:layout_width="match_parent"-->
+      <!--android:layout_height="match_parent"-->
+      <!--android:textSize="30sp"-->
+      <!--android:textColor="#ffffff"-->
+      <!--android:text="@string/app_name"-->
+      <!--android:textAlignment="center"-->
+      <!--android:id="@+id/text_name"-->
+      <!--android:gravity="center"/>-->
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/blo2"
+        android:textAlignment="center"
+        android:paddingBottom="2dp"
+        android:paddingTop="2dp"/>
 
 
 

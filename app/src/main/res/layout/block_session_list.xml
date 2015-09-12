@@ -20,7 +20,7 @@
                   android:paddingLeft="10dp"
                   android:layout_height="match_parent"
         >
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -31,22 +31,30 @@
                 android:id="@+id/txt_block_name"
                 android:text="Study "
                 android:textStyle="bold"
-                android:textSize="20sp"
-                android:layout_weight="3"
-
+                android:textSize="30sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
-            <ImageButton
+            <ImageView
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:layout_weight="1"
-                android:layout_gravity="right|end"
+                android:src="@drawable/block_on_logo"
+                android:id="@+id/block_on_button"
+                android:layout_marginRight="24dp"
+                android:layout_marginEnd="24dp"
+                android:layout_alignParentTop="true"
+                android:layout_toLeftOf="@+id/expanded_menu"
+                android:layout_toStartOf="@+id/expanded_menu"/>
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+
                 android:src="@drawable/ic_action_card"
 
-                android:layout_below="@+id/txt_block_name"
                 android:id="@+id/expanded_menu"
-                />
-        </LinearLayout>
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"/>
+        </RelativeLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -55,6 +63,7 @@
             <TextView
                 android:id="@+id/label_date"
                 android:text="Date: "
+                android:textStyle="bold"
 
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
@@ -62,7 +71,6 @@
             <TextView
                 android:id="@+id/txt_date"
                 android:text=""
-
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.50"/>
@@ -78,8 +86,8 @@
             <TextView
                 android:id="@+id/label_start"
                 android:text="Start Time: "
+                android:textStyle="bold"
                 android:layout_width="wrap_content"
-
                 android:layout_height="match_parent"
                 android:layout_weight="0.50"/>
 
@@ -92,6 +100,7 @@
             <TextView
                 android:id="@+id/label_end"
                 android:text="End Time: "
+                android:textStyle="bold"
                 android:layout_width="wrap_content"
 
                 android:layout_height="wrap_content"
