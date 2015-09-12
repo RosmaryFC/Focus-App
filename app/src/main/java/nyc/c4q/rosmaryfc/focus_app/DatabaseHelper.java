@@ -56,11 +56,15 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         Dao<App, ?> appDao = getDao(App.class);
         appDao.delete(appDao.deleteBuilder().prepare());
         for (ApplicationInfo applicationInfo : applicationInfos) {
-            App app = new App();
-            app.setAppPackage(applicationInfo.packageName);
-            app.setAppName(applicationInfo.loadLabel(context.getPackageManager()).toString());
-            app.setAppMonitor(false);
-            getDao(App.class).create(app);
+            if (applicationInfo.packageName.equalsIgnoreCase("nyc.c4q.rosmaryfc.focus_app")) {
+                continue;
+            } else if (!((applicationInfo.flags & (ApplicationInfo.FLAG_SYSTEM | ApplicationInfo.FLAG_UPDATED_SYSTEM_APP)) != 0)) {
+                App app = new App();
+                app.setAppPackage(applicationInfo.packageName);
+                app.setAppName(applicationInfo.loadLabel(context.getPackageManager()).toString());
+                app.setAppMonitor(false);
+                getDao(App.class).create(app);
+            }
         }
     }
 
