@@ -7,6 +7,15 @@
     android:background="@color/tabsScrollColor"
     tools:context="nyc.c4q.rosmaryfc.focus_app.AppUsage">
 
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:id="@+id/blockon_image"
+        android:src="@drawable/block_on_logo"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"/>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -21,9 +30,9 @@
         android:textColor="#FFFFFF"
         android:id="@+id/message_popup"
 
-        android:layout_marginTop="84dp"
-        android:layout_alignParentTop="true"
+        android:layout_centerVertical="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"/>
+
 
 </RelativeLayout>

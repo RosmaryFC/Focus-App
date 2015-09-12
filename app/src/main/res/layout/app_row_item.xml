@@ -5,7 +5,7 @@
 
     android:id="@+id/card_view"
     android:layout_width="match_parent"
-    android:layout_height="100dp"
+    android:layout_height="50dp"
     android:layout_margin="5dp"
     android:elevation="8dp"
     android:background="#FFFFFF"
@@ -21,7 +21,6 @@
 
     <ImageView
         android:id="@+id/app_icon"
-
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1" />
@@ -29,6 +28,8 @@
     <TextView
         android:id="@+id/app_label"
         android:layout_width="0dp"
+        android:textStyle="bold"
+        android:textAlignment="center"
         android:layout_height="wrap_content"
         android:layout_weight="3" />
 

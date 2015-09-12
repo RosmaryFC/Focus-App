@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/tabsScrollColor"
     tools:context="nyc.c4q.rosmaryfc.focus_app.AppMonitor">
     <include android:id ="@+id/toolbar" layout="@layout/toolbar"/>
     <ListView

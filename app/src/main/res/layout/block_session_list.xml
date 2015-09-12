@@ -5,9 +5,11 @@
 
     android:id="@+id/card_view"
     android:layout_width="match_parent"
-    android:layout_height="100dp"
-    android:layout_margin="5dp"
-    android:elevation="8dp"
+    android:layout_height="180dp"
+    android:layout_marginTop="20dp"
+    android:layout_marginLeft="20dp"
+    android:layout_marginRight="20dp"
+    android:elevation="10dp"
     android:background="#FFFFFF"
     >
 
@@ -18,19 +20,20 @@
                   android:paddingBottom="10dp"
                   android:paddingTop="10dp"
                   android:paddingLeft="10dp"
-                  android:layout_height="match_parent"
-        >
+                  android:layout_height="160dp"
+                  android:weightSum="1">
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
 
-            android:layout_weight="1">
+            android:layout_weight="0.20">
 
             <TextView
                 android:id="@+id/txt_block_name"
                 android:text="Study "
                 android:textStyle="bold"
+                android:textColor="@color/text_color2"
                 android:textSize="30sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
@@ -39,11 +42,10 @@
                 android:layout_height="20dp"
                 android:src="@drawable/block_on_logo"
                 android:id="@+id/block_on_button"
-                android:layout_marginRight="24dp"
-                android:layout_marginEnd="24dp"
-                android:layout_alignParentTop="true"
-                android:layout_toLeftOf="@+id/expanded_menu"
-                android:layout_toStartOf="@+id/expanded_menu"/>
+                android:layout_below="@+id/txt_block_name"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginLeft="10dp"/>
             <ImageView
                 android:layout_width="20dp"
                 android:layout_height="20dp"
@@ -59,65 +61,108 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_weight="1">
+            android:layout_gravity="center"
+
+            >
             <TextView
-                android:id="@+id/label_date"
-                android:text="Date: "
-                android:textStyle="bold"
+                android:id="@+id/label_blank1"
 
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_weight="0.80"
+                />
+            <TextView
+                android:id="@+id/label_date"
+                android:text="Date:"
+                android:textStyle="bold"
+
+                android:textColor="@color/text_color2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.20"
+                />
 
             <TextView
                 android:id="@+id/txt_date"
                 android:text=""
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.50"/>
+                android:layout_weight="1"
+               />
         </LinearLayout>
-
         <LinearLayout
-            android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            >
+            android:orientation="horizontal"
+            android:layout_gravity="center"
 
+            >
+            <TextView
+                android:id="@+id/label_blank2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.80"
+                />
             <TextView
                 android:id="@+id/label_start"
-                android:text="Start Time: "
+                android:text="Start time:"
                 android:textStyle="bold"
+
+                android:textColor="@color/text_color2"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="0.50"/>
+                android:layout_height="wrap_content"
+                android:layout_weight="0.20"
+                />
 
             <TextView
                 android:id="@+id/txt_start_time"
                 android:text=""
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"/>
+                android:layout_weight="1"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center"
+
+            >
+            <TextView
+                android:id="@+id/label_blank3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.80"
+                />
             <TextView
                 android:id="@+id/label_end"
-                android:text="End Time: "
+                android:text="End  time:"
                 android:textStyle="bold"
-                android:layout_width="wrap_content"
 
+                android:textColor="@color/text_color2"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.50"/>
+                android:layout_weight="0.20"
+                />
 
             <TextView
                 android:id="@+id/txt_end_time"
                 android:text=""
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1"/>
-
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                />
         </LinearLayout>
 
 
     </LinearLayout>
-
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:layout_gravity="bottom"
+        android:background="@color/style_color_primary_dark">
+    </TextView>
 </android.support.v7.widget.CardView>
 
 
