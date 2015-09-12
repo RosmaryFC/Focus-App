@@ -40,7 +40,7 @@ public class AppAdapter extends ArrayAdapter<App> {
     static class AppViewHolder {
         ImageView app_icon;
         TextView app_label;
-        SwitchCompat app_monitor;
+        Switch app_monitor;
     }
 
     @Override
@@ -54,7 +54,7 @@ public class AppAdapter extends ArrayAdapter<App> {
             appViewHolder = new AppViewHolder();
             appViewHolder.app_icon = (ImageView) view.findViewById(R.id.app_icon);
             appViewHolder.app_label = (TextView) view.findViewById(R.id.app_label);
-            appViewHolder.app_monitor = (SwitchCompat) view.findViewById(R.id.app_monitor);
+            appViewHolder.app_monitor = (Switch) view.findViewById(R.id.app_monitor);
 
             appViewHolder.app_monitor.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override

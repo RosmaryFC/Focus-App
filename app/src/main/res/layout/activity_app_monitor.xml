@@ -26,8 +26,40 @@
         android:paddingLeft="10dp"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
-        android:background="@drawable/btn_save"
+        android:background="@drawable/btn_save"/>
 
-        />
+<!--<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--xmlns:tools="http://schemas.android.com/tools"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--tools:context="nyc.c4q.rosmaryfc.focus_app.AppMonitor">-->
 
-</LinearLayout>
+    <!--<ProgressBar-->
+        <!--android:id="@+id/progress_bar"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_centerInParent="true" />-->
+
+    <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:orientation="vertical">-->
+
+        <!--<ListView-->
+            <!--android:id="@+id/app_list"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="0dp"-->
+            <!--android:layout_weight="9" />-->
+
+        <!--<Button-->
+            <!--android:id="@+id/save"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_gravity="center"-->
+            <!--android:background="@drawable/btn_send_comment"-->
+            <!--android:text="Save" />-->
+<!--&gt;>>>>>> 8171462212772f8a736152690d67d594b6731bb5-->
+
+    </LinearLayout>
+
+

@@ -14,22 +14,15 @@ import android.widget.Button;
 
 public class AppUsage extends AppCompatActivity {
 
-//
-//    private Button go_to_monitor;
-//
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_app_usage);
-//        go_to_monitor = (Button) findViewById(R.id.go_to_monitor);
-//        go_to_monitor.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(getApplicationContext(), AppMonitor.class);
-//                startActivity(intent);
-//            }
-//        });
-//    }
+
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_app_usage);
+
+    }
 
     @Override
     public void onBackPressed() {
