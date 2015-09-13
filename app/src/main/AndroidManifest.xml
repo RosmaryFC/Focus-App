@@ -22,7 +22,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.FocusSessionActivity"
+            android:name=".ui.CreateNewBlockSessionActivity"
             android:label="@string/title_activity_focus_session" >
         </activity>
         <activity

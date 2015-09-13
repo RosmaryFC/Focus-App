@@ -74,7 +74,6 @@
             android:textSize="30sp"
             android:onClick="onClick"
             android:textColor="#FFFFFF"
-            android:background="@drawable/btn_send_comment"
             android:layout_gravity="center"
             android:layout_weight="1"
             android:layout_width="wrap_content"

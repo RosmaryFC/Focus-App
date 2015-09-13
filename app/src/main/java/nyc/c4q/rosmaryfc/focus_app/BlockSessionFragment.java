@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import nyc.c4q.rosmaryfc.focus_app.db.BlockSessionDBHelper;
-import nyc.c4q.rosmaryfc.focus_app.ui.FocusSessionActivity;
+import nyc.c4q.rosmaryfc.focus_app.ui.CreateNewBlockSessionActivity;
 
 /**
  * Created by c4q-rosmary on 9/1/15.
@@ -29,14 +29,13 @@ public class BlockSessionFragment extends Fragment {
     private BlockSessionAdapter adapter;
     private BlockSessionDBHelper helper;
 
-    ListView blockSessionsList;
-    View blockSessionView;
+    private ListView blockSessionsList;
+    private View blockSessionView;
 
     boolean blockSessionIsEnabled; // todo: used to make bs clock visible for active block session
     boolean blockSessionIsRecurring; //todo:
 
-    String blockType;
-
+    protected String blockType;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -106,7 +105,8 @@ public class BlockSessionFragment extends Fragment {
 
                 Toast.makeText(blockSessionView.getContext(), "recur bs now pressed",Toast.LENGTH_SHORT).show();
 
-                Intent recurIntent = new Intent (blockSessionView.getContext(), FocusSessionActivity.class);
+                Intent recurIntent = new Intent (blockSessionView.getContext(), CreateNewBlockSessionActivity.class);
+                recurIntent.putExtra("block type", blockType);
                 startActivity(recurIntent);
 
                 return true;
@@ -115,8 +115,8 @@ public class BlockSessionFragment extends Fragment {
 
                 Toast.makeText(blockSessionView.getContext(), "future bs now pressed",Toast.LENGTH_SHORT).show();
 
-
-                Intent futureIntent = new Intent(blockSessionView.getContext(), FocusSessionActivity.class);
+                Intent futureIntent = new Intent(blockSessionView.getContext(), CreateNewBlockSessionActivity.class);
+                futureIntent.putExtra("block type", blockType);
                 startActivity(futureIntent);
 
 //                BlockSessionAlertDialogFragment futureBSDialogFrag = new BlockSessionAlertDialogFragment();
@@ -155,7 +155,7 @@ public class BlockSessionFragment extends Fragment {
             sessions.add(bs); //adding contacts data into array list
         }
 
-        adapter = new BlockSessionAdapter(blockSessionView.getContext(), R.layout.block_session_list, sessions, blockSessionIsEnabled);
+        adapter = new BlockSessionAdapter(blockSessionView.getContext(), R.layout.block_session_row, sessions, blockSessionIsEnabled);
         blockSessionsList = (ListView) blockSessionView.findViewById(R.id.list_block_times);
         blockSessionsList.setAdapter(adapter);
     }

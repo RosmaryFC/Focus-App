@@ -1,5 +1,4 @@
 
-
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
@@ -8,10 +7,6 @@
     android:orientation="vertical"
     android:background="@color/tabsScrollColor"
     tools:context="nyc.c4q.rosmaryfc.focus_app.ui.BlockSessionActivity">
-
-<!--<LinearLayout-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="match_parent">-->
 
     <ListView
         android:id="@+id/list_block_times"
@@ -28,4 +23,3 @@
 
 </LinearLayout>
 
-<!--</LinearLayout>-->

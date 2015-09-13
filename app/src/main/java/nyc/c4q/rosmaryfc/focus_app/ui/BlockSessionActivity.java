@@ -60,7 +60,7 @@ public class BlockSessionActivity extends AppCompatActivity {
 //            sessions.add(bs); //adding contacts data into array list
 //        }
 //
-//        adapter = new BlockSessionAdapter(this, R.layout.block_session_list, sessions);
+//        adapter = new BlockSessionAdapter(this, R.layout.block_session_row, sessions);
 //        ListView blockSessionsList = (ListView) findViewById(R.id.list_block_times);
 //        blockSessionsList.setAdapter(adapter);
 
@@ -106,7 +106,7 @@ public class BlockSessionActivity extends AppCompatActivity {
 //
 //
 //
-//        adapter = new BlockSessionAdapter(this, R.layout.block_session_list, sessions);
+//        adapter = new BlockSessionAdapter(this, R.layout.block_session_row, sessions);
 //        ListView blockSessionsList = (ListView) findViewById(R.id.list_block_times);
 //        blockSessionsList.setAdapter(adapter);
 

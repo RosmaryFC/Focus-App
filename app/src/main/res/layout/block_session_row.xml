@@ -11,6 +11,8 @@
     android:elevation="10dp"
     android:background="#FFFFFF">
 
+    <!--TODO: add enable/disable btn for b.sessions in list view -->
+
     <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:orientation="vertical"
@@ -48,10 +50,10 @@
 
             <ImageButton
                 android:id="@+id/btn_menu"
-                android:background="#7a4cdbbb"
+                android:background="#fff"
                 android:src="@drawable/ic_action_card"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true" />

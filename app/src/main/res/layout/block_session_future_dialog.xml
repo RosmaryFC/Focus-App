@@ -38,7 +38,7 @@
             android:layout_height="match_parent"
             android:padding="16dp"
             android:orientation="vertical"
-            tools:context="nyc.c4q.rosmaryfc.focus_app.ui.FocusSessionActivity">
+            tools:context="nyc.c4q.rosmaryfc.focus_app.ui.CreateNewBlockSessionActivity">
 
             <android.support.design.widget.TextInputLayout
                 android:layout_weight="1"
@@ -103,7 +103,6 @@
                 android:text="Save"
                 android:onClick="onClick"
                 android:textColor="#FFFFFF"
-                android:background="@drawable/btn_send_comment"
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 android:layout_width="wrap_content"
