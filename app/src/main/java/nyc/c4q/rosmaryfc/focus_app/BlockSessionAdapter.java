@@ -36,7 +36,7 @@ public class BlockSessionAdapter extends ArrayAdapter <BlockSession> {
 
             String log = "ID: " + data.get(i).getId() + " , Name: " + data.get(i).getName() + ", Date: " + data.get(i).getDate()
                     + ", StartTime: " + data.get(i).getStartTime() + " , EndTime: " + data.get(i).getEndTime()
-                    + ", Notes: " + data.get(i).getNotes();
+                 + ", Notes: " + data.get(i).getNotes();
 
             Log.d("ADAPTER DATA: ", log);
         }
@@ -52,7 +52,7 @@ public class BlockSessionAdapter extends ArrayAdapter <BlockSession> {
             holder.mDate = (TextView) row.findViewById(R.id.txt_date);
             holder.mStartTime = (TextView) row.findViewById(R.id.txt_start_time);
             holder.mEndTime = (TextView) row.findViewById(R.id.txt_end_time);
-            holder.mNotes = (TextView) row.findViewById(R.id.txt_notes);
+     //       holder.mNotes = (TextView) row.findViewById(R.id.txt_notes);
 //            holder.mDelete = (ImageButton) row.findViewById(R.id.btn_delete);
 
 //            if(deleteIsEnabled) {
@@ -60,6 +60,7 @@ public class BlockSessionAdapter extends ArrayAdapter <BlockSession> {
 //            }else {
 //                holder.mDelete.setVisibility(View.INVISIBLE);
 //            }
+
 
             row.setTag(holder);
         } else {
@@ -71,11 +72,11 @@ public class BlockSessionAdapter extends ArrayAdapter <BlockSession> {
         holder.mDate.setText(session.date);
         holder.mStartTime.setText(session.startTime);
         holder.mEndTime.setText(session.endTime);
-        holder.mNotes.setText(session.notes);
+        //holder.mNotes.setText(session.notes);
 
         String log = "ID: " + session.getId() + " , Name: " + session.getName() + ", Date: " + session.getDate()
                 + ", StartTime: " + session.getStartTime() + " , EndTime: " + session.getEndTime()
-                + ", Notes: " + session.getNotes();
+      + ", Notes: " + session.getNotes();
 
         Log.d(" ADAPTER result: ", log);
 
@@ -89,5 +90,6 @@ public class BlockSessionAdapter extends ArrayAdapter <BlockSession> {
         TextView mDate;
         TextView mNotes;
         //ImageButton mDelete;
+
     }
 }

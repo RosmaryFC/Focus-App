@@ -6,6 +6,9 @@ import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
@@ -38,9 +41,14 @@ public class AppMonitor extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_app_monitor);
 
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+
+
         app_list = (ListView) findViewById(R.id.app_list);
         save = (Button) findViewById(R.id.save);
-        progress_bar = (ProgressBar) findViewById(R.id.progress_bar);
+       // progress_bar = (ProgressBar) findViewById(R.id.progress_bar);
 
         databaseHelper = DatabaseHelper.getInstance(this);
         packageManager = getPackageManager();
@@ -80,7 +88,7 @@ public class AppMonitor extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            progress_bar.setVisibility(View.VISIBLE);
+           // progress_bar.setVisibility(View.VISIBLE);
         }
 
         @Override
@@ -106,9 +114,32 @@ public class AppMonitor extends AppCompatActivity {
         @Override
         protected void onPostExecute(List<App> apps) {
             super.onPostExecute(apps);
-            progress_bar.setVisibility(View.INVISIBLE);
+           // progress_bar.setVisibility(View.INVISIBLE);
             adapter = new AppAdapter(getApplicationContext(), apps);
             app_list.setAdapter(adapter);
         }
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_app_monitor, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="nyc.c4q.rosmaryfc.focus_app.ui.BlockSessionActivity">
 
+
     <item
         android:id="@+id/action_add_BlockSession"
         android:title="action_add_BlockSession"
@@ -16,6 +17,7 @@
         android:icon="@android:drawable/ic_menu_delete"
         android:orderInCategory="100"
         app:showAsAction="always"/>
+
 
     <item
         android:id="@+id/action_settings"
