@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Block On</string>
 
-    <string name="title_activity_app_monitor">AppMonitor</string>
+    <string name="title_activity_app_monitor">Blocked Apps</string>
     <string name="title_activity_app_usage">AppUsage</string>
 
     <string name="hello_world">Hello world!</string>

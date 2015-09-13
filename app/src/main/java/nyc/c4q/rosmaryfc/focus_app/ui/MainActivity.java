@@ -1,6 +1,7 @@
 package nyc.c4q.rosmaryfc.focus_app.ui;
 
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -62,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
     private void setupViewPager(ViewPager viewPager) {
         Adapter adapter = new Adapter(getSupportFragmentManager());
         adapter.addFragment(new BlockSessionFragment(), "Block Sessions");
-        adapter.addFragment(new MonitoringAppsFragment(), "App Monitor ");
+        adapter.addFragment(new MonitoringAppsFragment(), "Blocked Apps ");
 
 //        adapter.addFragment(new BlockTimes(), "BlockTimes");
 //        adapter.addFragment(new MonitoringAppsFragment(), "TBD");
