@@ -70,14 +70,8 @@ public class BlockService extends Service {
     private void doServiceWork() {
         Calendar currentCalendar = Calendar.getInstance();
         currentTime = currentCalendar.getTimeInMillis();
-
-        BlockSessionDBHelper helper = new BlockSessionDBHelper(getApplicationContext());
-
-        if(helper.getAllBlockSessions().isEmpty()){
-
-        }else {
+        
             getUpcomingBSInfo(getCurrentActiveBlockSession(todaysBlockSessions()));
-        }
 
         //query next block session from db and set time values
 //        startHour = 17;

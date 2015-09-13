@@ -28,29 +28,29 @@
                 android:layout_height="match_parent" />
 
 
-                <ImageButton
-                    android:id="@+id/btn_delete"
-                    android:background="#7a4cdbbb"
-                    android:src="@android:drawable/ic_delete"
-                    android:layout_alignParentRight="true"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent" />
+                <!--<ImageButton-->
+                    <!--android:id="@+id/btn_delete"-->
+                    <!--android:background="#7a4cdbbb"-->
+                    <!--android:src="@android:drawable/ic_delete"-->
+                    <!--android:layout_alignParentRight="true"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="match_parent" />-->
 
-                <ImageButton
-                    android:id="@+id/btn_edit"
-                    android:background="#7a4cdbbb"
-                    android:src="@android:drawable/ic_menu_edit"
-                    android:layout_toLeftOf="@+id/btn_delete"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent" />
+                <!--<ImageButton-->
+                    <!--android:id="@+id/btn_edit"-->
+                    <!--android:background="#7a4cdbbb"-->
+                    <!--android:src="@android:drawable/ic_menu_edit"-->
+                    <!--android:layout_toLeftOf="@+id/btn_delete"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="match_parent" />-->
 
-            <!--<ImageButton-->
-                <!--android:id="@+id/btn_menu"-->
-                <!--android:background="#7a4cdbbb"-->
-                <!--android:src="@drawable/ic_more_vert_black_24dp"-->
-                <!--android:layout_alignParentRight="true"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="match_parent" />-->
+            <ImageButton
+                android:id="@+id/btn_menu"
+                android:background="#7a4cdbbb"
+                android:src="@drawable/ic_more_vert_black_24dp"
+                android:layout_alignParentRight="true"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent" />
 
             </RelativeLayout>
 

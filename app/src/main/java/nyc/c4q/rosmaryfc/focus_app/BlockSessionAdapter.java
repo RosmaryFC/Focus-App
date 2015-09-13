@@ -3,12 +3,14 @@ package nyc.c4q.rosmaryfc.focus_app;
 import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
-import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,11 +21,11 @@ import nyc.c4q.rosmaryfc.focus_app.db.BlockSessionDBHelper;
 /**
  * Created by c4q-rosmary on 8/23/15.
  */
-public class BlockSessionAdapter extends ArrayAdapter <BlockSession> implements View.OnCreateContextMenuListener{
+public class BlockSessionAdapter extends ArrayAdapter<BlockSession> {
 
     Context context;
     int layoutResourceId;
-    ArrayList <BlockSession> data;
+    ArrayList<BlockSession> data;
     boolean deleteIsEnabled;
 
     public BlockSessionAdapter(Context context, int layoutResourceId, ArrayList<BlockSession> data, boolean deleteIsEnabled) {
@@ -49,7 +51,7 @@ public class BlockSessionAdapter extends ArrayAdapter <BlockSession> implements 
         View row = convertView;
         BlockHolder holder = null;
 
-        if(row == null) {
+        if (row == null) {
             LayoutInflater inflater = ((Activity) context).getLayoutInflater();
             row = inflater.inflate(layoutResourceId, parent, false);
             holder = new BlockHolder();
@@ -57,10 +59,9 @@ public class BlockSessionAdapter extends ArrayAdapter <BlockSession> implements 
             holder.mDate = (TextView) row.findViewById(R.id.txt_date);
             holder.mStartTime = (TextView) row.findViewById(R.id.txt_start_time);
             holder.mEndTime = (TextView) row.findViewById(R.id.txt_end_time);
-            holder.mDeleteBtn = (ImageButton) row.findViewById(R.id.btn_delete);
-            holder.mEditBtn = (ImageButton) row.findViewById(R.id.btn_edit);
-//            holder.mNotes = (TextView) row.findViewById(R.id.txt_notes);
-//            holder.mMenu = (ImageButton) row.findViewById(R.id.btn_menu);
+//            holder.mDeleteBtn = (ImageButton) row.findViewById(R.id.btn_delete);
+//            holder.mEditBtn = (ImageButton) row.findViewById(R.id.btn_edit);
+            holder.mMenu = (ImageButton) row.findViewById(R.id.btn_menu);
 
 
 //            if(deleteIsEnabled) {
@@ -79,49 +80,51 @@ public class BlockSessionAdapter extends ArrayAdapter <BlockSession> implements 
         holder.mDate.setText(session.date);
         holder.mStartTime.setText(session.startTime);
         holder.mEndTime.setText(session.endTime);
-//        holder.mNotes.setText(session.notes);
 
         final BlockSessionDBHelper helper = new BlockSessionDBHelper(context);
 
-        holder.mDeleteBtn.setOnClickListener(new View.OnClickListener() {
+
+        holder.mMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                PopupMenu popupMenu = new PopupMenu(context, view);
+                MenuInflater menuInflater = popupMenu.getMenuInflater();
+                menuInflater.inflate(R.menu.menu_block_session_popup_list, popupMenu.getMenu());
+                popupMenu.show();
 
-                helper.deleteBlockSession(session);
-                data.remove(position);
-                Toast.makeText(context, "deleteBtn pressed", Toast.LENGTH_SHORT).show();
-                notifyDataSetChanged();
+                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem menuItem) {
+
+                        switch (menuItem.getItemId()) {
+                            case R.id.delete_block_session_item:
+
+                                Toast.makeText(context, "delete list item pressed", Toast.LENGTH_SHORT).show();
+                                helper.deleteBlockSession(session);
+                                data.remove(position);
+                                notifyDataSetChanged();
+
+                                return true;
+                            case R.id.edit_block_session_item:
+
+//                                helper.updateBlockSession(session);
+                                Toast.makeText(context, "edit list item pressed", Toast.LENGTH_SHORT).show();
+//                                notifyDataSetChanged();
+
+
+                                return true;
+                            default:
+                                return false;
+                        }
+                    }
+                });
+
+
             }
         });
-
-//        holder.mEditBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//                helper.updateBlockSession(session);
-//                Toast.makeText(context, "editBtn pressed", Toast.LENGTH_SHORT).show();
-//                notifyDataSetChanged();
-//            }
-//        });
-
-//        row.setOnCreateContextMenuListener(new View.OnCreateContextMenuListener() {
-//            @Override
-//            public void onCreateContextMenu(ContextMenu contextMenu, View view, ContextMenu.ContextMenuInfo contextMenuInfo) {
-//                AdapterViewCompat.AdapterContextMenuInfo info = (AdapterViewCompat.AdapterContextMenuInfo) contextMenuInfo;
-//                currentposition = info.position;
-//
-//
-//            }
-//        });
-
-
         return row;
     }
 
-    @Override
-    public void onCreateContextMenu(ContextMenu contextMenu, View view, ContextMenu.ContextMenuInfo contextMenuInfo) {
-
-    }
 
 
     public static class BlockHolder {
@@ -129,9 +132,6 @@ public class BlockSessionAdapter extends ArrayAdapter <BlockSession> implements 
         TextView mStartTime;
         TextView mEndTime;
         TextView mDate;
- //       TextView mNotes;
         ImageButton mMenu;
-        ImageButton mDeleteBtn;
-        ImageButton mEditBtn;
     }
 }

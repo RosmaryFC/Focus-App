@@ -1,7 +1,6 @@
 package nyc.c4q.rosmaryfc.focus_app;
 
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -12,14 +11,12 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.ListView;
-import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import nyc.c4q.rosmaryfc.focus_app.db.BlockSessionContract;
 import nyc.c4q.rosmaryfc.focus_app.db.BlockSessionDBHelper;
 import nyc.c4q.rosmaryfc.focus_app.ui.FocusSessionActivity;
 
@@ -33,31 +30,50 @@ public class BlockSessionFragment extends Fragment {
     private BlockSessionDBHelper helper;
 
     ListView blockSessionsList;
-    private boolean deleteBtnIsEnabled;
-
     View blockSessionView;
 
-    ImageButton menuBtn;
+    boolean blockSessionIsEnabled; // todo: used to make bs clock visible for active block session
+    boolean blockSessionIsRecurring; //todo:
+
+    String blockType;
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setHasOptionsMenu(true);
-
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
         blockSessionView = inflater.inflate(R.layout.activity_block_session, container, false);
 
         updateUI();
 
-        //registerForContextMenu(blockSessionsList);
-
         return blockSessionView;
+    }
+
+    @Override
+    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
+    }
+
+    @Override
+    public void onResume() {
+        Log.d("BS FRAG On RESUME: ", "...");
+
+        //blockSessionsList.invalidateViews();
+        adapter.notifyDataSetChanged();
+        super.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        Log.d("BS FRAG On PAUSE: ", ".....");
+        super.onPause();
+
     }
 
 
@@ -67,89 +83,53 @@ public class BlockSessionFragment extends Fragment {
         super.onCreateOptionsMenu(menu, inflater);
     }
 
-//    @Override
-//    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-//        super.onCreateContextMenu(menu, v, menuInfo);
-//
-//        android.view.MenuInflater inflater = getActivity().getMenuInflater();
-//        inflater.inflate(R.menu.menu_block_session_context, menu);
-//    }
-
-//    @Override
-//    public boolean onContextItemSelected(MenuItem item) {
-//        switch(item.getItemId())
-//        {
-//            case R.id.edit_block_session_item:
-//            {
-//
-//
-//            }
-//            break;
-//            case R.id.delete_block_session_item:
-//            {
-//                Log.d("BS FRAG ITEM ID: ", item.getItemId() + " , MENU INFO: " + item.getMenuInfo());
-//
-//                item.
-//
-//
-//                //                View v = (View) view.getParent();
-////                TextView blockNameTv = (TextView) v.findViewById(R.id.txt_block_name);
-////                String blockName = blockNameTv.getText().toString();
-////
-////                String sql = String.format("DELETE FROM %s WHERE %s = '%s'",
-////                        BlockSessionContract.TABLE_BLOCK_SESSIONS,
-////                        BlockSessionContract.Columns.BLOCK_NAME,
-////                        blockName);
-////
-////                helper = new BlockSessionDBHelper(blockSessionView.getContext());
-////                SQLiteDatabase sqlDB = helper.getWritableDatabase();
-////                sqlDB.execSQL(sql);
-////                updateUI();
-//
-//                helper.deleteBlockSession();
-//
-//            }
-//            break;
-//        }
-//
-//        return super.onContextItemSelected(item);
-//    }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
         switch (item.getItemId()) {
-            case R.id.action_add_BlockSession:
-
-                Intent intent = new Intent(blockSessionView.getContext(), FocusSessionActivity.class);
-                startActivity(intent);
-
-                break;
-//            case R.id.action_del_BlockSession:
-//                //TODO: get Delete button to work - when enabled set del btn to visible. keeps re-adding listview
-////                int counter = 0;
-////                counter ++;
-////
-////                if(counter % 2 == 0){
-////                    deleteBtnIsEnabled = false;
-////                   // deleteBtn.setOnClickListener(null);
-//                        //adapter.notifydataSetChanged or something
-////                    updateUI();
-////
-////                } else {
-////                    deleteBtnIsEnabled = true;
-//                //adapter.notifydataSetChanged or something
-//
-////                    updateUI();
-////                }
-//
-//                break;
             case R.id.action_settings:
                 //
-                break;
-        }
-        return super.onOptionsItemSelected(item);
-    }
+                return true;
+            case R.id.start_bs_now_item:
+                blockType = "immediate";
 
+            //todo: will not be added in database, user will specify length of block session up to 6 hours
+                // have option to disable current block session by going into settings.
+                // will kill appmonitor but then take into consideration that block service will keep checking bs list and reactivate
+                //possible have two tables, one of enabled block sessions, another with disabled block sessions
+
+                Toast.makeText(blockSessionView.getContext(), "start bs now pressed", Toast.LENGTH_SHORT).show();
+
+                return true;
+            case R.id.recur_bs_item:
+                blockType = "recur";
+
+                Toast.makeText(blockSessionView.getContext(), "recur bs now pressed",Toast.LENGTH_SHORT).show();
+
+                Intent recurIntent = new Intent (blockSessionView.getContext(), FocusSessionActivity.class);
+                startActivity(recurIntent);
+
+                return true;
+            case R.id.future_bs_item:
+                blockType = "future";
+
+                Toast.makeText(blockSessionView.getContext(), "future bs now pressed",Toast.LENGTH_SHORT).show();
+
+
+                Intent futureIntent = new Intent(blockSessionView.getContext(), FocusSessionActivity.class);
+                startActivity(futureIntent);
+
+//                BlockSessionAlertDialogFragment futureBSDialogFrag = new BlockSessionAlertDialogFragment();
+//                futureBSDialogFrag.show(getFragmentManager(), "Future Block Session Frag");
+//
+//                adapter.notifyDataSetChanged();
+
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 
     protected void updateUI() {
         helper = new BlockSessionDBHelper(blockSessionView.getContext());
@@ -174,29 +154,36 @@ public class BlockSessionFragment extends Fragment {
             sessions.add(bs); //adding contacts data into array list
         }
 
-        adapter = new BlockSessionAdapter(blockSessionView.getContext(), R.layout.block_session_list, sessions, deleteBtnIsEnabled);
+        adapter = new BlockSessionAdapter(blockSessionView.getContext(), R.layout.block_session_list, sessions, blockSessionIsEnabled);
         blockSessionsList = (ListView) blockSessionView.findViewById(R.id.list_block_times);
         blockSessionsList.setAdapter(adapter);
     }
 
-    public View.OnClickListener deleteListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            View v = (View) view.getParent();
-            TextView blockNameTv = (TextView) v.findViewById(R.id.txt_block_name);
-            String blockName = blockNameTv.getText().toString();
-
-            String sql = String.format("DELETE FROM %s WHERE %s = '%s'",
-                    BlockSessionContract.TABLE_BLOCK_SESSIONS,
-                    BlockSessionContract.Columns.BLOCK_NAME,
-                    blockName);
-
-            helper = new BlockSessionDBHelper(blockSessionView.getContext());
-            SQLiteDatabase sqlDB = helper.getWritableDatabase();
-            sqlDB.execSQL(sql);
-            updateUI();
-        }
-    };
-
 
 }
+
+
+//            case R.id.action_add_BlockSession:
+//                Intent intent = new Intent(blockSessionView.getContext(), FocusSessionActivity.class);
+//                startActivity(intent);
+//                return true;
+//            case R.id.action_del_BlockSession:
+//                //TODO: get Delete button to work - when enabled set del btn to visible. keeps re-adding listview
+////                int counter = 0;
+////                counter ++;
+////
+////                if(counter % 2 == 0){
+////                    deleteBtnIsEnabled = false;
+////                   // deleteBtn.setOnClickListener(null);
+//                        //adapter.notifydataSetChanged or something
+////                    updateUI();
+////
+////                } else {
+////                    deleteBtnIsEnabled = true;
+//                //adapter.notifydataSetChanged or something
+//
+////                    updateUI();
+////                }
+//
+//                break;
+
