@@ -92,6 +92,7 @@ public class BlockSessionFragment extends Fragment {
         return super.onOptionsItemSelected(item);
     }
 
+
     protected void updateUI() {
 
         BlockSessionDBHelper db = new BlockSessionDBHelper(blockSessionView.getContext());

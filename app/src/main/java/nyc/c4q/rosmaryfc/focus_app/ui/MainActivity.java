@@ -61,8 +61,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void setupViewPager(ViewPager viewPager) {
         Adapter adapter = new Adapter(getSupportFragmentManager());
-        adapter.addFragment(new MonitoringAppsFragment(), "App Monitor ");
         adapter.addFragment(new BlockSessionFragment(), "Block Sessions");
+        adapter.addFragment(new MonitoringAppsFragment(), "App Monitor ");
+
 //        adapter.addFragment(new BlockTimes(), "BlockTimes");
 //        adapter.addFragment(new MonitoringAppsFragment(), "TBD");
         viewPager.setAdapter(adapter);
