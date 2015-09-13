@@ -43,7 +43,7 @@ public class BlockSessionAdapter extends ArrayAdapter<BlockSession> {
 
             String log = "ID: " + data.get(i).getId() + " , Name: " + data.get(i).getName() + ", Date: " + data.get(i).getDate()
                     + ", StartTime: " + data.get(i).getStartTime() + " , EndTime: " + data.get(i).getEndTime()
-                    + ", Notes: " + data.get(i).getNotes();
+                 + ", Notes: " + data.get(i).getNotes();
 
             Log.d("ADAPTER DATA: ", log);
         }
@@ -59,8 +59,9 @@ public class BlockSessionAdapter extends ArrayAdapter<BlockSession> {
             holder.mDate = (TextView) row.findViewById(R.id.txt_date);
             holder.mStartTime = (TextView) row.findViewById(R.id.txt_start_time);
             holder.mEndTime = (TextView) row.findViewById(R.id.txt_end_time);
-//            holder.mDeleteBtn = (ImageButton) row.findViewById(R.id.btn_delete);
-//            holder.mEditBtn = (ImageButton) row.findViewById(R.id.btn_edit);
+
+
+
             holder.mMenu = (ImageButton) row.findViewById(R.id.btn_menu);
 
 
@@ -69,6 +70,7 @@ public class BlockSessionAdapter extends ArrayAdapter<BlockSession> {
 //            }else {
 //                holder.mDelete.setVisibility(View.INVISIBLE);
 //            }
+
 
             row.setTag(holder);
         } else {
@@ -82,7 +84,6 @@ public class BlockSessionAdapter extends ArrayAdapter<BlockSession> {
         holder.mEndTime.setText(session.endTime);
 
         final BlockSessionDBHelper helper = new BlockSessionDBHelper(context);
-
 
         holder.mMenu.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,7 +112,6 @@ public class BlockSessionAdapter extends ArrayAdapter<BlockSession> {
                                 Toast.makeText(context, "edit list item pressed", Toast.LENGTH_SHORT).show();
 //                                notifyDataSetChanged();
 
-
                                 return true;
                             default:
                                 return false;
@@ -126,7 +126,6 @@ public class BlockSessionAdapter extends ArrayAdapter<BlockSession> {
     }
 
 
-
     public static class BlockHolder {
         TextView mBlockName;
         TextView mStartTime;
@@ -134,4 +133,6 @@ public class BlockSessionAdapter extends ArrayAdapter<BlockSession> {
         TextView mDate;
         ImageButton mMenu;
     }
+
+
 }

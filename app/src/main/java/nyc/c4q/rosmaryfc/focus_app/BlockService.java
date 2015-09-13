@@ -1,9 +1,6 @@
 package nyc.c4q.rosmaryfc.focus_app;
 
-import android.app.Activity;
-import android.app.AlarmManager;
 import android.app.Notification;
-import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
@@ -30,7 +27,6 @@ public class BlockService extends Service {
     Timer timer;
 
     int startHour, startMinute, endHour, endMinute;
-    long currentTime, startTime, endTime, fiveMinute;
 
     boolean blockSessionIsActive;
 
@@ -68,48 +64,30 @@ public class BlockService extends Service {
     }
 
     private void doServiceWork() {
-        Calendar currentCalendar = Calendar.getInstance();
-        currentTime = currentCalendar.getTimeInMillis();
-        
-            getUpcomingBSInfo(getCurrentActiveBlockSession(todaysBlockSessions()));
 
-        //query next block session from db and set time values
-//        startHour = 17;
-//        startMinute = 24;
-//        endHour = 17;
-//        endMinute = 59;
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(getApplicationContext());
+
+        getUpcomingBSInfo(getCurrentActiveBlockSession(todaysBlockSessions()));
 
         if(blockSessionIsActive) {
 
-            Calendar startCalendar = Calendar.getInstance();
-            startCalendar.set(Calendar.HOUR_OF_DAY, startHour);
-            startCalendar.set(Calendar.MINUTE, startMinute);
-            startTime = startCalendar.getTimeInMillis();
-            startCalendar.add(Calendar.MINUTE, -5);
-            fiveMinute = startCalendar.getTimeInMillis();
+            Intent startMonitoringApps = new Intent(this, AppService.class);
+            this.startService(startMonitoringApps);
 
-            Calendar endCalendar = Calendar.getInstance();
-            endCalendar.set(Calendar.HOUR_OF_DAY, endHour);
-            endCalendar.set(Calendar.MINUTE, endMinute);
-            endTime = endCalendar.getTimeInMillis();
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext());
+            builder.setSmallIcon(R.drawable.block_on_logo);
+            builder.setContentTitle("Block On");
+            builder.setContentText("Focus Session is Active");
+            builder.setShowWhen(false);
+            builder.setOngoing(true);
+            Notification notification = builder.build();
+            notificationManager.notify(ID_FRIENDLY_NOTIFICATION, notification);
 
-            if (currentTime >= fiveMinute && currentTime < startTime) {
-                NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext());
-                builder.setSmallIcon(R.drawable.notification_template_icon_bg);
-                builder.setContentTitle("Session Block Reminder");
-                builder.setContentText("You're focus session will begin in 5 minutes");
-                Notification notification = builder.build();
-                NotificationManagerCompat notificationManager = NotificationManagerCompat.from(getApplicationContext());
-                notificationManager.notify(ID_FRIENDLY_NOTIFICATION, notification);
-            } else if (currentTime >= startTime && currentTime < endTime) {
-                Intent startMonitoring = new Intent(this, AppService.class);
-                PendingIntent pendingIntent = PendingIntent.getService(this, 0, startMonitoring, 0);
-                AlarmManager alarmManager = (AlarmManager) getSystemService(Activity.ALARM_SERVICE);
-                alarmManager.set(AlarmManager.RTC_WAKEUP, startTime, pendingIntent);
-            } else {
+        } else {
+            Intent stopMonitoringApps = new Intent(this, AppService.class);
+            this.stopService(stopMonitoringApps);
 
-            }
-
+            notificationManager.cancel(ID_FRIENDLY_NOTIFICATION);
         }
     }
 
@@ -163,7 +141,7 @@ public class BlockService extends Service {
         return todaysBlockSessions;
     }
 
-    //iterates over todays block sessions to find which one  is currently active
+    //iterates over todays block sessions to find which one is currently active
     public BlockSession getCurrentActiveBlockSession(List todaysBlockSessions){
         List <BlockSession> listOfTodaysBS = todaysBlockSessions;
 
@@ -224,7 +202,4 @@ public class BlockService extends Service {
             endMinute = Integer.parseInt(endTimeArr[1]);
         }
     }
-
-
-
 }

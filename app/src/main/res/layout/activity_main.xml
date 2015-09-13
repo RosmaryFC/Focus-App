@@ -8,6 +8,13 @@
 
     <include layout="@layout/include_list_viewpager"/>
 
+
+
+
+
+
+
+
 </android.support.v4.widget.DrawerLayout>
 
 

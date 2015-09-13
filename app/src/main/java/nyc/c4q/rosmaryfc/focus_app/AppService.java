@@ -17,7 +17,7 @@ import java.util.TimerTask;
 
 public class AppService extends Service {
 
-    private static final long UPDATE_INTERVAL = 30 * 1000; //30 seconds
+    private static final long UPDATE_INTERVAL = 10 * 1000; //10 seconds
 
     Timer timer;
 
@@ -29,13 +29,13 @@ public class AppService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
+        activityManager = (ActivityManager) getApplicationContext().getSystemService(Context.ACTIVITY_SERVICE);
+        databaseHelper = DatabaseHelper.getInstance(this);
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT_WATCH) {
             isLollipop = true;
         } else {
             isLollipop = false;
         }
-        databaseHelper = DatabaseHelper.getInstance(this);
-        activityManager = (ActivityManager) getApplicationContext().getSystemService(Context.ACTIVITY_SERVICE);
         if (timer != null) {
             timer.cancel();
         } else {
@@ -83,8 +83,6 @@ public class AppService extends Service {
                         for (String activeProcess : processInfo.pkgList) {
                             if (activeProcess.equals(packageName)) {
                                 isInForeground = true;
-                            } else if (activeProcess.equals("nyc.c4q.rosmaryfc.focus_app")) {
-                                isInForeground = false;
                             }
                         }
                     }
@@ -105,16 +103,10 @@ public class AppService extends Service {
         }
     }
 
-
-    private void shutdownService() {
-        if (timer != null)
-            timer.cancel();
-    }
-
     @Override
     public void onDestroy() {
         super.onDestroy();
-        shutdownService();
+        timer.cancel();
     }
 
     @Override

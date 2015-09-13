@@ -131,6 +131,7 @@ public class BlockSessionFragment extends Fragment {
         }
     }
 
+
     protected void updateUI() {
         helper = new BlockSessionDBHelper(blockSessionView.getContext());
 
