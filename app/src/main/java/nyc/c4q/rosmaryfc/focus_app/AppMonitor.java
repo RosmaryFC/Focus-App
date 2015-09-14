@@ -1,6 +1,7 @@
 package nyc.c4q.rosmaryfc.focus_app;
 
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
@@ -15,6 +16,8 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.j256.ormlite.dao.Dao;
+
 import java.sql.SQLException;
 import java.util.Collections;
 import java.util.List;
@@ -23,9 +26,16 @@ import nyc.c4q.rosmaryfc.focus_app.ui.MainActivity;
 
 public class AppMonitor extends AppCompatActivity {
 
+    public static final int FIRST_LOAD_APPS = 0;
+    public static final int INSTALL_UNINSTALL_APPS = 1;
+    public static final int CURRENT_APPS = 2;
+
+
     ListView app_list;
     Button save;
     ProgressBar progress_bar;
+
+    AppReceiver receiver;
 
     DatabaseHelper databaseHelper;
     DBAsyncTask dbAsyncTask;
@@ -34,7 +44,10 @@ public class AppMonitor extends AppCompatActivity {
     List<ApplicationInfo> applicationInfos;
 
     List<App> apps;
+    List<App> monitoringApps;
     AppAdapter adapter;
+
+    boolean startedByReceiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,27 +57,27 @@ public class AppMonitor extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-
-
         app_list = (ListView) findViewById(R.id.app_list);
         save = (Button) findViewById(R.id.save);
-       // progress_bar = (ProgressBar) findViewById(R.id.progress_bar);
+        // progress_bar = (ProgressBar) findViewById(R.id.progress_bar);
+
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(Intent.ACTION_PACKAGE_ADDED);
+        filter.addAction(Intent.ACTION_PACKAGE_FULLY_REMOVED);
+        filter.addAction(Intent.ACTION_PACKAGE_INSTALL);
+        filter.addAction(Intent.ACTION_PACKAGE_REMOVED);
+        filter.addAction(Intent.ACTION_PACKAGE_REPLACED);
+        filter.addAction(Intent.ACTION_INSTALL_PACKAGE);
+        filter.addAction(Intent.ACTION_UNINSTALL_PACKAGE);
+        filter.addDataScheme("package");
+        receiver = new AppReceiver();
+        registerReceiver(receiver, filter);
+
+        startedByReceiver = getIntent().getBooleanExtra(AppReceiver.REFRESH, false);
 
         databaseHelper = DatabaseHelper.getInstance(this);
         packageManager = getPackageManager();
         applicationInfos = packageManager.getInstalledApplications(PackageManager.GET_META_DATA);
-
-        try {
-            if (databaseHelper.loadData().size() == 0) {
-                dbAsyncTask = new DBAsyncTask(true);
-                dbAsyncTask.execute();
-            } else {
-                dbAsyncTask = new DBAsyncTask(false);
-                dbAsyncTask.execute();
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
 
         save.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,24 +89,45 @@ public class AppMonitor extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        try {
+            if (databaseHelper.loadData().size() == 0) {
+                dbAsyncTask = new DBAsyncTask(FIRST_LOAD_APPS);
+                dbAsyncTask.execute();
+            } else {
+                if (startedByReceiver) {
+                    dbAsyncTask = new DBAsyncTask(INSTALL_UNINSTALL_APPS);
+                    dbAsyncTask.execute();
+                } else {
+                    dbAsyncTask = new DBAsyncTask(CURRENT_APPS);
+                    dbAsyncTask.execute();
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public class DBAsyncTask extends AsyncTask<Void, Void, List<App>> {
 
-        boolean firstTimeLoadingApps;
+        int status;
 
-        public DBAsyncTask(boolean firstTimeLoadingApps) {
+        public DBAsyncTask(int status) {
             super();
-            this.firstTimeLoadingApps = firstTimeLoadingApps;
+            this.status = status;
         }
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-           // progress_bar.setVisibility(View.VISIBLE);
+            // progress_bar.setVisibility(View.VISIBLE);
         }
 
         @Override
         protected List<App> doInBackground(Void... lists) {
-            if (firstTimeLoadingApps == true) {
+            if (status == FIRST_LOAD_APPS) {
                 try {
                     Collections.sort(applicationInfos, new ApplicationInfo.DisplayNameComparator(packageManager));
                     databaseHelper.insertData(applicationInfos);
@@ -101,7 +135,17 @@ public class AppMonitor extends AppCompatActivity {
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
-            } else {
+            } else if (status == INSTALL_UNINSTALL_APPS) {
+                try {
+                    Dao<App, ?> appDao = databaseHelper.getDao(App.class);
+                    monitoringApps = appDao.query(appDao.queryBuilder().where().eq("APP_MONITOR", true).prepare());
+                    Collections.sort(applicationInfos, new ApplicationInfo.DisplayNameComparator(packageManager));
+                    databaseHelper.insertData(applicationInfos, monitoringApps);
+                    apps = databaseHelper.loadData();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            } else if (status == CURRENT_APPS) {
                 try {
                     apps = databaseHelper.loadData();
                 } catch (SQLException e) {
@@ -114,7 +158,7 @@ public class AppMonitor extends AppCompatActivity {
         @Override
         protected void onPostExecute(List<App> apps) {
             super.onPostExecute(apps);
-           // progress_bar.setVisibility(View.INVISIBLE);
+            // progress_bar.setVisibility(View.INVISIBLE);
             adapter = new AppAdapter(getApplicationContext(), apps);
             app_list.setAdapter(adapter);
         }
