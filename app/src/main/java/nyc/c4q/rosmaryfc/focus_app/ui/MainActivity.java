@@ -44,15 +44,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.float_plus_button);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//                Snackbar.make(view, "Add a time", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
+
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);

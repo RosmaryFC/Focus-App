@@ -13,6 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
+
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,6 +42,8 @@ public class BlockSessionFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         setHasOptionsMenu(true);
+
+
 
     }
 
@@ -121,6 +125,7 @@ public class BlockSessionFragment extends Fragment {
         adapter = new BlockSessionAdapter(blockSessionView.getContext(), R.layout.block_session_list, sessions, deleteBtnIsEnabled);
         blockSessionsList = (ListView) blockSessionView.findViewById(R.id.list_block_times);
         blockSessionsList.setAdapter(adapter);
+
 
     }
 
