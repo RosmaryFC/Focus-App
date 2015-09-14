@@ -104,10 +104,10 @@ public class BlockSessionFragment extends Fragment {
                 blockType = "recur";
 
                 Toast.makeText(blockSessionView.getContext(), "recur bs now pressed",Toast.LENGTH_SHORT).show();
-
-                Intent recurIntent = new Intent (blockSessionView.getContext(), CreateNewBlockSessionActivity.class);
-                recurIntent.putExtra("block type", blockType);
-                startActivity(recurIntent);
+//todo: finish adding recur to database
+//                Intent recurIntent = new Intent (blockSessionView.getContext(), CreateNewBlockSessionActivity.class);
+//                recurIntent.putExtra("block type", blockType);
+//                startActivity(recurIntent);
 
                 return true;
             case R.id.future_bs_item:

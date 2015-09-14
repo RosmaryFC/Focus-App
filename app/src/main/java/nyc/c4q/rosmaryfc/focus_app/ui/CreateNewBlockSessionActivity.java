@@ -16,8 +16,11 @@ import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Locale;
 
 import nyc.c4q.rosmaryfc.focus_app.BlockSession;
 import nyc.c4q.rosmaryfc.focus_app.R;
@@ -36,6 +39,8 @@ public class CreateNewBlockSessionActivity extends AppCompatActivity {
 
     private BlockSessionDBHelper helper;
 
+    int layout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,7 +49,8 @@ public class CreateNewBlockSessionActivity extends AppCompatActivity {
         String blockType = blockTypeIntent.getExtras().getString("block type");
 
         if (blockType.equals("future")){
-            setContentView(R.layout.activity_future_block_session);
+            layout = R.layout.activity_future_block_session;
+            setContentView(layout);
 
             //write oncreate stuff here for future
             dateET = (EditText) findViewById(R.id.date_et);
@@ -55,7 +61,8 @@ public class CreateNewBlockSessionActivity extends AppCompatActivity {
 
 
         }else if (blockType.equals("recur")){
-            setContentView(R.layout.activity_recur_block_session);
+            layout = R.layout.activity_recur_block_session;
+            setContentView(layout);
 
             //write on create stuff here for recur
         }
@@ -76,6 +83,13 @@ public class CreateNewBlockSessionActivity extends AppCompatActivity {
 //        startTimeET.setOnTouchListener(startTimeListener);
 //        endTimeET.setOnTouchListener(endTimeListener);
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_create_new_block_session, menu);
+        return true;
     }
 
     //todo: will not be used to demo MVP, use will choose between setting date or setting weekdays
@@ -157,9 +171,17 @@ public class CreateNewBlockSessionActivity extends AppCompatActivity {
             mTimePicker = new TimePickerDialog(CreateNewBlockSessionActivity.this, new TimePickerDialog.OnTimeSetListener() {
                 @Override
                 public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-                    startTimeET.setText( selectedHour + ":" + selectedMinute);
+                    Calendar dateTime = Calendar.getInstance();
+                    dateTime.set(Calendar.HOUR_OF_DAY, selectedHour);
+                    dateTime.set(Calendar.MINUTE, selectedMinute);
+
+                    String formatAmPm = "hh:mm a";
+                    SimpleDateFormat sdf = new SimpleDateFormat(formatAmPm, Locale.US);
+                    String formattedTime = sdf.format(dateTime.getTime());
+
+                    startTimeET.setText(formattedTime);
                 }
-            }, hour, minute, true);
+            }, hour, minute, false);
             mTimePicker.setTitle("Select Time");
             mTimePicker.show();
         }
@@ -177,9 +199,17 @@ public class CreateNewBlockSessionActivity extends AppCompatActivity {
             mTimePicker = new TimePickerDialog(CreateNewBlockSessionActivity.this, new TimePickerDialog.OnTimeSetListener() {
                 @Override
                 public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-                    endTimeET.setText( selectedHour + ":" + selectedMinute);
+                    Calendar dateTime = Calendar.getInstance();
+                    dateTime.set(Calendar.HOUR_OF_DAY, selectedHour);
+                    dateTime.set(Calendar.MINUTE, selectedMinute);
+
+                    String format = "hh:mm a";
+                    SimpleDateFormat sdf = new SimpleDateFormat(format, Locale.US);
+                    String formattedTime = sdf.format(dateTime.getTime());
+
+                    endTimeET.setText(formattedTime);
                 }
-            }, hour, minute, true);
+            }, hour, minute, false);
             mTimePicker.setTitle("Select Time");
             mTimePicker.show();
         }
@@ -200,9 +230,9 @@ public class CreateNewBlockSessionActivity extends AppCompatActivity {
                 @Override
                 public void onDateSet(DatePicker datePicker, int selectedYear, int selectedMonth, int selectedDay) {
                     // TODO Auto-generated method stub
-                    /*  get date and time */
+                    /* get date and time */
                     selectedMonth = selectedMonth + 1;
-                    dateET.setText(selectedYear + "/" + selectedMonth + "/" + selectedDay);
+                    dateET.setText(selectedMonth + "/" + selectedDay +"/" + selectedYear);
                 }
             }, mYear, mMonth, mDay);
             mDatePicker.setTitle("Select Date");
@@ -211,20 +241,36 @@ public class CreateNewBlockSessionActivity extends AppCompatActivity {
     };
 
     public void saveOnClick (View view){
-        String name = nameET.getText().toString();
-        String date = dateET.getText().toString();
-        String startTime = startTimeET.getText().toString();
-        String endTime = endTimeET.getText().toString();
-        String notes = "N/A";
+        if(layout == R.layout.activity_future_block_session ) {
 
-        helper = new BlockSessionDBHelper(this);
-        helper.addBlockSession(new BlockSession(name, date, startTime, endTime, notes));
+            String name = nameET.getText().toString();
+            String date = dateET.getText().toString();
+            String startTime = startTimeET.getText().toString();
+            String endTime = endTimeET.getText().toString();
+            String notes = "N/A";//todo: remove notes from database, BlockSession,
 
-        getData();
+            if(FutureBSFieldsAreNotEmpty(name, date, startTime, endTime)){
+                helper = new BlockSessionDBHelper(this);
+                helper.addBlockSession(new BlockSession(name, date, startTime, endTime, notes));
 
-        Intent intent = new Intent (this, MainActivity.class);
-        startActivity(intent);
+                getData();
 
+                Intent intent = new Intent (this, MainActivity.class);
+                startActivity(intent);
+            } else {
+                Toast.makeText(this, "Input Field Missing", Toast.LENGTH_SHORT).show();
+            }
+
+        }else if(layout == R.layout.activity_recur_block_session) {
+            saveRecurBS();
+        }
+    }
+
+    public boolean FutureBSFieldsAreNotEmpty (String name, String date, String startTime, String endTime){
+        if(name.isEmpty() || date.isEmpty() || startTime.isEmpty() || endTime.isEmpty()){
+            return false;
+        }
+        return true;
     }
 
     public void cancelOnClick(View view){
@@ -259,12 +305,11 @@ public class CreateNewBlockSessionActivity extends AppCompatActivity {
         db.close();
 
     }
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_focus_session, menu);
-        return true;
+
+    public void saveRecurBS(){
+
     }
+
 }
 
 //    public View.OnTouchListener startTimeListener = new View.OnTouchListener() {
@@ -383,3 +428,32 @@ public class CreateNewBlockSessionActivity extends AppCompatActivity {
 //                break;
 //        }
 //    }
+
+
+
+//String [] timesplitAmPmArr = formattedTime.split(" ");
+//String [] hourMinuteArr = timesplitAmPmArr[0].split("\\:");
+//
+//String am_pm = timesplitAmPmArr[1];
+//int hour = Integer.parseInt(hourMinuteArr[0]);
+//String minute = hourMinuteArr[1];
+//
+//int militaryHour;
+//
+//if(am_pm.equalsIgnoreCase("pm")){
+//        militaryHour = (hour + 12);
+//        } else {
+//        militaryHour = hour;
+//        }
+//
+//        String militaryTime = militaryHour +":" + minute;
+//
+//
+//        Log.d("NEW BS TIME SET ", "military to formattedTime: " + formattedTime + " , formatted to military " +militaryTime );
+
+//                    String minString = selectedMinute + "";
+//                    if(minString.length() == 1){
+//                        startTimeET.setText( selectedHour + ":0" + selectedMinute);
+//                    }else {
+//                        startTimeET.setText( selectedHour + ":" + selectedMinute);
+//                    }

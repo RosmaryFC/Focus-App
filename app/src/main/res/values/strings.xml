@@ -17,6 +17,7 @@
     <string name="title_activity_block_session">BlockSessionActivity</string>
 
     <string name="message"><b> Your Block-On session has started.\n Shouldn\'t you be focusing now?</b></string>
+    <string name="title_activity_create_new_block_session">CreateNewBlockSessionActivity</string>
 
 
 </resources>

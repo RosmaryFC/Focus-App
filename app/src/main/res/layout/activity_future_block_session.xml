@@ -57,6 +57,20 @@
                     android:layout_height="0dp">
 
                     <EditText
+                        android:id="@+id/date_et"
+                        android:hint="Date"
+                        android:inputType="none"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp">
+
+                    <EditText
                         android:id="@+id/start_time_et"
                         android:hint="Start Time"
                         android:inputType="none"
@@ -64,7 +78,6 @@
                         android:layout_height="match_parent" />
 
                 </android.support.design.widget.TextInputLayout>
-
 
                 <android.support.design.widget.TextInputLayout
                     android:layout_weight="1"
@@ -74,21 +87,6 @@
                     <EditText
                         android:id="@+id/end_time_et"
                         android:hint="End Time"
-                        android:inputType="none"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
-
-                </android.support.design.widget.TextInputLayout>
-
-
-                <android.support.design.widget.TextInputLayout
-                    android:layout_weight="1"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp">
-
-                    <EditText
-                        android:id="@+id/date_et"
-                        android:hint="Date"
                         android:inputType="none"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent" />
