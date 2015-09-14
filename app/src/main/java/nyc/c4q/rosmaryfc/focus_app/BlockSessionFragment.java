@@ -155,7 +155,7 @@ public class BlockSessionFragment extends Fragment {
             sessions.add(bs); //adding contacts data into array list
         }
 
-        adapter = new BlockSessionAdapter(blockSessionView.getContext(), R.layout.block_session_row, sessions, blockSessionIsEnabled);
+        adapter = new BlockSessionAdapter(blockSessionView.getContext(), R.layout.block_session_row_item, sessions, blockSessionIsEnabled);
         blockSessionsList = (ListView) blockSessionView.findViewById(R.id.list_block_times);
         blockSessionsList.setAdapter(adapter);
     }

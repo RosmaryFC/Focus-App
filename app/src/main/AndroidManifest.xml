@@ -31,10 +31,6 @@
         <activity
             android:name=".AppUsage"
             android:label="@string/title_activity_app_usage" />
-        <activity
-            android:name=".ui.BlockSessionActivity"
-            android:label="@string/title_activity_block_session" >
-        </activity>
 
         <receiver android:name=".BootReceiver" >
             <intent-filter>
