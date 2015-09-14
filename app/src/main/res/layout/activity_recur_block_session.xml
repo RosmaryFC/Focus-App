@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/toolbar" />
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <!-- todo: title for create new recur block session -->
+
+            <TextView
+                android:id="@+id/title"
+                android:text="New Future Block Session"
+                android:textSize="30sp"
+                android:gravity="center"
+                android:textColor="#FFF"
+                android:background="#be45bcac"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <!--todo:commented out for demo, recur needs to be worked on -->
+
+            <TextView
+            android:text="Weekdays"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+            <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_gravity="fill_vertical"
+            android:gravity="center"
+            android:layout_weight="1">
+
+            <CheckBox
+            android:id="@+id/checkbox_sunday"
+            android:text="Su"
+            android:onClick="onCheckboxClicked"
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+            <CheckBox
+            android:id="@+id/checkbox_monday"
+            android:text="M"
+            android:onClick="onCheckboxClicked"
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+            <CheckBox
+            android:id="@+id/checkbox_tuesday"
+            android:text="T"
+            android:onClick="onCheckboxClicked"
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+            <CheckBox
+            android:id="@+id/checkbox_wednesday"
+            android:text="W"
+            android:onClick="onCheckboxClicked"
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+            <CheckBox
+            android:id="@+id/checkbox_thursday"
+            android:text="Th"
+            android:onClick="onCheckboxClicked"
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+            <CheckBox
+            android:id="@+id/checkbox_friday"
+            android:text="F"
+            android:onClick="onCheckboxClicked"
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+            <CheckBox
+            android:id="@+id/checkbox_saturday"
+            android:text="Sa"
+            android:onClick="onCheckboxClicked"
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="16dp"
+                android:orientation="vertical">
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp">
+
+                    <EditText
+                        android:id="@+id/name_et"
+                        android:hint="Name "
+                        android:inputType="textCapCharacters"
+                        android:maxLength="20"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp">
+
+                    <EditText
+                        android:id="@+id/start_time_et"
+                        android:hint="Start Time"
+                        android:inputType="none"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+
+                </android.support.design.widget.TextInputLayout>
+
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp">
+
+                    <EditText
+                        android:id="@+id/end_time_et"
+                        android:hint="End Time"
+                        android:inputType="none"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+
+                </android.support.design.widget.TextInputLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:id="@+id/save_btn"
+                    android:text="Save"
+                    android:textColor="#FFFFFF"
+                    android:background="@drawable/btn_save"
+                    android:layout_gravity="center"
+                    android:onClick="saveOnClick"
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp" />
+
+                <Button
+                    android:id="@+id/cancel_btn"
+                    android:text="Cancel"
+                    android:textColor="#FFFFFF"
+                    android:background="@drawable/btn_save"
+                    android:layout_gravity="center"
+                    android:onClick="cancelOnClick"
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+</LinearLayout>
+
+
+

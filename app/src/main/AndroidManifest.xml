@@ -27,8 +27,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.FocusSessionActivity"
-            android:label="@string/title_activity_focus_session" >
+            android:name=".ui.CreateNewBlockSessionActivity"
+            android:label="@string/title_activity_create_new_block_session" >
         </activity>
         <activity
             android:name=".AppMonitor"
@@ -36,12 +36,8 @@
         <activity
             android:name=".AppUsage"
             android:label="@string/title_activity_app_usage" />
-        <activity
-            android:name=".ui.BlockSessionActivity"
-            android:label="@string/title_activity_block_session" >
-        </activity>
 
-        <receiver android:name=".BootReceiver">
+        <receiver android:name=".BootReceiver" >
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
