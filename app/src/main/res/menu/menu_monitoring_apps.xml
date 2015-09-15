@@ -6,10 +6,15 @@
 
     <item
         android:id="@+id/action_edit_app"
-        android:title="Edit"
+        android:title="Edit list"
         android:orderInCategory="100"
         app:showAsAction="always" />
 
-
+    <!-- create settings option -->
+    <!--<item-->
+    <!--android:id="@+id/action_settings"-->
+    <!--android:title="@string/action_settings"-->
+    <!--android:orderInCategory="100"-->
+    <!--app:showAsAction="always" />-->
 
 </menu>

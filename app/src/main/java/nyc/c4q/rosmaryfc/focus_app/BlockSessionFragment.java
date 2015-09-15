@@ -90,30 +90,30 @@ public class BlockSessionFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
 
         switch (item.getItemId()) {
-            case R.id.action_settings:
-                //
-                return true;
-            case R.id.start_bs_now_item:
-                blockType = "immediate";
-
-            //todo: will not be added in database, user will specify length of block session up to 6 hours
-                // have option to disable current block session by going into settings.
-                // will kill appmonitor but then take into consideration that block service will keep checking bs list and reactivate
-                //possible have two tables, one of enabled block sessions, another with disabled block sessions
-
-                Toast.makeText(blockSessionView.getContext(), "start bs now pressed", Toast.LENGTH_SHORT).show();
-
-                return true;
-            case R.id.recur_bs_item:
-                blockType = "recur";
-
-                Toast.makeText(blockSessionView.getContext(), "recur bs now pressed",Toast.LENGTH_SHORT).show();
-//todo: finish adding recur to database
-//                Intent recurIntent = new Intent (blockSessionView.getContext(), CreateNewBlockSessionActivity.class);
-//                recurIntent.putExtra("block type", blockType);
-//                startActivity(recurIntent);
-
-                return true;
+//            case R.id.action_settings:
+//                //
+//                return true;
+//            case R.id.start_bs_now_item:
+//                blockType = "immediate";
+//
+//            //todo: will not be added in database, user will specify length of block session up to 6 hours
+//                // have option to disable current block session by going into settings.
+//                // will kill appmonitor but then take into consideration that block service will keep checking bs list and reactivate
+//                //possible have two tables, one of enabled block sessions, another with disabled block sessions
+//
+//                Toast.makeText(blockSessionView.getContext(), "start bs now pressed", Toast.LENGTH_SHORT).show();
+//
+//                return true;
+//            case R.id.recur_bs_item:
+//                blockType = "recur";
+//
+//                Toast.makeText(blockSessionView.getContext(), "recur bs now pressed",Toast.LENGTH_SHORT).show();
+////todo: finish adding recur to database
+////                Intent recurIntent = new Intent (blockSessionView.getContext(), CreateNewBlockSessionActivity.class);
+////                recurIntent.putExtra("block type", blockType);
+////                startActivity(recurIntent);
+//
+//                return true;
             case R.id.future_bs_item:
                 blockType = "future";
 
@@ -171,12 +171,7 @@ public class BlockSessionFragment extends Fragment {
 }
 
 
-//            case R.id.action_add_BlockSession:
-//                Intent intent = new Intent(blockSessionView.getContext(), FocusSessionActivity.class);
-//                startActivity(intent);
-//                return true;
-//            case R.id.action_del_BlockSession:
-//                //TODO: get Delete button to work - when enabled set del btn to visible. keeps re-adding listview
+//                //TODO:when bs enabled set logo view to visible. keeps re-adding listview
 ////                int counter = 0;
 ////                counter ++;
 ////
