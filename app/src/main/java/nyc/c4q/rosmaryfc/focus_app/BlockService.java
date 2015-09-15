@@ -13,6 +13,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -67,7 +68,6 @@ public class BlockService extends Service {
 
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(getApplicationContext());
 
-
         getUpcomingBSInfo(getCurrentActiveBlockSession(todaysBlockSessions()));
 
         if(blockSessionIsActive) {
@@ -94,14 +94,12 @@ public class BlockService extends Service {
 
     //List of all of todays block sessions
     public List<BlockSession> todaysBlockSessions (){
-        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-        DateFormat dateFormat2 = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss", Locale.US);
 
         Calendar currentCalendar = Calendar.getInstance();
         String currentDate = dateFormat.format(currentCalendar.getTime());
-        String currentDate2 = dateFormat2.format(currentCalendar.getTime());
 
-        Log.d("SERVICE: ", "CURRENT DATE: " + currentDate + " , CURRENT DATE 2: " + currentDate2);
+        Log.d("SERVICE: ", "CURRENT DATE: " + currentDate );
 
         String [] dateFormatArr = currentDate.split(" ");
         String [] arr = dateFormatArr[0].split("\\/");
@@ -125,9 +123,9 @@ public class BlockService extends Service {
 
             String [] bsArr = bs.getDate().split("/");
 
-            int bsYear = Integer.parseInt(bsArr[0]);
-            int bsMonth = Integer.parseInt(bsArr[1]);
-            int bsDay = Integer.parseInt(bsArr[2]);
+            int bsYear = Integer.parseInt(bsArr[2]);
+            int bsMonth = Integer.parseInt(bsArr[0]);
+            int bsDay = Integer.parseInt(bsArr[1]);
 
             if(currentYear == bsYear && currentMonth == bsMonth && currentDay == bsDay) {
                 String log2 = "ID: " + bs.getId() + " , Name: " + bs.getName() + ", Date: " + bs.getDate()
@@ -146,7 +144,7 @@ public class BlockService extends Service {
     public BlockSession getCurrentActiveBlockSession(List todaysBlockSessions){
         List <BlockSession> listOfTodaysBS = todaysBlockSessions;
 
-        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss", Locale.US);
 
         Calendar currentCalendar = Calendar.getInstance();
         String currentDate = dateFormat.format(currentCalendar.getTime());
@@ -160,11 +158,14 @@ public class BlockService extends Service {
 
             BlockSession bs = listOfTodaysBS.get(i);
 
-            String [] bsStartTimeArr = bs.getStartTime().split("\\:");
+            String militaryStartTime = formatToMilitaryTime(bs.getStartTime());
+            String militaryEndTime = formatToMilitaryTime(bs.getEndTime());
+
+            String [] bsStartTimeArr = militaryStartTime.split("\\:");
             int bsStartHour = Integer.parseInt(bsStartTimeArr[0]);
             int bsStartMinute = Integer.parseInt(bsStartTimeArr[1]);
 
-            String [] bsEndTImeArr = bs.getEndTime().split("\\:");
+            String [] bsEndTImeArr = militaryEndTime.split("\\:");
             int bsEndHour = Integer.parseInt(bsEndTImeArr[0]);
             int bsEndMinute = Integer.parseInt(bsEndTImeArr[1]);
 
@@ -187,17 +188,37 @@ public class BlockService extends Service {
         return null;
     }
 
+    public String formatToMilitaryTime(String time){
+
+        String [] timesplitAmPmArr = time.split(" ");
+        String [] hourMinuteArr = timesplitAmPmArr[0].split("\\:");
+
+        String am_pm = timesplitAmPmArr[1];
+        int hour = Integer.parseInt(hourMinuteArr[0]);
+        String minute = hourMinuteArr[1];
+
+        int militaryHour;
+
+        if(am_pm.equalsIgnoreCase("pm")){
+            militaryHour = (hour + 12);
+        } else {
+            militaryHour = hour;
+        }
+
+        return militaryHour +":" + minute;
+    }
+
 
     public void getUpcomingBSInfo (BlockSession bs) {
 
         if(bs != null){
 
-            String BSStartTimeInfo = bs.getStartTime();
+            String BSStartTimeInfo = formatToMilitaryTime(bs.getStartTime());
             String[] startTimeArr = BSStartTimeInfo.split("\\:");
             startHour = Integer.parseInt(startTimeArr[0]);
             startMinute = Integer.parseInt(startTimeArr[1]);
 
-            String BSEndTimeInfo = bs.getEndTime();
+            String BSEndTimeInfo = formatToMilitaryTime(bs.getEndTime());
             String[] endTimeArr = BSEndTimeInfo.split("\\:");
             endHour = Integer.parseInt(endTimeArr[0]);
             endMinute = Integer.parseInt(endTimeArr[1]);
