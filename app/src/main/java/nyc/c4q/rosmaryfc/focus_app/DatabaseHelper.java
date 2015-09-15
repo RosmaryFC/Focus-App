@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.dao.Dao;
+import com.j256.ormlite.stmt.DeleteBuilder;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 
@@ -55,10 +56,15 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     public void insertData(List<ApplicationInfo> applicationInfos) throws SQLException {
         Dao<App, ?> appDao = getDao(App.class);
         appDao.delete(appDao.deleteBuilder().prepare());
+
+
+
         for (ApplicationInfo applicationInfo : applicationInfos) {
             if (applicationInfo.packageName.equalsIgnoreCase("nyc.c4q.rosmaryfc.focus_app")) {
                 continue;
-            } else if (!((applicationInfo.flags & (ApplicationInfo.FLAG_SYSTEM | ApplicationInfo.FLAG_UPDATED_SYSTEM_APP)) != 0)) {
+            }
+            if ((applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) == 0
+                || (((applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) != 0) && ((applicationInfo.flags & ApplicationInfo.FLAG_UPDATED_SYSTEM_APP) != 0))) {
                 App app = new App();
                 app.setAppPackage(applicationInfo.packageName);
                 app.setAppName(applicationInfo.loadLabel(context.getPackageManager()).toString());
@@ -72,4 +78,20 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         List<App> apps = getDao(App.class).queryForAll();
         return apps;
     }
+
+//    public void addApp(ApplicationInfo applicationInfo) throws SQLException {
+//        Dao<App, ?> appDao = getDao(App.class);
+//        App app = new App();
+//        app.setAppPackage(applicationInfo.packageName);
+//        app.setAppName(applicationInfo.loadLabel(context.getPackageManager()).toString());
+//        app.setAppMonitor(false);
+//        appDao.create(app);
+//    }
+
+//    public void deleteApp(App app) throws SQLException {
+//        Dao<App, ?> appDao = getDao(App.class);
+//        DeleteBuilder<App, ?> deleteBuilder = appDao.deleteBuilder();
+//        deleteBuilder.where().eq("APP_PACKAGE", app.getAppPackage());
+//        deleteBuilder.delete();
+//    }
 }
