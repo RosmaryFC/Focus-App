@@ -1,13 +1,29 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
 
 
         <item name="colorPrimary">#673AB7</item>
         <item name="colorPrimaryDark">#512DA8</item>
+        <item name="actionOverflowMenuStyle">@style/OverflowMenu</item>
+        <item name="android:dialogTheme">@style/FullHeightDialog</item>
         <item name="colorAccent">#00BCD4</item>
         <item name="android:navigationBarColor">#673AB7</item>
+
     </style>
+
+    <style name="OverflowMenu" parent="Widget.AppCompat.PopupMenu.Overflow">
+        <!-- Required for pre-Lollipop. -->
+        <item name="overlapAnchor">false</item>
+
+        <!-- Required for Lollipop. -->
+        <item name="android:overlapAnchor" tools:targetApi="lollipop">false</item>
+    </style>
+
+    <style name="FullHeightDialog" parent="android:style/Theme.Dialog">
+        <item name="android:windowNoTitle">true</item>
+    </style>
+
 
     <!-- <item name="colorAccent">#02c754</item> -->
 
