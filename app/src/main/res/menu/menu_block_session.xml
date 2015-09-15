@@ -6,20 +6,19 @@
 
     <item
         android:id="@+id/action_add_BlockSession"
-        android:title="action_add_BlockSession"
-        android:icon="@android:drawable/ic_menu_add"
+        android:title="ADD BLOCK "
         android:orderInCategory="100"
         app:showAsAction="always">
 
-        <!-- "add block session" submenu -->
+        <!-- "add block session" submenu todo: fix recur item and start now item -->
         <menu>
-            <item
-                android:id="@+id/start_bs_now_item"
-                android:title="Start Now" />
+            <!--<item-->
+                <!--android:id="@+id/start_bs_now_item"-->
+                <!--android:title="Start Now" />-->
 
-            <item
-                android:id="@+id/recur_bs_item"
-                android:title="Recurring"/>
+            <!--<item-->
+                <!--android:id="@+id/recur_bs_item"-->
+                <!--android:title="Recurring"/>-->
 
             <item
                 android:id="@+id/future_bs_item"
@@ -28,12 +27,11 @@
 
     </item>
 
-
-    <item
-        android:id="@+id/action_settings"
-        android:title="@string/action_settings"
-        android:icon="@android:drawable/ic_menu_preferences"
-        android:orderInCategory="100"
-        app:showAsAction="always" />
+    <!-- todo: create setting option when creating user intensity -->
+    <!--<item-->
+        <!--android:id="@+id/action_settings"-->
+        <!--android:title="@string/action_settings"-->
+        <!--android:orderInCategory="100"-->
+        <!--app:showAsAction="always" />-->
 
 </menu>

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -89,30 +90,30 @@ public class BlockSessionFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
 
         switch (item.getItemId()) {
-            case R.id.action_settings:
-                //
-                return true;
-            case R.id.start_bs_now_item:
-                blockType = "immediate";
-
-            //todo: will not be added in database, user will specify length of block session up to 6 hours
-                // have option to disable current block session by going into settings.
-                // will kill appmonitor but then take into consideration that block service will keep checking bs list and reactivate
-                //possible have two tables, one of enabled block sessions, another with disabled block sessions
-
-                Toast.makeText(blockSessionView.getContext(), "start bs now pressed", Toast.LENGTH_SHORT).show();
-
-                return true;
-            case R.id.recur_bs_item:
-                blockType = "recur";
-
-                Toast.makeText(blockSessionView.getContext(), "recur bs now pressed",Toast.LENGTH_SHORT).show();
-//todo: finish adding recur to database
-//                Intent recurIntent = new Intent (blockSessionView.getContext(), CreateNewBlockSessionActivity.class);
-//                recurIntent.putExtra("block type", blockType);
-//                startActivity(recurIntent);
-
-                return true;
+//            case R.id.action_settings:
+//                //
+//                return true;
+//            case R.id.start_bs_now_item:
+//                blockType = "immediate";
+//
+//            //todo: will not be added in database, user will specify length of block session up to 6 hours
+//                // have option to disable current block session by going into settings.
+//                // will kill appmonitor but then take into consideration that block service will keep checking bs list and reactivate
+//                //possible have two tables, one of enabled block sessions, another with disabled block sessions
+//
+//                Toast.makeText(blockSessionView.getContext(), "start bs now pressed", Toast.LENGTH_SHORT).show();
+//
+//                return true;
+//            case R.id.recur_bs_item:
+//                blockType = "recur";
+//
+//                Toast.makeText(blockSessionView.getContext(), "recur bs now pressed",Toast.LENGTH_SHORT).show();
+////todo: finish adding recur to database
+////                Intent recurIntent = new Intent (blockSessionView.getContext(), CreateNewBlockSessionActivity.class);
+////                recurIntent.putExtra("block type", blockType);
+////                startActivity(recurIntent);
+//
+//                return true;
             case R.id.future_bs_item:
                 blockType = "future";
 
@@ -142,12 +143,12 @@ public class BlockSessionFragment extends Fragment {
         Log.d("BSActivity: ", "INSERTING...");
         List<BlockSession> blockSessions = helper.getAllBlockSessions();
 
-        if(blockSessions.isEmpty()){
-            helper.addBlockSession(new BlockSession("Test three added first", "2015/09/8", "12:30", "12:45", "no notes"));
-            helper.addBlockSession(new BlockSession("Test four added second", "2015/09/8", "12:15", "12:35", "no notes"));
-//            helper.addBlockSession(new BlockSession("Test one added third", "2015/09/8", "12:00", "12:10", "no notes"));
-//            helper.addBlockSession(new BlockSession("Test two added fourth", "2015/09/8", "12:15", "12:25", "no notes"));
-        }
+//        if(blockSessions.isEmpty()){
+//            helper.addBlockSession(new BlockSession("Test three added first", "2015/09/8", "12:30", "12:45", "no notes"));
+//            helper.addBlockSession(new BlockSession("Test four added second", "2015/09/8", "12:15", "12:35", "no notes"));
+////            helper.addBlockSession(new BlockSession("Test one added third", "2015/09/8", "12:00", "12:10", "no notes"));
+////            helper.addBlockSession(new BlockSession("Test two added fourth", "2015/09/8", "12:15", "12:25", "no notes"));
+//        }
 
         for (BlockSession bs : blockSessions) {
             String log = "ID: " + bs.getId() + " , Name: " + bs.getName() + ", Date: " + bs.getDate()
@@ -158,7 +159,9 @@ public class BlockSessionFragment extends Fragment {
             sessions.add(bs); //adding contacts data into array list
         }
 
-        adapter = new BlockSessionAdapter(blockSessionView.getContext(), R.layout.block_session_row_item, sessions, blockSessionIsEnabled);
+        //todo: fragmanager used to create dialog frag to edit blocks
+        FragmentManager fragManager = getFragmentManager();
+        adapter = new BlockSessionAdapter(blockSessionView.getContext(), R.layout.block_session_row_item, sessions, blockSessionIsEnabled, fragManager);
         blockSessionsList = (ListView) blockSessionView.findViewById(R.id.list_block_times);
         blockSessionsList.setAdapter(adapter);
 
@@ -168,12 +171,7 @@ public class BlockSessionFragment extends Fragment {
 }
 
 
-//            case R.id.action_add_BlockSession:
-//                Intent intent = new Intent(blockSessionView.getContext(), FocusSessionActivity.class);
-//                startActivity(intent);
-//                return true;
-//            case R.id.action_del_BlockSession:
-//                //TODO: get Delete button to work - when enabled set del btn to visible. keeps re-adding listview
+//                //TODO:when bs enabled set logo view to visible. keeps re-adding listview
 ////                int counter = 0;
 ////                counter ++;
 ////
