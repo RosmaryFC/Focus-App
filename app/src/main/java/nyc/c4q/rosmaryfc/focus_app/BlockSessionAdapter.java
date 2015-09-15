@@ -2,6 +2,7 @@ package nyc.c4q.rosmaryfc.focus_app;
 
 import android.app.Activity;
 import android.content.Context;
+import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
@@ -27,13 +28,15 @@ public class BlockSessionAdapter extends ArrayAdapter<BlockSession> {
     int layoutResourceId;
     ArrayList<BlockSession> data;
     boolean deleteIsEnabled;
+    FragmentManager fragManager;
 
-    public BlockSessionAdapter(Context context, int layoutResourceId, ArrayList<BlockSession> data, boolean deleteIsEnabled) {
+    public BlockSessionAdapter(Context context, int layoutResourceId, ArrayList<BlockSession> data, boolean deleteIsEnabled,FragmentManager fragManager) {
         super(context, layoutResourceId, data);
         this.context = context;
         this.layoutResourceId = layoutResourceId;
         this.data = data;
         this.deleteIsEnabled = deleteIsEnabled;
+        this.fragManager = fragManager;
     }
 
     @Override
@@ -106,13 +109,33 @@ public class BlockSessionAdapter extends ArrayAdapter<BlockSession> {
                                 notifyDataSetChanged();
 
                                 return true;
-                            case R.id.edit_block_session_item:
-
-//                                helper.updateBlockSession(session);
-                                Toast.makeText(context, "edit list item pressed", Toast.LENGTH_SHORT).show();
+                            //todo: fix editBlockSession item
+//                            case R.id.edit_block_session_item:
+//
+//
+//                                BlockSessionAlertDialogFragment futureBSFrag = new BlockSessionAlertDialogFragment.newInstance(session);
+//                                futureBSFrag.show(fragManager, "Diag");
+//
+//
+////                                Intent editBlockSessionIntent = new Intent(context,CreateNewBlockSessionActivity.class);
+////                                editBlockSessionIntent.putExtra("block type", "future");
+////                                editBlockSessionIntent.putExtra("bs id", session.getId());
+////                                editBlockSessionIntent.putExtra("bs name", session.getName());
+////                                editBlockSessionIntent.putExtra("bs date", session.getDate());
+////                                editBlockSessionIntent.putExtra("bs start time", session.getStartTime());
+////                                editBlockSessionIntent.putExtra("bs end time", session.getEndTime());
+////                                editBlockSessionIntent.putExtra("bsIsBeingEdited", true);
+//
+////                                helper.updateBlockSession(session);
+//                                Toast.makeText(context, "edit list item pressed", Toast.LENGTH_SHORT).show();
+////                                notifyDataSetChanged();
+//
+////                                Intent startEditBSIntent = new Intent (context, CreateNewBlockSessionActivity.class);
+////                                context.startActivity(startEditBSIntent);
+//
 //                                notifyDataSetChanged();
-
-                                return true;
+//
+//                                return true;
                             default:
                                 return false;
                         }
