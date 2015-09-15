@@ -32,7 +32,8 @@
             android:textStyle="bold"
             android:textAlignment="center"
             android:layout_height="wrap_content"
-            android:layout_weight="2" />
+            android:layout_weight="2"
+            android:textColor="#ff422754"/>
 
         <Switch
             android:id="@+id/app_monitor"

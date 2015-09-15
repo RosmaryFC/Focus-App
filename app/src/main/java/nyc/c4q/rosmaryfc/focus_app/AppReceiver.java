@@ -36,8 +36,11 @@ public class AppReceiver extends BroadcastReceiver {
                     Dao<App, ?> appDao = databaseHelper.getDao(App.class);
                     apps = appDao.queryForAll();
                     Collections.sort(applicationInfos, new ApplicationInfo.DisplayNameComparator(packageManager));
-                    //todo compare both data sets and get differing apps
-                    //todo add or remove from db based on intent
+                    if (action.equalsIgnoreCase(Intent.ACTION_PACKAGE_ADDED) || action.equalsIgnoreCase(Intent.ACTION_PACKAGE_INSTALL) || action.equalsIgnoreCase(Intent.ACTION_PACKAGE_REPLACED)) {
+                        //add app
+                    } else if (action.equalsIgnoreCase(Intent.ACTION_PACKAGE_FULLY_REMOVED) || action.equalsIgnoreCase(Intent.ACTION_PACKAGE_REMOVED)) {
+                        //delete app
+                    }
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
