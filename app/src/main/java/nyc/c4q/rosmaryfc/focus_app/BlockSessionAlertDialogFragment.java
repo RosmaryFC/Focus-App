@@ -17,7 +17,9 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TimePicker;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Locale;
 
 import nyc.c4q.rosmaryfc.focus_app.db.BlockSessionContract;
 import nyc.c4q.rosmaryfc.focus_app.db.BlockSessionDBHelper;
@@ -31,6 +33,12 @@ public class BlockSessionAlertDialogFragment extends DialogFragment implements V
 
     String blockType;
 
+    int blockId;
+    String blockName;
+    String blockStartTime;
+    String blockEndTime;
+    String blockDate;
+
     EditText nameET;
     EditText startTimeET;
     EditText endTimeET;
@@ -41,6 +49,21 @@ public class BlockSessionAlertDialogFragment extends DialogFragment implements V
 
     private BlockSessionDBHelper helper;
 
+    static BlockSessionAlertDialogFragment newInstance(BlockSession blockSession) {
+        BlockSessionAlertDialogFragment f = new BlockSessionAlertDialogFragment();
+
+        // Supply num input as an argument.
+        Bundle args = new Bundle();
+        args.putInt("id", blockSession.getId());
+        args.putString("name", blockSession.getName());
+        args.putString("startTime", blockSession.getStartTime());
+        args.putString("endTime", blockSession.getEndTime());
+        args.putString("date",blockSession.getDate());
+        f.setArguments(args);
+
+        return f;
+    }
+
     public static interface DialogButtons
     {
 
@@ -49,8 +72,16 @@ public class BlockSessionAlertDialogFragment extends DialogFragment implements V
 
     }
 
-    public BlockSessionAlertDialogFragment(){
 
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        blockId = getArguments().getInt("id");
+        blockName = getArguments().getString("name");
+        blockStartTime = getArguments().getString("startTime");
+        blockEndTime = getArguments().getString("endTime");
+        blockDate = getArguments().getString("date");
     }
 
     @Nullable
@@ -61,6 +92,11 @@ public class BlockSessionAlertDialogFragment extends DialogFragment implements V
                 false);
 
         initializeViews();
+
+        nameET.setText(blockName);
+        startTimeET.setText(blockStartTime);
+        endTimeET.setText(blockEndTime);
+        dateET.setText(blockDate);
 
         startTimeET.setInputType(InputType.TYPE_NULL);
         startTimeET.setOnClickListener(startTimeListener);
@@ -73,9 +109,7 @@ public class BlockSessionAlertDialogFragment extends DialogFragment implements V
 
         saveBtn.setOnClickListener(this);
 
-
         return rootView;
-
 
     }
 
@@ -100,10 +134,18 @@ public class BlockSessionAlertDialogFragment extends DialogFragment implements V
             mTimePicker = new TimePickerDialog(getActivity(), new TimePickerDialog.OnTimeSetListener() {
                 @Override
                 public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-                    startTimeET.setText( selectedHour + ":" + selectedMinute);
+                    Calendar dateTime = Calendar.getInstance();
+                    dateTime.set(Calendar.HOUR_OF_DAY, selectedHour);
+                    dateTime.set(Calendar.MINUTE, selectedMinute);
+
+                    String format = "h:mm a";
+                    SimpleDateFormat sdf = new SimpleDateFormat(format, Locale.US);
+                    String formattedTime = sdf.format(dateTime.getTime());
+
+                    startTimeET.setText(formattedTime);
                 }
-            }, hour, minute, true);
-            mTimePicker.setTitle("Select Time");
+            }, hour, minute, false);
+            mTimePicker.setTitle("Select Start Time");
             mTimePicker.show();
         }
     };
@@ -120,9 +162,17 @@ public class BlockSessionAlertDialogFragment extends DialogFragment implements V
             mTimePicker = new TimePickerDialog(getActivity(), new TimePickerDialog.OnTimeSetListener() {
                 @Override
                 public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-                    endTimeET.setText( selectedHour + ":" + selectedMinute);
+                    Calendar dateTime = Calendar.getInstance();
+                    dateTime.set(Calendar.HOUR_OF_DAY, selectedHour);
+                    dateTime.set(Calendar.MINUTE, selectedMinute);
+
+                    String format = "h:mm a";
+                    SimpleDateFormat sdf = new SimpleDateFormat(format, Locale.US);
+                    String formattedTime = sdf.format(dateTime.getTime());
+
+                    endTimeET.setText(formattedTime);
                 }
-            }, hour, minute, true);
+            }, hour, minute, false);
             mTimePicker.setTitle("Select Time");
             mTimePicker.show();
         }
@@ -145,7 +195,7 @@ public class BlockSessionAlertDialogFragment extends DialogFragment implements V
                     // TODO Auto-generated method stub
                     /*  get date and time */
                     selectedMonth = selectedMonth + 1;
-                    dateET.setText(selectedYear + "/" + selectedMonth + "/" + selectedDay);
+                    dateET.setText(selectedMonth + "/" + selectedDay +"/" + selectedYear);
                 }
             }, mYear, mMonth, mDay);
             mDatePicker.setTitle("Select Date");
@@ -193,8 +243,11 @@ public class BlockSessionAlertDialogFragment extends DialogFragment implements V
                 String startTime = startTimeET.getText().toString();
                 String endTime = endTimeET.getText().toString();
 
-                helper = new BlockSessionDBHelper(getActivity());
-                helper.addBlockSession(new BlockSession(name, date, startTime, endTime, "N/A"));
+//
+//                helper = new BlockSessionDBHelper(getActivity());
+//                helper.updateBlockSession()
+
+                //helper.addBlockSession(new BlockSession(name, date, startTime, endTime, "N/A"));
 
                 getData();
                 this.dismiss();

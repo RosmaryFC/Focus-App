@@ -41,12 +41,29 @@ public class CreateNewBlockSessionActivity extends AppCompatActivity {
 
     int layout;
 
+    int editBsId;
+    String editName;
+    String editDate;
+    String editStartTime;
+    String editEndTime;
+    boolean isBeingEdited;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Intent blockTypeIntent = getIntent();
-        String blockType = blockTypeIntent.getExtras().getString("block type");
+        Intent blockIntent = getIntent();
+//        if (blockIntent.getExtras().getString("block type") != null){
+//            blockIntent.removeExtra("block type");
+//        }
+        String blockType = blockIntent.getExtras().getString("block type");
+//        editBsId = blockIntent.getExtras().getInt("bs id");
+//        editName = blockIntent.getExtras().getString("bs name");
+//        editDate = blockIntent.getExtras().getString("bs date");
+//        editStartTime = blockIntent.getExtras().getString("bs start time");
+//        editEndTime = blockIntent.getExtras().getString("bs end time");
+//        isBeingEdited = blockIntent.getExtras().getBoolean("bsIsBeingEdited");
+
 
         if (blockType.equals("future")){
             layout = R.layout.activity_future_block_session;
@@ -56,6 +73,10 @@ public class CreateNewBlockSessionActivity extends AppCompatActivity {
             dateET = (EditText) findViewById(R.id.date_et);
             dateET.setInputType(InputType.TYPE_NULL);
             dateET.setOnClickListener(dateListener);
+
+//            if(isBeingEdited){
+//                dateET.setText(editDate);
+//            }
 
             //dateET.setOnTouchListener(dateListener);
 
@@ -80,9 +101,21 @@ public class CreateNewBlockSessionActivity extends AppCompatActivity {
         endTimeET.setInputType(InputType.TYPE_NULL);
         endTimeET.setOnClickListener(endTimeListener);
 
+//        if(isBeingEdited){
+//            nameET.setText(editName);
+//            startTimeET.setText(editStartTime);
+//            endTimeET.setText(editEndTime);
+//        }
+
 //        startTimeET.setOnTouchListener(startTimeListener);
 //        endTimeET.setOnTouchListener(endTimeListener);
 
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        this.finish();
     }
 
     @Override
@@ -175,7 +208,7 @@ public class CreateNewBlockSessionActivity extends AppCompatActivity {
                     dateTime.set(Calendar.HOUR_OF_DAY, selectedHour);
                     dateTime.set(Calendar.MINUTE, selectedMinute);
 
-                    String formatAmPm = "hh:mm a";
+                    String formatAmPm = "h:mm a";
                     SimpleDateFormat sdf = new SimpleDateFormat(formatAmPm, Locale.US);
                     String formattedTime = sdf.format(dateTime.getTime());
 
@@ -203,7 +236,7 @@ public class CreateNewBlockSessionActivity extends AppCompatActivity {
                     dateTime.set(Calendar.HOUR_OF_DAY, selectedHour);
                     dateTime.set(Calendar.MINUTE, selectedMinute);
 
-                    String format = "hh:mm a";
+                    String format = "h:mm a";
                     SimpleDateFormat sdf = new SimpleDateFormat(format, Locale.US);
                     String formattedTime = sdf.format(dateTime.getTime());
 
@@ -251,7 +284,13 @@ public class CreateNewBlockSessionActivity extends AppCompatActivity {
 
             if(FutureBSFieldsAreNotEmpty(name, date, startTime, endTime)){
                 helper = new BlockSessionDBHelper(this);
-                helper.addBlockSession(new BlockSession(name, date, startTime, endTime, notes));
+
+//                if(isBeingEdited){
+//                    BlockSession updatedBS = new BlockSession(editBsId, name, date, startTime, endTime, notes);
+//                    helper.updateBlockSession(updatedBS);
+//                }else{
+                    helper.addBlockSession(new BlockSession(name, date, startTime, endTime, notes));
+//                }
 
                 getData();
 
