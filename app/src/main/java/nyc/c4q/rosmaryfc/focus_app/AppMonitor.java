@@ -27,16 +27,12 @@ import nyc.c4q.rosmaryfc.focus_app.ui.MainActivity;
 public class AppMonitor extends AppCompatActivity {
 
     public static final int FIRST_LOAD_APPS = 0;
-    public static final int INSTALL_UNINSTALL_APPS = 1;
-    public static final int CURRENT_APPS = 2;
-
+    public static final int CURRENT_APPS = 1;
 
     ListView app_list;
     Button save;
     Button cancel;
     ProgressBar progress_bar;
-
-    AppReceiver receiver;
 
     DatabaseHelper databaseHelper;
     DBAsyncTask dbAsyncTask;
@@ -45,10 +41,7 @@ public class AppMonitor extends AppCompatActivity {
     List<ApplicationInfo> applicationInfos;
 
     List<App> apps;
-    List<App> monitoringApps;
     AppAdapter adapter;
-
-    boolean startedByReceiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,22 +54,7 @@ public class AppMonitor extends AppCompatActivity {
         app_list = (ListView) findViewById(R.id.app_list);
         save = (Button) findViewById(R.id.save);
         //cancel = (Button) findViewById(R.id.cancel);
-
-        // progress_bar = (ProgressBar) findViewById(R.id.progress_bar);
-
-        IntentFilter filter = new IntentFilter();
-        filter.addAction(Intent.ACTION_PACKAGE_ADDED);
-        filter.addAction(Intent.ACTION_PACKAGE_FULLY_REMOVED);
-        filter.addAction(Intent.ACTION_PACKAGE_INSTALL);
-        filter.addAction(Intent.ACTION_PACKAGE_REMOVED);
-        filter.addAction(Intent.ACTION_PACKAGE_REPLACED);
-        filter.addAction(Intent.ACTION_INSTALL_PACKAGE);
-        filter.addAction(Intent.ACTION_UNINSTALL_PACKAGE);
-        filter.addDataScheme("package");
-        receiver = new AppReceiver();
-        registerReceiver(receiver, filter);
-
-        startedByReceiver = getIntent().getBooleanExtra(AppReceiver.REFRESH, false);
+        progress_bar = (ProgressBar) findViewById(R.id.progress_bar);
 
         databaseHelper = DatabaseHelper.getInstance(this);
         packageManager = getPackageManager();
@@ -106,13 +84,8 @@ public class AppMonitor extends AppCompatActivity {
                 dbAsyncTask = new DBAsyncTask(FIRST_LOAD_APPS);
                 dbAsyncTask.execute();
             } else {
-                if (startedByReceiver) {
-                    dbAsyncTask = new DBAsyncTask(INSTALL_UNINSTALL_APPS);
-                    dbAsyncTask.execute();
-                } else {
-                    dbAsyncTask = new DBAsyncTask(CURRENT_APPS);
-                    dbAsyncTask.execute();
-                }
+                dbAsyncTask = new DBAsyncTask(CURRENT_APPS);
+                dbAsyncTask.execute();
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -131,7 +104,7 @@ public class AppMonitor extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            // progress_bar.setVisibility(View.VISIBLE);
+            progress_bar.setVisibility(View.VISIBLE);
         }
 
         @Override
@@ -140,16 +113,6 @@ public class AppMonitor extends AppCompatActivity {
                 try {
                     Collections.sort(applicationInfos, new ApplicationInfo.DisplayNameComparator(packageManager));
                     databaseHelper.insertData(applicationInfos);
-                    apps = databaseHelper.loadData();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            } else if (status == INSTALL_UNINSTALL_APPS) {
-                try {
-                    Dao<App, ?> appDao = databaseHelper.getDao(App.class);
-                    monitoringApps = appDao.query(appDao.queryBuilder().where().eq("APP_MONITOR", true).prepare());
-                    Collections.sort(applicationInfos, new ApplicationInfo.DisplayNameComparator(packageManager));
-                    databaseHelper.insertData(applicationInfos, monitoringApps);
                     apps = databaseHelper.loadData();
                 } catch (SQLException e) {
                     e.printStackTrace();
@@ -167,7 +130,7 @@ public class AppMonitor extends AppCompatActivity {
         @Override
         protected void onPostExecute(List<App> apps) {
             super.onPostExecute(apps);
-            // progress_bar.setVisibility(View.INVISIBLE);
+            progress_bar.setVisibility(View.INVISIBLE);
             adapter = new AppAdapter(getApplicationContext(), apps);
             app_list.setAdapter(adapter);
         }

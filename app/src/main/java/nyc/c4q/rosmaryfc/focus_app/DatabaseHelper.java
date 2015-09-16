@@ -55,37 +55,17 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     public void insertData(List<ApplicationInfo> applicationInfos) throws SQLException {
         Dao<App, ?> appDao = getDao(App.class);
         appDao.delete(appDao.deleteBuilder().prepare());
-        for (ApplicationInfo applicationInfo : applicationInfos) {
-            if (applicationInfo.packageName.equalsIgnoreCase("nyc.c4q.rosmaryfc.focus_app")) {
-                continue;
-            } else if (!((applicationInfo.flags & (ApplicationInfo.FLAG_SYSTEM | ApplicationInfo.FLAG_UPDATED_SYSTEM_APP)) != 0)) {
-                App app = new App();
-                app.setAppPackage(applicationInfo.packageName);
-                app.setAppName(applicationInfo.loadLabel(context.getPackageManager()).toString());
-                app.setAppMonitor(false);
-                getDao(App.class).create(app);
-            }
-        }
-    }
 
-    public void insertData(List<ApplicationInfo> applicationInfos, List<App> monitoringApps) throws SQLException {
-        Dao<App, ?> appDao = getDao(App.class);
-        appDao.delete(appDao.deleteBuilder().prepare());
         for (ApplicationInfo applicationInfo : applicationInfos) {
             if (applicationInfo.packageName.equalsIgnoreCase("nyc.c4q.rosmaryfc.focus_app")) {
                 continue;
-            } else if (!((applicationInfo.flags & (ApplicationInfo.FLAG_SYSTEM | ApplicationInfo.FLAG_UPDATED_SYSTEM_APP)) != 0)) {
+            }
+            if ((applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) == 0
+                    || (((applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) != 0) && ((applicationInfo.flags & ApplicationInfo.FLAG_UPDATED_SYSTEM_APP) != 0))) {
                 App app = new App();
                 app.setAppPackage(applicationInfo.packageName);
                 app.setAppName(applicationInfo.loadLabel(context.getPackageManager()).toString());
                 app.setAppMonitor(false);
-                for (App monitoringApp : monitoringApps) {
-                    if (!monitoringApp.getAppPackage().equalsIgnoreCase(applicationInfo.packageName)) {
-                        continue;
-                    } else {
-                        app.setAppMonitor(true);
-                    }
-                }
                 getDao(App.class).create(app);
             }
         }
