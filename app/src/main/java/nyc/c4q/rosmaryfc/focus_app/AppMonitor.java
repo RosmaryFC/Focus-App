@@ -1,28 +1,20 @@
 package nyc.c4q.rosmaryfc.focus_app;
 
-import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.ProgressBar;
-import android.widget.Toast;
-
-import com.j256.ormlite.dao.Dao;
 
 import java.sql.SQLException;
 import java.util.Collections;
 import java.util.List;
-
-import nyc.c4q.rosmaryfc.focus_app.ui.MainActivity;
 
 public class AppMonitor extends AppCompatActivity {
 
@@ -31,6 +23,7 @@ public class AppMonitor extends AppCompatActivity {
 
     ListView app_list;
     Button save;
+    Button cancel;
     ProgressBar progress_bar;
 
     DatabaseHelper databaseHelper;
@@ -47,25 +40,32 @@ public class AppMonitor extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_app_monitor);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+//        setSupportActionBar(toolbar);
 
         app_list = (ListView) findViewById(R.id.app_list);
-        save = (Button) findViewById(R.id.save);
+        //save = (Button) findViewById(R.id.save);
+        //cancel = (Button) findViewById(R.id.cancel);
         progress_bar = (ProgressBar) findViewById(R.id.progress_bar);
 
         databaseHelper = DatabaseHelper.getInstance(this);
         packageManager = getPackageManager();
         applicationInfos = packageManager.getInstalledApplications(PackageManager.GET_META_DATA);
 
-        save.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(intent);
-                Toast.makeText(getApplicationContext(), "Saved", Toast.LENGTH_LONG).show();
-            }
-        });
+//        save.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+//                startActivity(intent);
+//                Toast.makeText(getApplicationContext(), "Saved", Toast.LENGTH_LONG).show();
+//            }
+//        });
+        //todo: have it so when user clicks cancel or back buttn, items in listview update
+//        cancel.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//            }
+//        });
     }
 
     @Override
