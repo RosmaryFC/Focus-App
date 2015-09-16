@@ -37,9 +37,7 @@ public class AppReceiver extends BroadcastReceiver {
                     apps = appDao.queryForAll();
                     for (App app : apps) {
                         boolean installed = appInstalledOrNot(app.getAppPackage());
-                        if (installed) {
-                            //add app
-                        } else {
+                        if (!installed) {
                             databaseHelper.deleteApp(app.getAppPackage());
                         }
                     }
