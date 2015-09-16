@@ -25,26 +25,40 @@ public class AppReceiver extends BroadcastReceiver {
         databaseHelper = DatabaseHelper.getInstance(context);
         packageManager = context.getPackageManager();
         applicationInfos = packageManager.getInstalledApplications(PackageManager.GET_META_DATA);
-        updateApps(intent.getAction());
+        updateApps();
     }
 
-    public void updateApps(final String action) {
+    public void updateApps() {
         new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
                     Dao<App, ?> appDao = databaseHelper.getDao(App.class);
                     apps = appDao.queryForAll();
-                    Collections.sort(applicationInfos, new ApplicationInfo.DisplayNameComparator(packageManager));
-                    if (action.equalsIgnoreCase(Intent.ACTION_PACKAGE_ADDED) || action.equalsIgnoreCase(Intent.ACTION_PACKAGE_INSTALL) || action.equalsIgnoreCase(Intent.ACTION_PACKAGE_REPLACED)) {
-                        //add app
-                    } else if (action.equalsIgnoreCase(Intent.ACTION_PACKAGE_FULLY_REMOVED) || action.equalsIgnoreCase(Intent.ACTION_PACKAGE_REMOVED)) {
-                        //delete app
+                    for (App app : apps) {
+                        boolean installed = appInstalledOrNot(app.getAppPackage());
+                        if (installed) {
+                            //add app
+                        } else {
+                            databaseHelper.deleteApp(app.getAppPackage());
+                        }
                     }
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
             }
         }).start();
+    }
+
+    public boolean appInstalledOrNot(String packageName) {
+        boolean appInstalled;
+        try {
+            packageManager.getPackageInfo(packageName, PackageManager.GET_ACTIVITIES);
+            appInstalled = true;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+            appInstalled = false;
+        }
+        return appInstalled;
     }
 }
