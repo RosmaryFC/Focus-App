@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.dao.Dao;
+import com.j256.ormlite.stmt.DeleteBuilder;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 
@@ -57,7 +58,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         appDao.delete(appDao.deleteBuilder().prepare());
 
         for (ApplicationInfo applicationInfo : applicationInfos) {
-            if (applicationInfo.packageName.equalsIgnoreCase("nyc.c4q.rosmaryfc.focus_app")) {
+            if (applicationInfo.packageName.equalsIgnoreCase("nyc.c4q.jrs.block_on")) {
                 continue;
             }
             if ((applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) == 0
@@ -74,5 +75,12 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     public List<App> loadData() throws SQLException {
         List<App> apps = getDao(App.class).queryForAll();
         return apps;
+    }
+
+    public void deleteApp(String packageName) throws SQLException {
+        Dao<App, ?> appDao = getDao(App.class);
+        DeleteBuilder<App, ?> deleteBuilder = appDao.deleteBuilder();
+        deleteBuilder.where().eq("APP_PACKAGE", packageName);
+        deleteBuilder.delete();
     }
 }
