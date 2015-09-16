@@ -3,25 +3,27 @@
 <android.support.v7.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-
     android:id="@+id/card_view"
     android:layout_width="match_parent"
     android:layout_height="50dp"
+    android:elevation="6dp"
 
-    android:elevation="8dp"
     android:background="#FFFFFF"
     >
     <LinearLayout
-
-        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"
+        android:paddingLeft="4dp"
+        android:layout_gravity="center"
+        android:paddingRight="4dp"
         android:orientation="horizontal">
 
         <ImageView
             android:id="@+id/app_icon"
             android:layout_width="0dp"
-            android:layout_gravity="center"
+            android:layout_gravity="left|center"
             android:layout_height="match_parent"
             android:layout_weight="1" />
 
@@ -33,7 +35,7 @@
             android:layout_gravity="center"
             android:layout_height="wrap_content"
 
-            android:layout_weight="1" />
+            android:layout_weight="3" />
 
 
         <!--<Switch-->
@@ -47,12 +49,11 @@
             <!--android:checked="false"/>-->
         <Switch
             android:layout_gravity="center"
-            android:layout_weight="1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
             android:id="@+id/app_monitor"
-            android:checked="false"/>
+            android:checked="false"
+            android:layout_weight="1"/>
 
     </LinearLayout>
 

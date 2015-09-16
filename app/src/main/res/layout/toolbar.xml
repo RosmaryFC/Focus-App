@@ -1,24 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
-                                   xmlns:local="http://schemas.android.com/apk/res-auto"
+                                   xmlns:app="http://schemas.android.com/apk/res-auto"
                                    android:id="@+id/toolbar"
                                    android:layout_width="match_parent"
-                                   android:layout_height="wrap_content"
-                                   android:minHeight="?attr/actionBarSize"
-                                   android:title="false"
                                    android:background="@color/style_color_primary_dark"
-                                   local:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-                                   local:popupTheme="@style/ThemeOverlay.AppCompat.Light" >
+                                   android:layout_height="?attr/actionBarSize"
+                                   app:elevation="@dimen/default_elevation"
+                                   app:layout_scrollFlags="scroll|enterAlways"
+                                   app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
     <ImageView
         android:id="@+id/ivLogo"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:paddingBottom="5dp"
-        android:paddingTop="5dp"
+        android:layout_height="wrap_content"
+        android:paddingTop="6dp"
+        android:paddingBottom="6dp"
         android:layout_gravity="center"
-        android:scaleType="center"
-        android:src="@drawable/blo2" />
+        android:scaleType="fitCenter"
+        android:src="@drawable/blockon2" />
 </android.support.v7.widget.Toolbar>
 
 
