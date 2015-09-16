@@ -11,6 +11,11 @@
         android:orderInCategory="100"
         app:showAsAction="always" />
 
-
+    <!-- create settings option -->
+    <!--<item-->
+    <!--android:id="@+id/action_settings"-->
+    <!--android:title="@string/action_settings"-->
+    <!--android:orderInCategory="100"-->
+    <!--app:showAsAction="always" />-->
 
 </menu>

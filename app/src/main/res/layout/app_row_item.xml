@@ -32,7 +32,9 @@
             android:textColor="@color/text_color2"
             android:layout_gravity="center"
             android:layout_height="wrap_content"
+
             android:layout_weight="1" />
+
 
         <!--<Switch-->
             <!--android:id="@+id/app_monitor"-->

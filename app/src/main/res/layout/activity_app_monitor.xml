@@ -1,5 +1,3 @@
-
-
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
@@ -8,58 +6,47 @@
     android:orientation="vertical"
     android:background="@color/tabsScrollColor"
     tools:context="nyc.c4q.rosmaryfc.focus_app.AppMonitor">
-    <include android:id ="@+id/toolbar" layout="@layout/toolbar"/>
-    <ListView
-        android:id="@+id/app_list"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="9" />
 
-    <Button
-        android:id="@+id/save"
-        android:textColor="#ffffff"
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="right"
-        android:text="Save"
-        android:paddingRight="10dp"
-        android:paddingLeft="10dp"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
-        android:background="@drawable/btn_save"/>
+        android:layout_centerInParent="true" />
 
-<!--<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
-    <!--xmlns:tools="http://schemas.android.com/tools"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="match_parent"-->
-    <!--tools:context="nyc.c4q.rosmaryfc.focus_app.AppMonitor">-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-    <!--<ProgressBar-->
-        <!--android:id="@+id/progress_bar"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_centerInParent="true" />-->
+            <ListView
+                android:id="@+id/app_list"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="9" />
 
-    <!--<LinearLayout-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:orientation="vertical">-->
+            <Button
+                android:id="@+id/save"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:background="@drawable/btn_save"
+                android:paddingBottom="10dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="10dp"
+                android:text="Save"
+                android:textColor="#ffffff" />
 
-        <!--<ListView-->
-            <!--android:id="@+id/app_list"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="0dp"-->
-            <!--android:layout_weight="9" />-->
+            </LinearLayout>
 
-        <!--<Button-->
-            <!--android:id="@+id/save"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_gravity="center"-->
-            <!--android:background="@drawable/btn_send_comment"-->
-            <!--android:text="Save" />-->
-<!--&gt;>>>>>> 8171462212772f8a736152690d67d594b6731bb5-->
+    </RelativeLayout>
 
-    </LinearLayout>
-
-
+</LinearLayout>

@@ -1,0 +1,38 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="nyc.c4q.rosmaryfc.focus_app.SplashScreen"
+    android:background="@color/style_color_primary"
+    style="@style/AppTheme">
+
+    <ImageView
+        android:id="@+id/app_logo"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="80dp"
+        android:src="@drawable/block_on_logo" />
+
+    <ImageView
+        android:id="@+id/block_on_name"
+        android:layout_below="@+id/app_logo"
+        android:layout_marginTop="45dp"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/blo2"
+        android:layout_width="wrap_content"
+
+        android:layout_height="wrap_content" />
+
+    <!--<TextView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_below="@+id/app_logo"-->
+    <!--android:layout_marginTop="25dp"-->
+    <!--android:layout_centerHorizontal="true"-->
+    <!--android:text="Block On"-->
+    <!--android:textSize="50sp"-->
+    <!--android:textStyle="bold" />-->
+
+
+</RelativeLayout>

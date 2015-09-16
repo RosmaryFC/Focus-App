@@ -1,24 +1,44 @@
 apply plugin: 'com.android.application'
 
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+def releasePassword = properties.getProperty('releasePassword')
+
 android {
     compileSdkVersion 22
     buildToolsVersion "22.0.1"
 
     defaultConfig {
-        applicationId "nyc.c4q.rosmaryfc.focus_app"
+        applicationId "nyc.c4q.jrs.block_on"
 
         minSdkVersion 14
 
         targetSdkVersion 22
-        versionCode 1
-        versionName "1.0"
+        versionCode 5
+        versionName "0.5"
+    }
+    signingConfigs{
+        release{
+            storeFile file("release.jks")
+            storePassword "$releasePassword"
+            keyAlias "android"
+            keyPassword "$releasePassword"
+        }
     }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
     }
+    lintOptions{
+        checkReleaseBuilds false
+        //Or, if you prefer, you can continue to check for errors in release builds,
+        //but continue the build even when errors are found.
+        abortOnError false
+    }
+
 }
 
 dependencies {
