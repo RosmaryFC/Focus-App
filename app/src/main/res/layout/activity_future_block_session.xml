@@ -9,7 +9,7 @@
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="421dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
@@ -21,10 +21,7 @@
 
             <TextView
             android:id="@+id/title"
-            android:text="New Future Block Session"
-            android:textSize="30sp"
-            android:gravity="center"
-            android:textColor="#FFF"
+            android:textColor="#FFFFFF"
             android:background="#be45bcac"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
@@ -34,6 +31,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:padding="16dp"
+                android:layout_marginTop="20dp"
                 android:orientation="vertical">
 
                 <android.support.design.widget.TextInputLayout
@@ -98,14 +96,15 @@
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
+                android:layout_marginTop="20dp"
                 android:layout_height="wrap_content">
 
                 <Button
                     android:id="@+id/save_btn"
                     android:text="Save"
+                    android:layout_marginBottom="20dp"
                     android:textColor="#FFFFFF"
-                    android:background="@drawable/btn_save"
-                    android:layout_gravity="center"
+                    android:background="#ff773f9b"
                     android:onClick="saveOnClick"
                     android:layout_weight="1"
                     android:layout_width="wrap_content"
@@ -117,13 +116,15 @@
                     android:id="@+id/cancel_btn"
                     android:text="Cancel"
                     android:textColor="#FFFFFF"
+                    android:layout_marginTop="20dp"
                     android:background="@drawable/btn_save"
-                    android:layout_gravity="center"
                     android:onClick="cancelOnClick"
                     android:layout_weight="1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingTop="10dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
                     android:paddingBottom="10dp" />
 
             </LinearLayout>

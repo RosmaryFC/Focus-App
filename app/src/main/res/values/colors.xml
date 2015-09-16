@@ -5,6 +5,7 @@
     <color name="style_color_primary_dark">#ff422754</color>
     <color name="style_color_accent">#ff4cd1ad</color>
     <color name="tabsScrollColor">#b0000000</color>
+    <color name="tabsColor">#ff773f9b</color>
 
 
     <color name="fab_color_pressed">#ff422754</color>

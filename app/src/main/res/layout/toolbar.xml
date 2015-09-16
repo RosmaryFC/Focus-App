@@ -1,34 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
-                                   xmlns:app="http://schemas.android.com/apk/res-auto"
+                                   xmlns:local="http://schemas.android.com/apk/res-auto"
                                    android:id="@+id/toolbar"
                                    android:layout_width="match_parent"
-                                   android:layout_height="?attr/actionBarSize"
-
+                                   android:layout_height="wrap_content"
+                                   android:minHeight="?attr/actionBarSize"
                                    android:background="@color/style_color_primary_dark"
-                                   app:elevation="@dimen/default_elevation"
-                                   app:layout_scrollFlags="scroll|enterAlways"
+                                   local:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+                                   local:popupTheme="@style/ThemeOverlay.AppCompat.Light" >
 
-                                   app:subtitleTextAppearance="@id/action_menu_divider"
-
-                                   app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
-  <!--<TextView-->
-      <!--android:layout_width="match_parent"-->
-      <!--android:layout_height="match_parent"-->
-      <!--android:textSize="30sp"-->
-      <!--android:textColor="#ffffff"-->
-      <!--android:text="@string/app_name"-->
-      <!--android:textAlignment="center"-->
-      <!--android:id="@+id/text_name"-->
-      <!--android:gravity="center"/>-->
     <ImageView
-        android:layout_width="match_parent"
+        android:id="@+id/ivLogo"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:src="@drawable/blo2"
-        android:paddingBottom="2dp"
-        android:paddingTop="2dp"/>
-
-
-
-
+        android:paddingBottom="5dp"
+        android:paddingTop="5dp"
+        android:layout_gravity="center"
+        android:scaleType="center"
+        android:src="@drawable/blo2" />
 </android.support.v7.widget.Toolbar>
+
+
+
+

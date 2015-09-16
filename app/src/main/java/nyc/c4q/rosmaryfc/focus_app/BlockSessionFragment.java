@@ -39,6 +39,8 @@ public class BlockSessionFragment extends Fragment {
 
     protected String blockType;
 
+
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,6 +53,7 @@ public class BlockSessionFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         blockSessionView = inflater.inflate(R.layout.activity_block_session, container, false);
+
 
         updateUI();
 
