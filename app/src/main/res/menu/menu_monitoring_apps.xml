@@ -9,7 +9,7 @@
         android:title="Edit"
 
         android:orderInCategory="100"
-        app:showAsAction="always" />
+        app:showAsAction="never" />
 
     <!-- create settings option -->
     <!--<item-->

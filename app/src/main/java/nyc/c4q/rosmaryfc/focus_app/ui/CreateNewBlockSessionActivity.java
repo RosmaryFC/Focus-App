@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
@@ -52,6 +53,8 @@ public class CreateNewBlockSessionActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
+
         Intent blockIntent = getIntent();
 //        if (blockIntent.getExtras().getString("block type") != null){
 //            blockIntent.removeExtra("block type");
@@ -91,6 +94,10 @@ public class CreateNewBlockSessionActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        final ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(false);
+        actionBar.setDisplayShowTitleEnabled(false);
+
         nameET = (EditText) findViewById(R.id.name_et);
         startTimeET = (EditText) findViewById(R.id.start_time_et);
         endTimeET = (EditText) findViewById(R.id.end_time_et);
@@ -118,12 +125,12 @@ public class CreateNewBlockSessionActivity extends AppCompatActivity {
         this.finish();
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_create_new_block_session, menu);
-        return true;
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        // Inflate the menu; this adds items to the action bar if it is present.
+//        getMenuInflater().inflate(R.menu.menu_create_new_block_session, menu);
+//        return true;
+//    }
 
     //todo: will not be used to demo MVP, use will choose between setting date or setting weekdays
     public void onCheckboxClicked(View view) {

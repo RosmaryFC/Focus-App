@@ -6,15 +6,17 @@
                                    android:background="@color/style_color_primary_dark"
                                    android:layout_height="?attr/actionBarSize"
                                    app:elevation="@dimen/default_elevation"
+                                   app:subtitleTextAppearance="@id/action_menu_divider"
+
                                    app:layout_scrollFlags="scroll|enterAlways"
-                                   app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+                                   app:theme="@style/AlertDialog.AppCompat.Light">
 
     <ImageView
         android:id="@+id/ivLogo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingTop="6dp"
-        android:paddingBottom="6dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
         android:layout_gravity="center"
         android:scaleType="fitCenter"
         android:src="@drawable/blockon2" />
