@@ -33,6 +33,7 @@ public class AppMonitor extends AppCompatActivity {
 
     ListView app_list;
     Button save;
+    Button cancel;
     ProgressBar progress_bar;
 
     AppReceiver receiver;
@@ -59,6 +60,8 @@ public class AppMonitor extends AppCompatActivity {
 
         app_list = (ListView) findViewById(R.id.app_list);
         save = (Button) findViewById(R.id.save);
+        //cancel = (Button) findViewById(R.id.cancel);
+
         // progress_bar = (ProgressBar) findViewById(R.id.progress_bar);
 
         IntentFilter filter = new IntentFilter();
@@ -87,6 +90,12 @@ public class AppMonitor extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "Saved", Toast.LENGTH_LONG).show();
             }
         });
+        //todo: have it so when user clicks cancel or back buttn, items in listview update
+//        cancel.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//            }
+//        });
     }
 
     @Override
