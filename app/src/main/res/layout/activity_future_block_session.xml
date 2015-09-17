@@ -1,15 +1,15 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
 
     <include layout="@layout/toolbar" />
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="421dp"
+        android:layout_height="440dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
@@ -20,18 +20,20 @@
             <!-- todo: title for create new future block session -->
 
             <TextView
-            android:id="@+id/title"
-            android:textColor="#FFFFFF"
-            android:background="#be45bcac"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+                android:id="@+id/title"
+                android:text="New Future Block Session"
+                android:textSize="30sp"
+                android:gravity="center"
+                android:textColor="#FFFFFF"
+                android:background="@color/style_color_accent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:padding="16dp"
-                android:layout_marginTop="20dp"
                 android:orientation="vertical">
 
                 <android.support.design.widget.TextInputLayout
@@ -96,18 +98,17 @@
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_marginTop="20dp"
                 android:layout_height="wrap_content">
 
                 <Button
                     android:id="@+id/save_btn"
                     android:text="Save"
-                    android:layout_marginBottom="20dp"
                     android:textColor="#FFFFFF"
-                    android:background="#ff773f9b"
+                    android:background="@drawable/btn_save"
+                    android:layout_gravity="center"
                     android:onClick="saveOnClick"
                     android:layout_weight="1"
-                    android:layout_width="wrap_content"
+                    android:layout_width="50dp"
                     android:layout_height="wrap_content"
                     android:paddingTop="10dp"
                     android:paddingBottom="10dp" />
@@ -116,15 +117,13 @@
                     android:id="@+id/cancel_btn"
                     android:text="Cancel"
                     android:textColor="#FFFFFF"
-                    android:layout_marginTop="20dp"
                     android:background="@drawable/btn_save"
+                    android:layout_gravity="center"
                     android:onClick="cancelOnClick"
                     android:layout_weight="1"
-                    android:layout_width="wrap_content"
+                    android:layout_width="50dp"
                     android:layout_height="wrap_content"
                     android:paddingTop="10dp"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp"
                     android:paddingBottom="10dp" />
 
             </LinearLayout>

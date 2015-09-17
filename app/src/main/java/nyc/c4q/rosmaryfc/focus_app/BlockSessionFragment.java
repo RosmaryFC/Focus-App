@@ -120,7 +120,7 @@ public class BlockSessionFragment extends Fragment {
             case R.id.future_bs_item:
                 blockType = "future";
 
-                Toast.makeText(blockSessionView.getContext(), "future bs now pressed",Toast.LENGTH_SHORT).show();
+                //Toast.makeText(blockSessionView.getContext(), "future block session now pressed",Toast.LENGTH_SHORT).show();
 
                 Intent futureIntent = new Intent(blockSessionView.getContext(), CreateNewBlockSessionActivity.class);
                 futureIntent.putExtra("block type", blockType);

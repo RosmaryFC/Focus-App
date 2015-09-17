@@ -30,7 +30,7 @@
         android:layout_gravity="center"
         android:id="@+id/blockon_image"
         android:layout_marginTop="20dp"
-        android:src="@drawable/name_rectangle"
+        android:src="@drawable/blockon2"
 
         android:layout_below="@+id/blockon_textmsg"
         android:layout_centerHorizontal="true"/>
