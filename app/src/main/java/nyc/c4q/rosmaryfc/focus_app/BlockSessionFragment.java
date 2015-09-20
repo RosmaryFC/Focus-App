@@ -40,6 +40,8 @@ public class BlockSessionFragment extends Fragment {
 
     protected String blockType;
 
+
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,6 +54,7 @@ public class BlockSessionFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         blockSessionView = inflater.inflate(R.layout.activity_block_session, container, false);
+
 
         updateUI();
 
@@ -117,7 +120,7 @@ public class BlockSessionFragment extends Fragment {
             case R.id.future_bs_item:
                 blockType = "future";
 
-                Toast.makeText(blockSessionView.getContext(), "future bs now pressed",Toast.LENGTH_SHORT).show();
+                //Toast.makeText(blockSessionView.getContext(), "future block session now pressed",Toast.LENGTH_SHORT).show();
 
                 Intent futureIntent = new Intent(blockSessionView.getContext(), CreateNewBlockSessionActivity.class);
                 futureIntent.putExtra("block type", blockType);

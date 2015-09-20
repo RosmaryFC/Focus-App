@@ -37,6 +37,7 @@
             android:label="@string/title_activity_app_usage"
             android:noHistory="true" />
 
+
         <receiver android:name=".BootReceiver" >
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
