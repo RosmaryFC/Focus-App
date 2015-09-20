@@ -13,9 +13,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
-import android.widget.Toast;
-
-
 
 import java.util.ArrayList;
 import java.util.List;
@@ -117,7 +114,7 @@ public class BlockSessionFragment extends Fragment {
             case R.id.future_bs_item:
                 blockType = "future";
 
-                Toast.makeText(blockSessionView.getContext(), "future bs now pressed",Toast.LENGTH_SHORT).show();
+                //Toast.makeText(blockSessionView.getContext(), "future bs now pressed",Toast.LENGTH_SHORT).show();
 
                 Intent futureIntent = new Intent(blockSessionView.getContext(), CreateNewBlockSessionActivity.class);
                 futureIntent.putExtra("block type", blockType);
