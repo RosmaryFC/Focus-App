@@ -6,10 +6,7 @@ import com.j256.ormlite.table.DatabaseTable;
 @DatabaseTable
 public class App {
 
-    @DatabaseField(generatedId = true, columnName = "APP_ID")
-    int appId;
-
-    @DatabaseField(columnName = "APP_PACKAGE")
+    @DatabaseField(id = true, columnName = "APP_PACKAGE")
     String appPackage;
 
     @DatabaseField(columnName = "APP_NAME")
@@ -17,14 +14,6 @@ public class App {
 
     @DatabaseField(columnName = "APP_MONITOR")
     boolean appMonitor;
-
-    public int getAppId() {
-        return appId;
-    }
-
-    public void setAppId(int appId) {
-        this.appId = appId;
-    }
 
     public String getAppPackage() {
         return appPackage;

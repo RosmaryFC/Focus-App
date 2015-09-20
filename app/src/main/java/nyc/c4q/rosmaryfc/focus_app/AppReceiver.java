@@ -18,7 +18,8 @@ public class AppReceiver extends BroadcastReceiver {
 
     PackageManager packageManager;
     List<ApplicationInfo> applicationInfos;
-    List<App> apps;
+//    List<App> apps;
+    List<App> monitoringApps;
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -34,13 +35,9 @@ public class AppReceiver extends BroadcastReceiver {
             public void run() {
                 try {
                     Dao<App, ?> appDao = databaseHelper.getDao(App.class);
-                    apps = appDao.queryForAll();
-                    for (App app : apps) {
-                        boolean installed = appInstalledOrNot(app.getAppPackage());
-                        if (!installed) {
-                            databaseHelper.deleteApp(app.getAppPackage());
-                        }
-                    }
+                    monitoringApps = appDao.query(appDao.queryBuilder().where().eq("APP_MONITOR", true).prepare());
+                    Collections.sort(applicationInfos, new ApplicationInfo.DisplayNameComparator(packageManager));
+                    databaseHelper.insertData(applicationInfos, monitoringApps);
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
@@ -48,15 +45,35 @@ public class AppReceiver extends BroadcastReceiver {
         }).start();
     }
 
-    public boolean appInstalledOrNot(String packageName) {
-        boolean appInstalled;
-        try {
-            packageManager.getPackageInfo(packageName, PackageManager.GET_ACTIVITIES);
-            appInstalled = true;
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-            appInstalled = false;
-        }
-        return appInstalled;
-    }
+//        public void updateApps() {
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                try {
+//                    Dao<App, ?> appDao = databaseHelper.getDao(App.class);
+//                    apps = appDao.queryForAll();
+//                    for (App app : apps) {
+//                        boolean installed = appInstalledOrNot(app.getAppPackage());
+//                        if (!installed) {
+//                            databaseHelper.deleteApp(app.getAppPackage());
+//                        }
+//                    }
+//                } catch (SQLException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        }).start();
+//    }
+//
+//    public boolean appInstalledOrNot(String packageName) {
+//        boolean appInstalled;
+//        try {
+//            packageManager.getPackageInfo(packageName, PackageManager.GET_ACTIVITIES);
+//            appInstalled = true;
+//        } catch (PackageManager.NameNotFoundException e) {
+//            e.printStackTrace();
+//            appInstalled = false;
+//        }
+//        return appInstalled;
+//    }
 }
