@@ -3,12 +3,14 @@
 <resources>
 
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
-        <item name="android:statusBarColor">@android:color/transparent</item>
+
+
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:statusBarColor">@color/style_color_primary</item>
         <item name="colorPrimary">#673AB7</item>
-        <item name="colorPrimaryDark">#512DA8</item>
-        <item name="colorAccent">#1DE9B6</item>
-        <item name="android:navigationBarColor">#673AB7</item>
+        <item name="colorPrimaryDark">@color/style_color_primary_dark</item>
+        <item name="colorAccent">@color/style_color_accent</item>
+        <item name="android:navigationBarColor">@color/style_color_primary_dark</item>
 
     </style>
 
