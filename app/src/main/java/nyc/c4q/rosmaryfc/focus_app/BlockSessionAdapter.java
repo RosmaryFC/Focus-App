@@ -103,7 +103,8 @@ public class BlockSessionAdapter extends ArrayAdapter<BlockSession> {
                         switch (menuItem.getItemId()) {
                             case R.id.delete_block_session_item:
 
-                                Toast.makeText(context, "block session deleted ", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(context, "Block Session Deleted", Toast.LENGTH_SHORT).show();
+
                                 helper.deleteBlockSession(session);
                                 data.remove(position);
                                 notifyDataSetChanged();

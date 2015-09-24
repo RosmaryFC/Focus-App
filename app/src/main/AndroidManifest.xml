@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+<manifest
+    xmlns:android="http://schemas.android.com/apk/res/android"
     package="nyc.c4q.rosmaryfc.focus_app" >
 
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
@@ -11,12 +12,14 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
+
         <activity android:name=".SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".ui.MainActivity"
             android:label="@string/app_name" >
@@ -25,16 +28,20 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".ui.CreateNewBlockSessionActivity"
-            android:label="@string/title_activity_create_new_block_session" >
-        </activity>
+            android:label="@string/title_activity_create_new_block_session" />
+
         <activity
             android:name=".AppMonitor"
             android:label="@string/title_activity_app_monitor" />
+
         <activity
             android:name=".AppUsage"
-            android:label="@string/title_activity_app_usage" />
+            android:label="@string/title_activity_app_usage"
+            android:finishOnTaskLaunch="true" />
+
 
         <receiver android:name=".BootReceiver" >
             <intent-filter>

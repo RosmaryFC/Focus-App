@@ -5,13 +5,14 @@
     <color name="style_color_primary_dark">#ff422754</color>
     <color name="style_color_accent">#ff4cd1ad</color>
     <color name="tabsScrollColor">#b0000000</color>
+    <color name="tabsColor">#ff773f9b</color>
 
 
-    <color name="fab_color_pressed">#ff422754</color>
+    <color name="fab_color_pressed">#ff4cd1ad</color>
     <color name="fab_color_shadow">#44000000</color>
 
     <color name="btn_default_light_normal">#ff422754</color>
-    <color name="btn_default_light_pressed">#40ffffff</color>
+    <color name="btn_default_light_pressed">#ff4cd1ad</color>
     <color name="btn_color">#ff4cd1ad</color>
     <color name="btn_send_pressed">#ff422754</color>
     <color name="btn_default_shadow">#99000000</color>

@@ -11,9 +11,11 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
+
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.ToggleButton;
+
 
 import java.sql.SQLException;
 import java.util.List;
