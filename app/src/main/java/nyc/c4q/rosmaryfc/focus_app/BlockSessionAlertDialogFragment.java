@@ -1,12 +1,15 @@
 package nyc.c4q.rosmaryfc.focus_app;
 
 import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.app.TimePickerDialog;
+import android.content.DialogInterface;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
+import android.support.v7.app.AlertDialog;
 import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -259,35 +262,34 @@ public class BlockSessionAlertDialogFragment extends DialogFragment implements V
             }
 
     }
+
+    @Override
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
+
+        blockType = "Future";
+
+        return new AlertDialog.Builder(getActivity())
+        // Set Dialog Icon
+        .setIcon(R.drawable.icon_1)
+                // Set Dialog Title
+                .setTitle("Create " + blockType + " Block Session")
+                        // Set Dialog Message
+                .setMessage("Please fill out all fields below")
+
+                        // Positive button
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // Do something else
+                    }
+                })
+
+                        // Negative Button
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // Do something else
+                    }
+                }).create();
+
+
+    }
 }
-
-
-//    @Override
-//    public Dialog onCreateDialog(Bundle savedInstanceState) {
-//
-//        blockType = "Future";
-//
-//        return new AlertDialog.Builder(getActivity())
-//        // Set Dialog Icon
-//        .setIcon(R.drawable.icon_1)
-//                // Set Dialog Title
-//                .setTitle("Create " + blockType + " Block Session")
-//                        // Set Dialog Message
-//                .setMessage("Please fill out all fields below")
-//
-//                        // Positive button
-//                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        // Do something else
-//                    }
-//                })
-//
-//                        // Negative Button
-//                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        // Do something else
-//                    }
-//                }).create();
-//
-//
-//    }
