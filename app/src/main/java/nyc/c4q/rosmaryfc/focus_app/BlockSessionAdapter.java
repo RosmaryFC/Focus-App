@@ -67,7 +67,6 @@ public class BlockSessionAdapter extends ArrayAdapter<BlockSession> {
 
             holder.mMenu = (ImageButton) row.findViewById(R.id.btn_menu);
 
-
 //            if(deleteIsEnabled) {
 //                holder.mDelete.setVisibility(View.VISIBLE);
 //            }else {
@@ -79,12 +78,18 @@ public class BlockSessionAdapter extends ArrayAdapter<BlockSession> {
         } else {
             holder = (BlockHolder) row.getTag();
         }
-
         final BlockSession session = data.get(position);
         holder.mBlockName.setText(session.name);
-        holder.mDate.setText(session.date);
         holder.mStartTime.setText(session.startTime);
         holder.mEndTime.setText(session.endTime);
+
+        if(session.isRecurring()){
+            holder.mDate.setText("Recurring");
+        } else {
+            holder.mDate.setText(session.date);
+        }
+
+
 
         final BlockSessionDBHelper helper = new BlockSessionDBHelper(context);
 

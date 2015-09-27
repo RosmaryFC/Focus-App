@@ -20,7 +20,9 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 
 import nyc.c4q.rosmaryfc.focus_app.BlockSession;
@@ -39,6 +41,7 @@ public class CreateNewBlockSessionActivity extends AppCompatActivity {
     EditText dateET;
 
     private BlockSessionDBHelper helper;
+    private BlockSession blockSession;
 
     int layout;
 
@@ -52,9 +55,6 @@ public class CreateNewBlockSessionActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
-
         Intent blockIntent = getIntent();
 //        if (blockIntent.getExtras().getString("block type") != null){
 //            blockIntent.removeExtra("block type");
@@ -65,7 +65,9 @@ public class CreateNewBlockSessionActivity extends AppCompatActivity {
 //        editDate = blockIntent.getExtras().getString("bs date");
 //        editStartTime = blockIntent.getExtras().getString("bs start time");
 //        editEndTime = blockIntent.getExtras().getString("bs end time");
-//        isBeingEdited = blockIntent.getExtras().getBoolean("bsIsBeingEdited");
+//        isBeingEdited = blockIntent.getExtras().getBoolean("bsIsBeingEdited")
+
+         blockSession = new BlockSession(); //block sesh being currently edited
 
 
         if (blockType.equals("future")){
@@ -87,6 +89,7 @@ public class CreateNewBlockSessionActivity extends AppCompatActivity {
         }else if (blockType.equals("recur")){
             layout = R.layout.activity_recur_block_session;
             setContentView(layout);
+            blockSession.settoRecur();
 
             //write on create stuff here for recur
         }
@@ -134,65 +137,46 @@ public class CreateNewBlockSessionActivity extends AppCompatActivity {
 
     //todo: will not be used to demo MVP, use will choose between setting date or setting weekdays
     public void onCheckboxClicked(View view) {
-        //is this view now checked?
+
+       //is this view now checked?
         boolean checked = ((CheckBox) view).isChecked();
+        ArrayList<String> recurDays = new ArrayList<>();
 
         //check when checkbox is clicked
         switch(view.getId()){
             case R.id.checkbox_sunday:
                 if(checked){
-                    //checked stuff
-                }
-                else{
-                    //unchecked stuff
+                    recurDays.add(DayConstants.SUNDAY);
                 }
                 break;
             case R.id.checkbox_monday:
                 if(checked){
-                    //checked stuff
-                }
-                else{
-                    //unchecked stuff
+                    recurDays.add(DayConstants.MONDAY);
                 }
                 break;
             case R.id.checkbox_tuesday:
                 if(checked){
-                    //checked stuff
-                }
-                else{
-                    //unchecked stuff
+                    recurDays.add(DayConstants.TUESDAY);
                 }
                 break;
             case R.id.checkbox_wednesday:
                 if(checked){
-                    //checked stuff
-                }
-                else{
-                    //unchecked stuff
+                    recurDays.add(DayConstants.WEDNESDAY);
                 }
                 break;
             case R.id.checkbox_thursday:
                 if(checked){
-                    //checked stuff
-                }
-                else{
-                    //unchecked stuff
+                  recurDays.add(DayConstants.THURSDAY);
                 }
                 break;
             case R.id.checkbox_friday:
                 if(checked){
-                    //checked stuff
-                }
-                else{
-                    //unchecked stuff
+                    recurDays.add(DayConstants.FRIDAY);
                 }
                 break;
             case R.id.checkbox_saturday:
                 if(checked){
-                    //checked stuff
-                }
-                else{
-                    //unchecked stuff
+                    recurDays.add(DayConstants.FRIDAY);
                 }
                 break;
         }
@@ -281,22 +265,40 @@ public class CreateNewBlockSessionActivity extends AppCompatActivity {
     };
 
     public void saveOnClick (View view){
-        if(layout == R.layout.activity_future_block_session ) {
+        boolean recurBool = blockSession.isRecurring();
+        String date;
+       if(layout == R.layout.activity_recur_block_session ) {
+           Calendar mcurrentDate = Calendar.getInstance();
+            int mYear = mcurrentDate.get(Calendar.YEAR);
+            int mMonth = mcurrentDate.get(Calendar.MONTH);
+            int mDay = mcurrentDate.get(Calendar.DAY_OF_MONTH);
+           date = String.valueOf((mMonth + 1) + "/" + mDay + "/" + mYear); //Stores start date for recurring sessions as current date.
+
+       } else {
+           date = dateET.getText().toString();
+       }
 
             String name = nameET.getText().toString();
-            String date = dateET.getText().toString();
+
             String startTime = startTimeET.getText().toString();
             String endTime = endTimeET.getText().toString();
+            blockSession.setName(name);
+            blockSession.setDate(date);
+            blockSession.setStartTime(startTime);
+            blockSession.setEndTime(endTime);
             String notes = "N/A";//todo: remove notes from database, BlockSession,
 
+
             if(FutureBSFieldsAreNotEmpty(name, date, startTime, endTime)){
+
                 helper = new BlockSessionDBHelper(this);
 
 //                if(isBeingEdited){
 //                    BlockSession updatedBS = new BlockSession(editBsId, name, date, startTime, endTime, notes);
 //                    helper.updateBlockSession(updatedBS);
 //                }else{
-                    helper.addBlockSession(new BlockSession(name, date, startTime, endTime, notes));
+                helper.addblockSession(blockSession);
+                   // helper.addBlockSession(new BlockSession(name, date, startTime, endTime, notes));
 //                }
 
                 getData();
@@ -307,7 +309,8 @@ public class CreateNewBlockSessionActivity extends AppCompatActivity {
                 Toast.makeText(this, "Input Field Missing", Toast.LENGTH_SHORT).show();
             }
 
-        }else if(layout == R.layout.activity_recur_block_session) {
+
+        if(layout == R.layout.activity_recur_block_session) {
             saveRecurBS();
         }
     }
@@ -354,6 +357,17 @@ public class CreateNewBlockSessionActivity extends AppCompatActivity {
 
     public void saveRecurBS(){
 
+    }
+
+    public static class DayConstants {
+       public static String SUNDAY = "SUNDAY";
+        public static String MONDAY = "MONDAY";
+        public static String  TUESDAY = "TUESDAY";
+        public static String WEDNESDAY = "WEDNESDAY";
+        public static String  THURSDAY = "SUNDAY";
+        public static String  FRIDAY = "SUNDAY";
+        public static String  SATURDAY = "SUNDAY";
+        public static final String[] DAYS = {SUNDAY, MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY};
     }
 
 }
