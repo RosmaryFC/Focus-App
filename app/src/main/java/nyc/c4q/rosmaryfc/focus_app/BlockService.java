@@ -137,6 +137,10 @@ public class BlockService extends Service {
                 Log.d("SERVICE ADDED Result: ", log2);
 
                 todaysBlockSessions.add(bs);
+            }else {
+                    if(bs.recursToday()){
+                    todaysBlockSessions.add(bs);
+                }
             }
         }
         return todaysBlockSessions;

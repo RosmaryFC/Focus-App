@@ -32,7 +32,8 @@ public class BlockSessionDBHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
 
-        String CREATE_BLOCK_SESSIONS_TABLE = "CREATE TABLE " + BlockSessionContract.TABLE_BLOCK_SESSIONS + " ("
+        String CREATE_BLOCK_SESSIONS_TABLE =
+                "CREATE TABLE " + BlockSessionContract.TABLE_BLOCK_SESSIONS + " ("
                 + BLOCK_ID + " INTEGER PRIMARY KEY, "
                 + BlockSessionContract.Columns.BLOCK_NAME + " TEXT, "
                 + BlockSessionContract.Columns.BLOCK_DATE + " TEXT, "
@@ -57,6 +58,15 @@ public class BlockSessionDBHelper extends SQLiteOpenHelper {
     /**
      * All CRUD(Create, Read, Update, Delete) Operations
      */
+
+    public void addblockSession(BlockSession blockSession){
+        addBlockSession(blockSession);
+        //calculate recurring schedule and duration //fixme
+//        for(BlockSession bs : blockSession.makeRecurring("test", "test", "test")){
+//            addBlockSession(bs);
+//        }
+    }
+
 
     //Add new Block Session
     public void addBlockSession(BlockSession blockSession) {
@@ -170,9 +180,12 @@ public class BlockSessionDBHelper extends SQLiteOpenHelper {
     // get next BlockSession
     public List<BlockSession> orderedBlockSessions() {
         List<BlockSession> blockSessionList = new ArrayList<>();
+        //fixme Modify query to FIRST SELECT FROM LIST ORDER WHERE RECURRING IS ON TO CHECK IF ANY ARE SET TO RECUR TODAY..Then
 
         //created query by ordered dates and ordered start times and ordered end times
         String selectQuery = "SELECT * FROM BlockSessions ORDER BY " + BlockSessionContract.Columns.BLOCK_DATE + ", " + BlockSessionContract.Columns.BLOCK_START_TIME + ", " + BlockSessionContract.Columns.BLOCK_END_TIME;
+
+
 
         Log.d("UPCOMING BS: ", selectQuery);
 

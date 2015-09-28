@@ -38,4 +38,9 @@ public class App {
     public void setAppMonitor(boolean appMonitor) {
         this.appMonitor = appMonitor;
     }
+
+    @Override
+    public String toString() {
+        return this.appName;
+    }
 }
