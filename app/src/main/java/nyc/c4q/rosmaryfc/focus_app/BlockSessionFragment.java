@@ -99,7 +99,7 @@ public class BlockSessionFragment extends Fragment {
             case R.id.start_bs_now_item:
                 blockType = "immediate";
                 break;
-//
+
 //            //todo: will not be added in database, user will specify length of block session up to 6 hours
 //                // have option to disable current block session by going into settings.
 //                // will kill appmonitor but then take into consideration that block service will keep checking bs list and reactivate
@@ -110,8 +110,6 @@ public class BlockSessionFragment extends Fragment {
 //                return true;
             case R.id.recur_bs_item:
                 blockType = "recur";
-
-
                 Toast.makeText(blockSessionView.getContext(), "recur bs pressed",Toast.LENGTH_SHORT).show();
 //todo: finish adding recur to database
                 Intent recurIntent = new Intent (blockSessionView.getContext(), CreateNewBlockSessionActivity.class);

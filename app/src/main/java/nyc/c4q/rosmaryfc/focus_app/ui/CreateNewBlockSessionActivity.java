@@ -22,7 +22,6 @@ import android.widget.Toast;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.Locale;
 
 import nyc.c4q.rosmaryfc.focus_app.BlockSession;
@@ -55,6 +54,7 @@ public class CreateNewBlockSessionActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        blockSession = new BlockSession();
         Intent blockIntent = getIntent();
 //        if (blockIntent.getExtras().getString("block type") != null){
 //            blockIntent.removeExtra("block type");
@@ -67,12 +67,13 @@ public class CreateNewBlockSessionActivity extends AppCompatActivity {
 //        editEndTime = blockIntent.getExtras().getString("bs end time");
 //        isBeingEdited = blockIntent.getExtras().getBoolean("bsIsBeingEdited")
 
-         blockSession = new BlockSession(); //block sesh being currently edited
+          //block sesh being currently edited
 
 
         if (blockType.equals("future")){
             layout = R.layout.activity_future_block_session;
             setContentView(layout);
+            blockSession.setNotRecurring();
 
             //write oncreate stuff here for future
             dateET = (EditText) findViewById(R.id.date_et);
@@ -136,47 +137,45 @@ public class CreateNewBlockSessionActivity extends AppCompatActivity {
 //    }
 
     //todo: will not be used to demo MVP, use will choose between setting date or setting weekdays
-    public void onCheckboxClicked(View view) {
+    public void onCheckboxClicked (View view) {
 
        //is this view now checked?
         boolean checked = ((CheckBox) view).isChecked();
-        ArrayList<String> recurDays = new ArrayList<>();
-
         //check when checkbox is clicked
         switch(view.getId()){
             case R.id.checkbox_sunday:
                 if(checked){
-                    recurDays.add(DayConstants.SUNDAY);
+                    blockSession.addDaytoRecur(Calendar.SUNDAY);
                 }
                 break;
             case R.id.checkbox_monday:
                 if(checked){
-                    recurDays.add(DayConstants.MONDAY);
+                    blockSession.addDaytoRecur(Calendar.MONDAY);
                 }
                 break;
             case R.id.checkbox_tuesday:
                 if(checked){
-                    recurDays.add(DayConstants.TUESDAY);
+                    blockSession.addDaytoRecur(Calendar.TUESDAY);
                 }
                 break;
             case R.id.checkbox_wednesday:
                 if(checked){
-                    recurDays.add(DayConstants.WEDNESDAY);
+                    blockSession.addDaytoRecur(Calendar.WEDNESDAY);
                 }
                 break;
             case R.id.checkbox_thursday:
                 if(checked){
-                  recurDays.add(DayConstants.THURSDAY);
+                    blockSession.addDaytoRecur(Calendar.THURSDAY);
                 }
                 break;
             case R.id.checkbox_friday:
                 if(checked){
-                    recurDays.add(DayConstants.FRIDAY);
+                    blockSession.addDaytoRecur(Calendar.FRIDAY);
                 }
                 break;
             case R.id.checkbox_saturday:
                 if(checked){
-                    recurDays.add(DayConstants.FRIDAY);
+                    blockSession.addDaytoRecur(Calendar.FRIDAY);
                 }
                 break;
         }
@@ -268,6 +267,8 @@ public class CreateNewBlockSessionActivity extends AppCompatActivity {
         boolean recurBool = blockSession.isRecurring();
         String date;
        if(layout == R.layout.activity_recur_block_session ) {
+           blockSession.settoRecur();
+           Log.wtf("Is this boolean working?","" + blockSession.isRecurring());
            Calendar mcurrentDate = Calendar.getInstance();
             int mYear = mcurrentDate.get(Calendar.YEAR);
             int mMonth = mcurrentDate.get(Calendar.MONTH);
@@ -279,7 +280,6 @@ public class CreateNewBlockSessionActivity extends AppCompatActivity {
        }
 
             String name = nameET.getText().toString();
-
             String startTime = startTimeET.getText().toString();
             String endTime = endTimeET.getText().toString();
             blockSession.setName(name);
@@ -357,17 +357,6 @@ public class CreateNewBlockSessionActivity extends AppCompatActivity {
 
     public void saveRecurBS(){
 
-    }
-
-    public static class DayConstants {
-       public static String SUNDAY = "SUNDAY";
-        public static String MONDAY = "MONDAY";
-        public static String  TUESDAY = "TUESDAY";
-        public static String WEDNESDAY = "WEDNESDAY";
-        public static String  THURSDAY = "SUNDAY";
-        public static String  FRIDAY = "SUNDAY";
-        public static String  SATURDAY = "SUNDAY";
-        public static final String[] DAYS = {SUNDAY, MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY};
     }
 
 }

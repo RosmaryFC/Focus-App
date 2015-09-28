@@ -4,6 +4,8 @@ import android.util.Log;
 import android.widget.Spinner;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import nyc.c4q.rosmaryfc.focus_app.ui.CreateNewBlockSessionActivity;
@@ -20,7 +22,13 @@ public class BlockSession {
     String date;
     String notes;
     boolean recurring;
-    private List<String> recurDays; //should only be available if recurring is on.
+
+    public List<Integer> getRecurDays() {
+        return recurDays;
+    }
+
+
+    private List<Integer> recurDays; //should only be available if recurring is on.
     private Spinner daySpinner;
 
 
@@ -28,17 +36,22 @@ public class BlockSession {
     boolean isEnabled;
 
     public BlockSession(){
-
+        this.recurring = false; //by default
+        if(this.recurring = true){
+            this.recurDays = new ArrayList<>();
+        }
     }
 
-    public BlockSession(String name,String date, String startTime, String endTime, String notes){
+    public BlockSession(String name,String date, String startTime, String endTime, String notes) {
         this.name = name;
         this.date = date;
         this.startTime = startTime;
         this.endTime = endTime;
         this.notes = notes;
         this.recurring = false; //By default
-        //this.weekdays = new String[] {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
+        if(this.recurring = true){
+            this.recurDays = new ArrayList<>();
+        }
     }
 
     public BlockSession(String name, String date, String startTime, String endTime, String notes, boolean recurring){
@@ -63,37 +76,41 @@ public class BlockSession {
         //this.weekdays = new String[] {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
     }
 
-    public void addDaytoRecur(String day){
+    public void addDaytoRecur(int day){
         if(this.isRecurring() == false){
             return;
         } else {
-            String[] DAYS = CreateNewBlockSessionActivity.DayConstants.DAYS;
-            for (int i = 0; i < DAYS.length; i++) {
-                boolean dayValid = day == DAYS[i];
-                if (!dayValid) {
-                    Log.wtf("This should never hapen", "valid day? - > " + dayValid);
-                    break;
-                } else {
+            int[] DAYS = {Calendar.SUNDAY, Calendar.MONDAY, Calendar.TUESDAY, Calendar.WEDNESDAY, Calendar.THURSDAY, Calendar.FRIDAY, Calendar.SATURDAY, Calendar.SUNDAY};
                     this.recurDays.add(day);
-                }
-            }
         }
 
     }
 
+    public boolean recursToday() {
+        boolean isPartOfTodaysTasks = false;
+        if(!this.isRecurring()){
+            return false;
+        } else {
+            Calendar calendar = Calendar.getInstance();
+            int day = calendar.get(Calendar.DAY_OF_WEEK);
+            for (int i = 0; i < this.getRecurDays().size(); i++) {
+                List<Integer> setDays = this.getRecurDays();
+                if(day == setDays.get(i)){
+                    isPartOfTodaysTasks = true;
+                }
+            }
+        }
+        return isPartOfTodaysTasks;
+    }
+
     public boolean isRecurring(){
-        return this.recurring;
+      return this.recurring;
     }
 
     public void settoRecur(){
         this.recurring = true;
     }
 
-
-
-    public void setRepeatDay(String day){
-
-    }
 
     public int getId() {
         return id;
@@ -143,13 +160,8 @@ public class BlockSession {
         this.notes = notes;
     }
 
-    public String[] getWeekdays() {
-        return weekdays;
+
+    public void setNotRecurring() {
+        this.recurring = false;
     }
-
-    public void setWeekdays(String[] weekdays) {
-        this.weekdays = weekdays;
-    }
-
-
 }

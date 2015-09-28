@@ -181,7 +181,7 @@ public class BlockSessionDBHelper extends SQLiteOpenHelper {
     public List<BlockSession> orderedBlockSessions() {
         List<BlockSession> blockSessionList = new ArrayList<>();
         //fixme Modify query to FIRST SELECT FROM LIST ORDER WHERE RECURRING IS ON TO CHECK IF ANY ARE SET TO RECUR TODAY..Then
-        
+
         //created query by ordered dates and ordered start times and ordered end times
         String selectQuery = "SELECT * FROM BlockSessions ORDER BY " + BlockSessionContract.Columns.BLOCK_DATE + ", " + BlockSessionContract.Columns.BLOCK_START_TIME + ", " + BlockSessionContract.Columns.BLOCK_END_TIME;
 
