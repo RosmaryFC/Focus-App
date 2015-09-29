@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import nyc.c4q.rosmaryfc.focus_app.BlockSession;
@@ -39,7 +40,10 @@ public class BlockSessionDBHelper extends SQLiteOpenHelper {
                 + BlockSessionContract.Columns.BLOCK_DATE + " TEXT, "
                 + BlockSessionContract.Columns.BLOCK_START_TIME + " TEXT, "
                 + BlockSessionContract.Columns.BLOCK_END_TIME + " TEXT, "
-                + BlockSessionContract.Columns.BLOCK_NOTES + " TEXT " + ")";
+                + BlockSessionContract.Columns.BLOCK_NOTES + " TEXT, "
+                + BlockSessionContract.Columns.RECUR_BOOL + " BOOL, "
+                + BlockSessionContract.Columns.BLOCK_DAYS + " TEXT " +
+                        ")";
 
         Log.d("BlockSessionDBHelper", "Query to form table: " + CREATE_BLOCK_SESSIONS_TABLE);
         db.execSQL(CREATE_BLOCK_SESSIONS_TABLE);
@@ -78,10 +82,13 @@ public class BlockSessionDBHelper extends SQLiteOpenHelper {
         values.put(BlockSessionContract.Columns.BLOCK_START_TIME, blockSession.getStartTime());
         values.put(BlockSessionContract.Columns.BLOCK_END_TIME, blockSession.getEndTime());
         values.put(BlockSessionContract.Columns.BLOCK_NOTES, blockSession.getNotes());
-
+        values.put(BlockSessionContract.Columns.RECUR_BOOL, blockSession.isRecurring());
+        values.put(BlockSessionContract.Columns.BLOCK_DAYS, blockSession.getDaysToRecur());
         db.insert(BlockSessionContract.TABLE_BLOCK_SESSIONS, null, values);
         db.close();
     }
+
+
 
     //get Single Block Session
     public BlockSession getBlockSession(int id) {

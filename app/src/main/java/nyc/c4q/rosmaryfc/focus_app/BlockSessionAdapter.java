@@ -64,6 +64,7 @@ public class BlockSessionAdapter extends ArrayAdapter<BlockSession> {
             holder.mStartTime = (TextView) row.findViewById(R.id.txt_start_time);
             holder.mEndTime = (TextView) row.findViewById(R.id.txt_end_time);
             holder.mMenu = (ImageButton) row.findViewById(R.id.btn_menu);
+            holder.mRecurTV = (TextView) row.findViewById(R.id.label_recurring);
 
 //            if(deleteIsEnabled) {
 //                holder.mDelete.setVisibility(View.VISIBLE);
@@ -146,18 +147,20 @@ public class BlockSessionAdapter extends ArrayAdapter<BlockSession> {
     }
 
 
-    public static class BlockHolder {
+    public static class BlockHolder{
         TextView mBlockName;
         TextView mStartTime;
         TextView mEndTime;
         TextView mDate;
         ImageButton mMenu;
+        TextView mRecurTV;
 
         public void bindBlockSession(BlockSession blockSession, boolean recur){
             mDate.setText(blockSession.date);
             mBlockName.setText(blockSession.name);
             mStartTime.setText(blockSession.startTime);
              mEndTime.setText(blockSession.endTime);
+            mRecurTV.append(" " + blockSession.getDaysToRecur());
 
         }
     }
