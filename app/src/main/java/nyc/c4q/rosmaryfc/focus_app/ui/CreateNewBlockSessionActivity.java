@@ -20,6 +20,7 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
 
@@ -39,6 +40,8 @@ public class CreateNewBlockSessionActivity extends AppCompatActivity {
     EditText dateET;
 
     private BlockSessionDBHelper helper;
+    private BlockSession blockSession;
+    private ArrayList<Integer>daysToRecur;
 
     int layout;
 
@@ -52,9 +55,7 @@ public class CreateNewBlockSessionActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
-
+        blockSession = new BlockSession();
         Intent blockIntent = getIntent();
 //        if (blockIntent.getExtras().getString("block type") != null){
 //            blockIntent.removeExtra("block type");
@@ -65,7 +66,9 @@ public class CreateNewBlockSessionActivity extends AppCompatActivity {
 //        editDate = blockIntent.getExtras().getString("bs date");
 //        editStartTime = blockIntent.getExtras().getString("bs start time");
 //        editEndTime = blockIntent.getExtras().getString("bs end time");
-//        isBeingEdited = blockIntent.getExtras().getBoolean("bsIsBeingEdited");
+//        isBeingEdited = blockIntent.getExtras().getBoolean("bsIsBeingEdited")
+
+        //block sesh being currently edited
 
 
         if (blockType.equals("future")){
@@ -87,6 +90,8 @@ public class CreateNewBlockSessionActivity extends AppCompatActivity {
         }else if (blockType.equals("recur")){
             layout = R.layout.activity_recur_block_session;
             setContentView(layout);
+            daysToRecur = new ArrayList<>();
+           // blockSession.settoRecur();
 
             //write on create stuff here for recur
         }
@@ -133,66 +138,69 @@ public class CreateNewBlockSessionActivity extends AppCompatActivity {
 //    }
 
     //todo: will not be used to demo MVP, use will choose between setting date or setting weekdays
-    public void onCheckboxClicked(View view) {
+    public void onCheckboxClicked (View view) {
+
         //is this view now checked?
         boolean checked = ((CheckBox) view).isChecked();
-
+        int dayToRecur = 0;
         //check when checkbox is clicked
         switch(view.getId()){
+
             case R.id.checkbox_sunday:
                 if(checked){
-                    //checked stuff
-                }
-                else{
-                    //unchecked stuff
+                    dayToRecur = (Calendar.SUNDAY);
+                    daysToRecur.add(dayToRecur);
+                    //blockSession.addDaytoRecur(dayToRecur);
+                    Log.d("recurring?","" + blockSession.isRecurring());
                 }
                 break;
             case R.id.checkbox_monday:
                 if(checked){
-                    //checked stuff
-                }
-                else{
-                    //unchecked stuff
+                    dayToRecur = (Calendar.MONDAY);
+                    daysToRecur.add(dayToRecur);
+                    //blockSession.addDaytoRecur(dayToRecur);
+                    Log.d("recurring?", "" + blockSession.isRecurring());
                 }
                 break;
             case R.id.checkbox_tuesday:
                 if(checked){
-                    //checked stuff
-                }
-                else{
-                    //unchecked stuff
+                    dayToRecur = (Calendar.TUESDAY);
+                    daysToRecur.add(dayToRecur);
+                    //blockSession.addDaytoRecur(dayToRecur);
+                    Log.d("recurring?", "" + blockSession.isRecurring());
                 }
                 break;
             case R.id.checkbox_wednesday:
                 if(checked){
-                    //checked stuff
-                }
-                else{
-                    //unchecked stuff
+                    dayToRecur = (Calendar.WEDNESDAY);
+                    daysToRecur.add(dayToRecur);
+                    //blockSession.addDaytoRecur(dayToRecur);
+                    Log.d("recurring?", "" + blockSession.isRecurring());
                 }
                 break;
             case R.id.checkbox_thursday:
                 if(checked){
-                    //checked stuff
-                }
-                else{
-                    //unchecked stuff
+                    dayToRecur = (Calendar.THURSDAY);
+                    daysToRecur.add(dayToRecur);
+                    //blockSession.addDaytoRecur(dayToRecur);
+                    Log.d("recurring?", "" + blockSession.isRecurring());
+
                 }
                 break;
             case R.id.checkbox_friday:
                 if(checked){
-                    //checked stuff
-                }
-                else{
-                    //unchecked stuff
+                    dayToRecur = (Calendar.FRIDAY);
+                    daysToRecur.add(dayToRecur);
+                    //blockSession.addDaytoRecur(dayToRecur);
+                    Log.d("recurring?", "" + blockSession.isRecurring());
                 }
                 break;
             case R.id.checkbox_saturday:
                 if(checked){
-                    //checked stuff
-                }
-                else{
-                    //unchecked stuff
+                    dayToRecur = (Calendar.FRIDAY);
+                    daysToRecur.add(dayToRecur);
+                    //blockSession.addDaytoRecur(dayToRecur);
+                    Log.d("recurring?", "" + blockSession.isRecurring());
                 }
                 break;
         }
@@ -281,24 +289,45 @@ public class CreateNewBlockSessionActivity extends AppCompatActivity {
     };
 
     public void saveOnClick (View view){
-        if(layout == R.layout.activity_future_block_session ) {
+        String date;
+        String notes = "N/A";//todo: remove notes from database, BlockSession,
+        String name = nameET.getText().toString();
+        String startTime = startTimeET.getText().toString();
+        String endTime = endTimeET.getText().toString();
+        blockSession.setName(name);
+        blockSession.setStartTime(startTime);
+        blockSession.setEndTime(endTime);
+        helper = new BlockSessionDBHelper(this);
 
-            String name = nameET.getText().toString();
-            String date = dateET.getText().toString();
-            String startTime = startTimeET.getText().toString();
-            String endTime = endTimeET.getText().toString();
-            String notes = "N/A";//todo: remove notes from database, BlockSession,
+        if(layout == R.layout.activity_recur_block_session ) {
+            //blockSession.settoRecur();
+            Calendar mcurrentDate = Calendar.getInstance();
+            int mYear = mcurrentDate.get(Calendar.YEAR);
+            int mMonth = mcurrentDate.get(Calendar.MONTH);
+            int mDay = mcurrentDate.get(Calendar.DAY_OF_MONTH);
+            date = String.valueOf((mMonth + 1) + "/" + mDay + "/" + mYear); //Stores start date for recurring sessions as current date.
+            blockSession.setDate(date);
+            for(int x : daysToRecur){
+                blockSession.addDaytoRecur(x);
+            }
+            Log.wtf("Is this boolean working?","" + blockSession.isRecurring() );
+            helper.addblockSession(blockSession);
+            Log.d("recurring test", "" + blockSession.isRecurring());
+            Intent intent = new Intent (this, MainActivity.class);
+            startActivity(intent);
+        } else {
+            date = dateET.getText().toString();
 
             if(FutureBSFieldsAreNotEmpty(name, date, startTime, endTime)){
-                helper = new BlockSessionDBHelper(this);
 
 //                if(isBeingEdited){
 //                    BlockSession updatedBS = new BlockSession(editBsId, name, date, startTime, endTime, notes);
 //                    helper.updateBlockSession(updatedBS);
 //                }else{
-                    helper.addBlockSession(new BlockSession(name, date, startTime, endTime, notes));
-//                }
 
+                //
+//                }
+            helper.addBlockSession(new BlockSession(name, date, startTime, endTime, notes));
                 getData();
 
                 Intent intent = new Intent (this, MainActivity.class);
@@ -306,10 +335,9 @@ public class CreateNewBlockSessionActivity extends AppCompatActivity {
             } else {
                 Toast.makeText(this, "Input Field Missing", Toast.LENGTH_SHORT).show();
             }
-
-        }else if(layout == R.layout.activity_recur_block_session) {
-            saveRecurBS();
         }
+
+
     }
 
     public boolean FutureBSFieldsAreNotEmpty (String name, String date, String startTime, String endTime){
@@ -340,9 +368,15 @@ public class CreateNewBlockSessionActivity extends AppCompatActivity {
                 blockSession.setEndTime(cursor.getString(4));
                 blockSession.setNotes(cursor.getString(5));
 
-                String log = "ID: " + blockSession.getId() + " , Name: " + blockSession.getName() + ", Date: " + blockSession.getDate()
-                        + ", StartTime: " + blockSession.getStartTime() + " , EndTime: " + blockSession.getEndTime()
-                        + ", Notes: " + blockSession.getNotes();
+                String log =
+                        "ID: " + blockSession.getId() + " , " +
+                                "Name: " + blockSession.getName() + ", " +
+                                "Date: " + blockSession.getDate()
+                        + ", StartTime: " + blockSession.getStartTime() + " , " +
+                                "EndTime: " + blockSession.getEndTime()
+                        + ", Notes: " + blockSession.getNotes()
+                        + ",Recurring: " + blockSession.isRecurring();
+
 
                 Log.d("FOCUS SESSION result: ", log);
 

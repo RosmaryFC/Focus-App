@@ -41,18 +41,19 @@ public class BlockSessionAdapter extends ArrayAdapter<BlockSession> {
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
+        View row = convertView;
+        BlockHolder holder = null;
 
         for (int i = 0; i < data.size(); i++) {
 
             String log = "ID: " + data.get(i).getId() + " , Name: " + data.get(i).getName() + ", Date: " + data.get(i).getDate()
                     + ", StartTime: " + data.get(i).getStartTime() + " , EndTime: " + data.get(i).getEndTime()
-                 + ", Notes: " + data.get(i).getNotes();
+                    + ", Recurring:? " + data.get(i).isRecurring()
+                    + ", Notes: " + data.get(i).getNotes();
 
             Log.d("ADAPTER DATA: ", log);
-        }
 
-        View row = convertView;
-        BlockHolder holder = null;
+        }
 
         if (row == null) {
             LayoutInflater inflater = ((Activity) context).getLayoutInflater();
@@ -62,11 +63,8 @@ public class BlockSessionAdapter extends ArrayAdapter<BlockSession> {
             holder.mDate = (TextView) row.findViewById(R.id.txt_date);
             holder.mStartTime = (TextView) row.findViewById(R.id.txt_start_time);
             holder.mEndTime = (TextView) row.findViewById(R.id.txt_end_time);
-
-
-
             holder.mMenu = (ImageButton) row.findViewById(R.id.btn_menu);
-
+            holder.mRecurTV = (TextView) row.findViewById(R.id.label_recurring);
 
 //            if(deleteIsEnabled) {
 //                holder.mDelete.setVisibility(View.VISIBLE);
@@ -74,17 +72,17 @@ public class BlockSessionAdapter extends ArrayAdapter<BlockSession> {
 //                holder.mDelete.setVisibility(View.INVISIBLE);
 //            }
 
-
             row.setTag(holder);
         } else {
             holder = (BlockHolder) row.getTag();
         }
 
+
+
         final BlockSession session = data.get(position);
-        holder.mBlockName.setText(session.name);
-        holder.mDate.setText(session.date);
-        holder.mStartTime.setText(session.startTime);
-        holder.mEndTime.setText(session.endTime);
+        holder.bindBlockSession(session, session.isRecurring());
+       // holder.bindBlockSession(session);
+
 
         final BlockSessionDBHelper helper = new BlockSessionDBHelper(context);
 
@@ -149,13 +147,21 @@ public class BlockSessionAdapter extends ArrayAdapter<BlockSession> {
     }
 
 
-    public static class BlockHolder {
+    public static class BlockHolder{
         TextView mBlockName;
         TextView mStartTime;
         TextView mEndTime;
         TextView mDate;
         ImageButton mMenu;
+        TextView mRecurTV;
+
+        public void bindBlockSession(BlockSession blockSession, boolean recur){
+            mDate.setText(blockSession.date);
+            mBlockName.setText(blockSession.name);
+            mStartTime.setText(blockSession.startTime);
+             mEndTime.setText(blockSession.endTime);
+            mRecurTV.append(" " + blockSession.getDaysToRecur());
+
+        }
     }
-
-
 }

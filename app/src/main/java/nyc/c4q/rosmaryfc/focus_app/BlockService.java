@@ -137,6 +137,10 @@ public class BlockService extends Service {
                 Log.d("SERVICE ADDED Result: ", log2);
 
                 todaysBlockSessions.add(bs);
+            }else {
+                    if(bs.recursToday()){
+                    todaysBlockSessions.add(bs);
+                }
             }
         }
         return todaysBlockSessions;
@@ -215,7 +219,10 @@ public class BlockService extends Service {
                 Log.d("SERVICE ACTIVE BS: ", log3);
 
                 return bs;
-
+            } else if (bs.isRecurring() && bs.recursToday()){
+                if (currentTimeInMillis >= startTimeInMillis && currentTimeInMillis <= endTimeInMillis){
+                    blockSessionIsActive = true;
+                }
             }
         }
 
