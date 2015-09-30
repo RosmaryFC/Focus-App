@@ -5,10 +5,13 @@ import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 
@@ -22,6 +25,7 @@ public class AppMonitor extends AppCompatActivity {
     public static final int CURRENT_APPS = 1;
 
     ListView app_list;
+    EditText searchET;
     Button save;
     Button cancel;
     ProgressBar progress_bar;
@@ -44,6 +48,7 @@ public class AppMonitor extends AppCompatActivity {
 //        setSupportActionBar(toolbar);
 
         app_list = (ListView) findViewById(R.id.app_list);
+        searchET = (EditText) findViewById(R.id.app_search_field);
         //save = (Button) findViewById(R.id.save);
         //cancel = (Button) findViewById(R.id.cancel);
         progress_bar = (ProgressBar) findViewById(R.id.progress_bar);
@@ -124,9 +129,34 @@ public class AppMonitor extends AppCompatActivity {
             super.onPostExecute(apps);
             progress_bar.setVisibility(View.INVISIBLE);
             adapter = new AppAdapter(getApplicationContext(), apps);
+            adapter.setNotifyOnChange(true);
+            app_list.setTextFilterEnabled(true);
             app_list.setAdapter(adapter);
+            initSearchFilter();
+
         }
     }
+
+    private void initSearchFilter(){
+        searchET.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                adapter.getFilter().filter(s);
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+    }
+
 
 
     @Override

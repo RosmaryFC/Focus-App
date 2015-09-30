@@ -90,12 +90,13 @@ public class BlockSessionFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
 
         switch (item.getItemId()) {
-//            case R.id.action_settings:
-//                //
-//                return true;
-//            case R.id.start_bs_now_item:
-//                blockType = "immediate";
-//
+            case R.id.action_settings:
+                //
+               return true;
+            case R.id.start_bs_now_item:
+                blockType = "immediate";
+                break;
+
 //            //todo: will not be added in database, user will specify length of block session up to 6 hours
 //                // have option to disable current block session by going into settings.
 //                // will kill appmonitor but then take into consideration that block service will keep checking bs list and reactivate
@@ -104,35 +105,34 @@ public class BlockSessionFragment extends Fragment {
 //                Toast.makeText(blockSessionView.getContext(), "start bs now pressed", Toast.LENGTH_SHORT).show();
 //
 //                return true;
-//            case R.id.recur_bs_item:
-//                blockType = "recur";
-//
-//                Toast.makeText(blockSessionView.getContext(), "recur bs now pressed",Toast.LENGTH_SHORT).show();
-////todo: finish adding recur to database
-////                Intent recurIntent = new Intent (blockSessionView.getContext(), CreateNewBlockSessionActivity.class);
-////                recurIntent.putExtra("block type", blockType);
-////                startActivity(recurIntent);
+            case R.id.recur_bs_item:
+                blockType = "recur";
+                Toast.makeText(blockSessionView.getContext(), "recur bs pressed",Toast.LENGTH_SHORT).show();
+//todo: finish adding recur to database
+                Intent recurIntent = new Intent (blockSessionView.getContext(), CreateNewBlockSessionActivity.class);
+                recurIntent.putExtra("block type", blockType);
+                startActivity(recurIntent);
+                break;
 //
 //                return true;
             case R.id.future_bs_item:
                 blockType = "future";
-
                 //Toast.makeText(blockSessionView.getContext(), "future block session now pressed",Toast.LENGTH_SHORT).show();
 
                 Intent futureIntent = new Intent(blockSessionView.getContext(), CreateNewBlockSessionActivity.class);
                 futureIntent.putExtra("block type", blockType);
                 startActivity(futureIntent);
-
+                break;
 //                BlockSessionAlertDialogFragment futureBSDialogFrag = new BlockSessionAlertDialogFragment();
 //                futureBSDialogFrag.show(getFragmentManager(), "Future Block Session Frag");
 //
 //                adapter.notifyDataSetChanged();
 
-                return true;
-
             default:
                 return super.onOptionsItemSelected(item);
         }
+        return true;
+
     }
 
 
